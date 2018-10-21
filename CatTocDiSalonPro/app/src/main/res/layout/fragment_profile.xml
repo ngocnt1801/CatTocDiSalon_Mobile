@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Cover Image -->
+
+    <TextView
+        android:id="@+id/fg_profile_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chỉnh sửa thông tin"
+        android:paddingVertical="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/darkTextColor"
+        android:layout_centerHorizontal="true"
+        android:textSize="14dp"/>
+    <TextView
+        android:id="@+id/fg_profile_preview_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preview"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/light"
+        />
+    <ImageView
+        android:layout_below="@id/fg_profile_title_tv"
+        android:focusableInTouchMode="true"
+        android:id="@+id/header_cover_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/salon1" />
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/detail_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_cover_image"
+        android:layout_marginBottom="@dimen/margin_bottom_above_bottom_nav"
+        >
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/detail_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top" />
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>
+

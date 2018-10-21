@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Reviews"
+            android:textColor="@color/darkTextColor"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/fg_reviews_sum"
+            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="@color/ratingColor"
+            android:rating="4.5"
+            android:secondaryProgressTint="@color/light"
+            android:stepSize="0.5" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="5"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+
+            <RatingBar
+                android:id="@+id/fg_reviews_5"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:isIndicator="true"
+                android:numStars="1"
+                android:progressTint="@color/ratingColor"
+                android:rating="1"
+                android:secondaryProgressTint="@color/light"
+                android:textAlignment="5" />
+
+            <ProgressBar
+                android:id="@+id/determinateSalonReviews5"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                android:layout_width="140dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:max="100"
+                android:progress="94"
+                android:progressDrawable="@drawable/custom_progress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="right"
+                android:paddingRight="104dp"
+                android:text="94%"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="4"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+
+            <RatingBar
+                android:id="@+id/fg_reviews_4"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:isIndicator="true"
+                android:numStars="1"
+                android:progressTint="@color/ratingColor"
+                android:rating="1"
+                android:secondaryProgressTint="@color/light"
+                android:textAlignment="5" />
+
+            <ProgressBar
+                android:id="@+id/determinateSalonReviews4"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                android:layout_width="140dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:max="100"
+                android:progress="6"
+                android:progressDrawable="@drawable/custom_progress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="right"
+                android:paddingRight="104dp"
+                android:text="6%"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="3"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+
+            <RatingBar
+                android:id="@+id/fg_reviews_3"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:isIndicator="true"
+                android:numStars="1"
+                android:progressTint="@color/ratingColor"
+                android:rating="1"
+                android:secondaryProgressTint="@color/light"
+                android:textAlignment="5" />
+
+            <ProgressBar
+                android:id="@+id/determinateSalonReviews3"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                android:layout_width="140dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/custom_progress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="right"
+                android:paddingRight="104dp"
+                android:text="0%"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="2"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+
+            <RatingBar
+                android:id="@+id/fg_reviews_2"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:isIndicator="true"
+                android:numStars="1"
+                android:progressTint="@color/ratingColor"
+                android:rating="1"
+                android:secondaryProgressTint="@color/light"
+                android:textAlignment="5" />
+
+            <ProgressBar
+                android:id="@+id/determinateSalonReviews2"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                android:layout_width="140dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/custom_progress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="right"
+                android:paddingRight="104dp"
+                android:text="0%"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+
+            <RatingBar
+                android:id="@+id/fg_reviews_1"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:isIndicator="true"
+                android:numStars="1"
+                android:progressTint="@color/ratingColor"
+                android:rating="1"
+                android:secondaryProgressTint="@color/light"
+                android:textAlignment="5" />
+
+            <ProgressBar
+                android:id="@+id/determinateSalonReviews1"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                android:layout_width="140dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/custom_progress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="right"
+                android:paddingRight="104dp"
+                android:text="0%"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/light">
+
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:text="2 reviews"
+                android:textColor="@color/darkTextColor"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RatingBar
+                            android:id="@+id/fg_reviews_user"
+                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressTint="@color/ratingColor"
+                            android:rating="5"
+                            android:secondaryProgressTint="@color/light"
+                            android:textAlignment="5" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="88dp"
+                            android:text="Nhi Nguyen"
+                            android:textColor="@color/darkTextColor"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Awsome stylish.I will comeback soon."
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="13/10/2018"
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RatingBar
+                            android:id="@+id/fg_reviews_user_1"
+                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressTint="@color/ratingColor"
+                            android:rating="5"
+                            android:secondaryProgressTint="@color/light"
+                            android:textAlignment="5" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="88dp"
+                            android:text="User 2"
+                            android:textColor="@color/darkTextColor"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Awsome stylish.I will comeback soon."
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="13/10/2018"
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RatingBar
+                            android:id="@+id/fg_reviews_user_3"
+                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressTint="@color/ratingColor"
+                            android:rating="5"
+                            android:secondaryProgressTint="@color/light"
+                            android:textAlignment="5" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="88dp"
+                            android:text="User 3"
+                            android:textColor="@color/darkTextColor"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Awsome stylish.I will comeback soon."
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="13/10/2018"
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RatingBar
+                            android:id="@+id/fg_reviews_user_4"
+                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressTint="@color/ratingColor"
+                            android:rating="4"
+                            android:secondaryProgressTint="@color/light"
+                            android:textAlignment="5" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="88dp"
+                            android:text="User 4"
+                            android:textColor="@color/darkTextColor"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Awsome stylish. But price not good enough. I will comeback soon."
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="13/10/2018"
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RatingBar
+                            android:id="@+id/fg_reviews_user_5"
+                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressTint="@color/ratingColor"
+                            android:rating="5"
+                            android:secondaryProgressTint="@color/light"
+                            android:textAlignment="5" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="88dp"
+                            android:text="User 5"
+                            android:textColor="@color/darkTextColor"
+                            android:textSize="14dp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Awsome stylish. But price not good enough. I will comeback soon."
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="13/10/2018"
+                        android:textColor="@color/darkTextColor"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

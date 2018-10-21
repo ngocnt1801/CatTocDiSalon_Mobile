@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ServiceActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách khách hàng"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:textSize="14dp"
+            android:textColor="@color/darkTextColor" />
+    </android.support.v7.widget.CardView>
+
+    <EditText
+        android:id="@+id/fg_home_search_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:drawableRight="@drawable/ic_search"
+        android:drawablePadding="12dp"
+        android:hint="@string/vn_search"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:layout_marginHorizontal="8dp"
+        android:textColor="@color/darkTextColor"
+        android:textSize="16dp"/>
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:text="@string/vn_add"-->
+        <!--android:textColor="@color/primary"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingVertical="12dp"-->
+        <!--android:paddingHorizontal="24dp"-->
+        <!--android:drawablePadding="8dp"-->
+        <!--android:drawableLeft="@drawable/ic_add"/>-->
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#ddd"/>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fg_client_contact_rv">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

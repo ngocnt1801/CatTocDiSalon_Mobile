@@ -1,0 +1,28 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/dark</item>
+        <item name="colorAccent">@color/light</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="SplashStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+    <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@android:color/white</item>
+    </style>
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/highlight</item>
+        <item name="colorButtonNormal">@color/primary</item>
+    </style>
+    <style name="SwitchTextAppearance" parent="TextAppearance.AppCompat.Widget.Switch">
+        <item name="android:textColor">#3F51B5</item>
+        <item name="android:padding">12dp</item>
+    </style>
+</resources>
