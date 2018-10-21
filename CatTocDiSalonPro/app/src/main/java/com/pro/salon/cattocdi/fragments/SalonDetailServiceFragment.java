@@ -59,6 +59,7 @@ public class SalonDetailServiceFragment extends Fragment {
         btManagePromotion = view.findViewById(R.id.salon_promotion_manage_btn);
         btManagerService = view.findViewById(R.id.salon_service_manage_btn);
         btManageWorkingHour = view.findViewById(R.id.salon_working_hours_manage_btn);
+
         if(!isPreview){
             btManagePromotion.setOnClickListener(new View.OnClickListener() {
                 @Override

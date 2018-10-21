@@ -29,13 +29,40 @@
         android:textSize="24dp"
         android:textStyle="bold"
         android:textColor="@color/darkTextColor"
-        android:paddingHorizontal="24dp"/>
+        android:paddingHorizontal="24dp"
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0123456798"
-        android:paddingHorizontal="24dp"/>
+        android:paddingHorizontal="24dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@drawable/circle_background_primary"
+            android:src="@drawable/ic_sms"
+            android:layout_marginRight="8dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@drawable/circle_background_primary"
+            android:src="@drawable/ic_phone"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -52,11 +79,26 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#ccc"
-        android:layout_marginBottom="12dp"/>
+        android:background="#ccc" />
 
-    <include layout="@layout/appointment_cart_view"/>
-    <include layout="@layout/appointment_cart_view"/>
-    <include layout="@layout/appointment_cart_view"/>
+    <include layout="@layout/contact_appointment_cart_view"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"
+         />
+    <include layout="@layout/contact_appointment_cart_view"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"
+        />
+    <include layout="@layout/contact_appointment_cart_view"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"
+        />
+    <include layout="@layout/contact_appointment_cart_view"/>
 
 </LinearLayout>
