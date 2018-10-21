@@ -33,7 +33,8 @@
         <activity android:name=".WorkingHoursActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".ContactDetailActivity" />
-        <activity android:name=".ServiceDetailActivity"></activity>
+        <activity android:name=".ServiceDetailActivity" />
+        <activity android:name=".PromotionDetailActivity"></activity>
     </application>
 
 </manifest>
