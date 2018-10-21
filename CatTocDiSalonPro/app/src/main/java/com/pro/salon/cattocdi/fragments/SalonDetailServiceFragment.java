@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,12 +26,16 @@ import com.pro.salon.cattocdi.R;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class SalonDetailServiceFragment extends Fragment {
 
     private Button btManagePromotion, btManagerService, btManageWorkingHour;
+    private boolean isPreview = false;
 
-    public SalonDetailServiceFragment() {
+    @SuppressLint("ValidFragment")
+    public SalonDetailServiceFragment(boolean isPreview) {
         // Required empty public constructor
+        this.isPreview = isPreview;
     }
 
 
@@ -41,41 +46,49 @@ public class SalonDetailServiceFragment extends Fragment {
         // Inflate the layout for this fragment
         RecyclerView serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
         serviceRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity()));
+        serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), isPreview));
 
         RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
         promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView());
 
+        ViewCompat.setNestedScrollingEnabled(serviceRecycleView, false);
+        ViewCompat.setNestedScrollingEnabled(promotionRecycleView, false);
+
+
         btManagePromotion = view.findViewById(R.id.salon_promotion_manage_btn);
         btManagerService = view.findViewById(R.id.salon_service_manage_btn);
         btManageWorkingHour = view.findViewById(R.id.salon_working_hours_manage_btn);
+        if(!isPreview){
+            btManagePromotion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), PromotionActivity.class);
+                    getActivity().startActivity(intent);
+                }
+            });
 
-        btManagePromotion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PromotionActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
+            btManagerService.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ServiceActivity.class);
+                    getActivity().startActivity(intent);
+                }
+            });
 
-        btManagerService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ServiceActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
+            btManageWorkingHour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), WorkingHoursActivity.class);
+                    getActivity().startActivity(intent);
+                }
+            });
 
-        btManageWorkingHour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WorkingHoursActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
-
-
+        }else{
+            btManagePromotion.setVisibility(View.GONE);
+            btManagerService.setVisibility(View.GONE);
+            btManageWorkingHour.setVisibility(View.GONE);
+        }
         return view;
     }
 
