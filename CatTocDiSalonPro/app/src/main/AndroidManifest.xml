@@ -34,7 +34,8 @@
         <activity android:name=".InformationActivity" />
         <activity android:name=".ContactDetailActivity" />
         <activity android:name=".ServiceDetailActivity" />
-        <activity android:name=".PromotionDetailActivity"></activity>
+        <activity android:name=".PromotionDetailActivity" />
+        <activity android:name=".ServiceSignupActivity"></activity>
     </application>
 
 </manifest>
