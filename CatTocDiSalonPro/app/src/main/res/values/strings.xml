@@ -10,4 +10,9 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAkGcUBkhQpd3oBBg_E6KvA83W9Y3EZmlI</string>
     <string name="vn_add">Thêm</string>
     <string name="vn_search">Nhập tên, số điện thoại,...</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="salon_name">Tên cửa hàng</string>
+    <string name="email">Email</string>
+    <string name="phone">Điện thoại</string>
+    <string name="password">Mật khẩu</string>
 </resources>
