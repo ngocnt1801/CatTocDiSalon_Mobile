@@ -62,10 +62,8 @@ public class ScheduleFragment extends Fragment {
             ArrayList<TimeData> values = new ArrayList<>();
             DateTime start = new DateTime(date);
             DateTime end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
-            for(int j=0; j< 7; j++){
+            for(int j=0; j< 3; j++){
                 int textColor = R.color.black;
-
-
                 TimeData timeData = new TimeData(j, "", R.color.light, textColor, start.getMillis(), end.getMillis());
 
                 values.add(timeData);
