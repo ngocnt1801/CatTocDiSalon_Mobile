@@ -1,6 +1,7 @@
 package com.pro.salon.cattocdi.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,9 +30,12 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
     private LatLng latLng;
     private SupportMapFragment supportMapFragment;
     private Button btManageInfo;
+    private boolean isPreview;
 
-    public SalonDetailContactFragment() {
+    @SuppressLint("ValidFragment")
+    public SalonDetailContactFragment(boolean isPreview) {
         // Required empty public constructor
+        this.isPreview = isPreview;
     }
 
 
@@ -45,13 +49,18 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
         supportMapFragment.getMapAsync(this);
 
         btManageInfo = view.findViewById(R.id.salon_info_manage_btn);
-        btManageInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InformationActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
+        if(!isPreview){
+            btManageInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), InformationActivity.class);
+                    getActivity().startActivity(intent);
+                }
+            });
+        }else {
+            btManageInfo.setVisibility(View.GONE);
+        }
+
 
         return view;
     }

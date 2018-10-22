@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Khuyễn mãi"
+                android:text="Khuyến mãi"
                 android:textStyle="bold"
                 android:padding="12dp"
                 android:textSize="14dp"
@@ -48,6 +48,56 @@
         android:gravity="center"
         android:textSize="24dp"
         android:textStyle="bold"
-        />
+        android:textColor="#D80027"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tiêu đề"
+        android:gravity="center_horizontal"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Siêu khuyến mãi"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/darkTextColor"/>
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ngày áp dụng"
+        android:gravity="center_horizontal"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="15/10/2018 - 25/10/2018"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/darkTextColor"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"
+        android:layout_marginVertical="12dp"/>
+
+    <TextView
+        android:id="@+id/service_detail_delete_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dừng khuyến mãi này"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/errorColor"/>
+
 
 </LinearLayout>
