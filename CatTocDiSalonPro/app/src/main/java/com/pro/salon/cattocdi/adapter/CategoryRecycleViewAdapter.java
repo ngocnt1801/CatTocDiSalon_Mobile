@@ -7,14 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.pro.salon.cattocdi.R;
 
+import java.util.ArrayList;
+
 public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRecycleViewAdapter.CategoryViewHolder>{
     private Context context;
+    private String[] categoryList;
 
-    public CategoryRecycleViewAdapter(Context context) {
+    public CategoryRecycleViewAdapter(Context context, String[] categoryList) {
         this.context = context;
+        this.categoryList = categoryList;
     }
 
     @Override
@@ -25,19 +30,28 @@ public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRec
 
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
-
+        holder.tvCategory.setText(categoryList[position]);
+        holder.tvCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 6;
+        return categoryList.length;
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
         public View item;
         public Button btnEditService;
+        public TextView tvCategory;
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvCategory = itemView.findViewById(R.id.category_signup_title);
         }
+
     }
 }
