@@ -5,6 +5,8 @@ public class MyContants {
    public static final String PASSWORD_TEST = "123";
    public static final int FRAGMENT_ABOVE = 1;
    public static final int FRAGMENT_BELOW = 2;
+   public static final int APPOINTMENT_SMALL = 1;
+   public static final int APPOINTMENT_FULL = 2;
 
 
 }
