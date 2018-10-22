@@ -11,31 +11,32 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashStyle">
+            android:theme="@style/SplashStyle"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".ListAppointmentActivity" />
-        <activity android:name=".AppointmentDetailActivity" />
+        <activity android:name=".MainActivity" android:launchMode="singleTop"/>
+        <activity android:name=".LoginActivity" android:launchMode="singleTop"/>
+        <activity android:name=".SignupActivity" android:launchMode="singleTop"/>
+        <activity android:name=".ListAppointmentActivity" android:launchMode="singleTop"/>
+        <activity android:name=".AppointmentDetailActivity" android:launchMode="singleTop"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".PromotionActivity" />
-        <activity android:name=".ServiceActivity" />
-        <activity android:name=".WorkingHoursActivity" />
-        <activity android:name=".InformationActivity" />
-        <activity android:name=".ContactDetailActivity" />
-        <activity android:name=".ServiceDetailActivity" />
-        <activity android:name=".PromotionDetailActivity" />
-        <activity android:name=".ReviewProfileActivity"></activity>
+        <activity android:name=".PromotionActivity" android:launchMode="singleTop"/>
+        <activity android:name=".ServiceActivity" android:launchMode="singleTop"/>
+        <activity android:name=".WorkingHoursActivity" android:launchMode="singleTop"/>
+        <activity android:name=".InformationActivity" android:launchMode="singleTop"/>
+        <activity android:name=".ContactDetailActivity" android:launchMode="singleTop"/>
+        <activity android:name=".ServiceDetailActivity" android:launchMode="singleTop"/>
+        <activity android:name=".PromotionDetailActivity" android:launchMode="singleTop"/>
+        <activity android:name=".ReviewProfileActivity" android:launchMode="singleTop"/>
     </application>
 
 </manifest>

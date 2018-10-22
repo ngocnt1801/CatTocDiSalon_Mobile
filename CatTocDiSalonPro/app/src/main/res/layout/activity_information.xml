@@ -127,4 +127,33 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ccc"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số lượng chỗ"
+            android:textStyle="bold"
+            android:textColor="@color/darkTextColor"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:background="@null"
+            android:inputType="number"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
 </LinearLayout>
