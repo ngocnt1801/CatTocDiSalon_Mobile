@@ -29,14 +29,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".PromotionActivity" android:launchMode="singleTop"/>
-        <activity android:name=".ServiceActivity" android:launchMode="singleTop"/>
-        <activity android:name=".WorkingHoursActivity" android:launchMode="singleTop"/>
-        <activity android:name=".InformationActivity" android:launchMode="singleTop"/>
-        <activity android:name=".ContactDetailActivity" android:launchMode="singleTop"/>
-        <activity android:name=".ServiceDetailActivity" android:launchMode="singleTop"/>
-        <activity android:name=".PromotionDetailActivity" android:launchMode="singleTop"/>
-        <activity android:name=".ReviewProfileActivity" android:launchMode="singleTop"/>
+        <activity android:name=".PromotionActivity" />
+        <activity android:name=".ServiceActivity" />
+        <activity android:name=".WorkingHoursActivity" />
+        <activity android:name=".InformationActivity" />
+        <activity android:name=".ContactDetailActivity" />
+        <activity android:name=".ServiceDetailActivity" />
+        <activity android:name=".PromotionDetailActivity" />
+        <activity android:name=".ReviewProfileActivity"></activity>
+        <activity android:name=".ServiceSignupActivity"></activity>
     </application>
 
 </manifest>
