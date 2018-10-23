@@ -46,6 +46,7 @@
         android:paddingHorizontal="24dp"
         android:background="#9d000000"/>
     <ImageView
+        android:id="@+id/fg_profile_favorite_ic"
         android:layout_below="@id/fg_profile_title_tv"
         android:layout_alignParentRight="true"
         android:layout_marginRight="8dp"

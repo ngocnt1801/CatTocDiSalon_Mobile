@@ -1,11 +1,13 @@
 package com.pro.salon.cattocdi;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.ProfileTabAdapter;
@@ -14,6 +16,7 @@ public class ReviewProfileActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView tvEdit;
+    private ImageView icFavorite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,7 @@ public class ReviewProfileActivity extends AppCompatActivity {
                 goToProfileFragment();
             }
         });
+
     }
     private void goToProfileFragment(){
         Intent intent = new Intent(this, MainActivity.class);
