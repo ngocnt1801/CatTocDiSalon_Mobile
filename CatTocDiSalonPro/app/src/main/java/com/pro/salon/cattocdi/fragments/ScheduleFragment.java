@@ -4,12 +4,14 @@ package com.pro.salon.cattocdi.fragments;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -36,6 +38,7 @@ import java.util.Locale;
 public class ScheduleFragment extends Fragment {
 
     int failed = 8;
+    private View currentTimeBar;
     public ScheduleFragment() {
         // Required empty public constructor
     }
@@ -85,6 +88,35 @@ public class ScheduleFragment extends Fragment {
                 datePicker.show();
             }
         });
+
+        //custom time bar
+
+        currentTimeBar = view.findViewById(R.id.fg_schedult_time_current_bar);
+        ViewTreeObserver vto = scheduleTable.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    scheduleTable.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    scheduleTable.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                int width  = scheduleTable.getMeasuredWidth();
+                int height = scheduleTable.getMeasuredHeight();
+                //        currentTimeBar.getLayoutParams().width = get;
+                int tableHeight = height;
+                int unitMinute = (int)tableHeight / (24*60);
+                int totalCurrentMinute = DateTime.now().getMinuteOfDay();
+                if (currentTimeBar.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) currentTimeBar.getLayoutParams();
+                    p.setMarginStart(totalCurrentMinute * unitMinute + 40);
+                    currentTimeBar.requestLayout();
+                }
+
+            }
+        });
+
+
 
         return view;
     }

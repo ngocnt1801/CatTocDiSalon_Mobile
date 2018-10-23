@@ -18,11 +18,11 @@
             android:id="@+id/fg_appointment_upcomming_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_calendar_active"
+            android:drawableLeft="@drawable/ic_calendar_past"
             android:drawablePadding="12dp"
             android:gravity="center_vertical"
-            android:text="Lịch sắp tới"
-            android:textColor="@color/light" />
+            android:text="Lịch hẹn sắp tới"
+            android:textColor="@color/darkTextColor" />
 
         <TextView
             android:id="@+id/fg_appointment_date_tv"

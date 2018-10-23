@@ -50,7 +50,9 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                         dialog.setTitle("Thêm dịch vụ");
                         dialog.show();
                     }else{
+
                         holder.addBtn.setImageResource(R.drawable.ic_add);
+
                     }
                     return false;
                 }
