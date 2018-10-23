@@ -6,27 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class WorkingHoursActivity extends AppCompatActivity {
+public class AddPromotionActivity extends AppCompatActivity {
 
     private TextView tvSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_working_hours);
+        setContentView(R.layout.activity_add_promotion);
 
-        tvSave = findViewById(R.id.activity_working_hours_save_tv);
+        tvSave = findViewById(R.id.add_promotion_save_tv);
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToProfileFragment();
+                Intent intent = new Intent(AddPromotionActivity.this, PromotionActivity.class);
+                startActivity(intent);
             }
         });
-
-    }
-    private void goToProfileFragment(){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
-        startActivity(intent);
     }
 }

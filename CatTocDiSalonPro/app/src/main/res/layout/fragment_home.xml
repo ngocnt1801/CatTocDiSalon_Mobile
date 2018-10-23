@@ -8,21 +8,7 @@
     tools:context=".fragments.HomeFragment"
     >
 
-    <!--<EditText-->
-        <!--android:id="@+id/fg_home_phone_et"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="6dp"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:background="@drawable/border_radius_edit_text_fill_white"-->
-        <!--android:drawablePadding="@dimen/padding_icon_with_content_edit_text"-->
-        <!--android:drawableRight="@drawable/ic_search"-->
-        <!--android:elevation="4dp"-->
-        <!--android:hint="Số điện thoại khách hàng"-->
-        <!--android:padding="@dimen/padding_edit_text"-->
-        <!--android:textColor="@color/darkTextColor"-->
-        <!--android:textSize="14dp"-->
-        <!--android:imeOptions="actionSearch"/>-->
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/detail_pager"

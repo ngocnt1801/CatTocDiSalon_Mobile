@@ -1,15 +1,19 @@
 package com.pro.salon.cattocdi;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 
 public class ServiceActivity extends AppCompatActivity {
 
     private RecyclerView rvService;
+    private TextView tvSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,5 +23,25 @@ public class ServiceActivity extends AppCompatActivity {
         rvService = findViewById(R.id.activity_service_rv);
         rvService.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvService.setAdapter(new ServiceRecycleViewAdapter(this));
+
+        tvSave = findViewById(R.id.activity_service_save_tv);
+        tvSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfileFragment();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        goToProfileFragment();
+    }
+
+    private void goToProfileFragment(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
+        startActivity(intent);
     }
 }

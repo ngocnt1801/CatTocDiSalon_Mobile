@@ -14,8 +14,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
+            <View
+                android:layout_marginLeft="8dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@color/tableLightDisable"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoàn thành"
+                android:layout_gravity="center_vertical"/>
+            <View
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@color/tableLight"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"/>
+            <TextView
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa hoàn thành"
+                android:layout_gravity="center_vertical"/>
             <TextView
                 android:id="@+id/fg_schedule_date_tv"
                 android:layout_width="match_parent"
@@ -31,10 +55,14 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <com.github.eunsiljo.timetablelib.view.TimeTableView
         android:id="@+id/salon_schedule"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
     </com.github.eunsiljo.timetablelib.view.TimeTableView>
+    </HorizontalScrollView>
 </LinearLayout>

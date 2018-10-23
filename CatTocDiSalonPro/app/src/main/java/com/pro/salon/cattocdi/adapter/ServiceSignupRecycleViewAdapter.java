@@ -1,9 +1,11 @@
 package com.pro.salon.cattocdi.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -34,9 +36,25 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
     }
 
     @Override
-    public void onBindViewHolder(ServiceSignupViewHolder holder, int position) {
+    public void onBindViewHolder(final ServiceSignupViewHolder holder, int position) {
         if (serviceList != null) {
             holder.serviceTitle.setText(serviceList[position]);
+            holder.itemView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if(holder.addBtn.getDrawable().getConstantState().equals(context.getDrawable(R.drawable.ic_add).getConstantState())){
+
+                        holder.addBtn.setImageResource(R.drawable.ic_add_white);
+                        Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.activity_information);
+                        dialog.setTitle("Thêm dịch vụ");
+                        dialog.show();
+                    }else{
+                        holder.addBtn.setImageResource(R.drawable.ic_add);
+                    }
+                    return false;
+                }
+            });
         } else {
             holder.serviceTitle.setText("Chọn các danh mục để thêm dịch vụ");
             holder.addBtn.setVisibility(View.GONE);

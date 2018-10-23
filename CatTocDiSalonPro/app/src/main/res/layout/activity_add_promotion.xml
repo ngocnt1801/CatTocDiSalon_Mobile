@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cập nhật thông tin"
+                android:text="Thêm khuyến mãi"
                 android:textStyle="bold"
                 android:padding="12dp"
                 android:textSize="14dp"
@@ -27,10 +27,10 @@
                 android:textColor="@color/darkTextColor" />
 
             <TextView
-                android:id="@+id/activity_info_save_tv"
+                android:id="@+id/add_promotion_save_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OK"
+                android:text="Lưu"
                 android:textStyle="bold"
                 android:padding="12dp"
                 android:layout_alignParentRight="true"
@@ -40,35 +40,6 @@
     </android.support.v7.widget.CardView>
 
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:padding="12dp">
-
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Email"
-           android:textStyle="bold"
-           android:textColor="@color/darkTextColor"/>
-
-       <EditText
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="salon@abc.com"
-           android:layout_weight="1"
-           android:gravity="right"
-           android:background="@null"
-           android:textSize="16dp"/>
-
-   </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ccc"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,14 +49,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ"
+            android:text="Tên chương trình"
             android:textStyle="bold"
             android:textColor="@color/darkTextColor"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="132 Nguyễn Huệ, Q1, Tp.HCM"
+            android:text=""
+            android:hint="Tên chương trình khuyến mãi"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
@@ -107,18 +79,101 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Số điện thoại"
+            android:text="Giảm giá"
             android:textStyle="bold"
             android:textColor="@color/darkTextColor"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0123465798"
+            android:text=""
+            android:hint="vd: 30%"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
-            android:inputType="phone"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Từ ngày"
+            android:textStyle="bold"
+            android:textColor="@color/darkTextColor"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:hint="15/10/2018"
+            android:textSize="16dp"
+            android:background="@null"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:background="#ccc" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Đến ngày"
+            android:textStyle="bold"
+            android:textColor="@color/darkTextColor"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:hint="25/10/2018"
+            android:textSize="16dp"
+            android:background="@null"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Khung giờ khuyến mãi"
+            android:textStyle="bold"
+            android:textColor="@color/darkTextColor"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:hint="8:00 AM - 11:00 AM"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:background="@null"
             android:textSize="16dp"/>
 
     </LinearLayout>
@@ -136,18 +191,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Số lượng chỗ"
+            android:text="Mô tả thêm"
             android:textStyle="bold"
             android:textColor="@color/darkTextColor"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5"
+            android:text=""
+            android:hint="Khuyễn mãi nhân dịp đặc biệt,..."
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
-            android:inputType="number"
             android:textSize="16dp"/>
 
     </LinearLayout>
@@ -156,4 +211,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ccc"/>
+
 </LinearLayout>

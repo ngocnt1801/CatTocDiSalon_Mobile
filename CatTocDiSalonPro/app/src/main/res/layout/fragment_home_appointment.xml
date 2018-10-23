@@ -6,8 +6,28 @@
     android:orientation="vertical"
     tools:context=".fragments.HomeAppointmentFragment">
 
-    <include layout="@layout/appointment_cart_view"></include>
-    <include layout="@layout/appointment_cart_view"></include>
+    <EditText
+    android:id="@+id/fg_home_phone_et"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginHorizontal="12dp"
+    android:background="@drawable/border_radius_edit_text_fill_white"
+    android:drawablePadding="@dimen/padding_icon_with_content_edit_text"
+    android:drawableRight="@drawable/ic_search"
+    android:elevation="4dp"
+    android:hint="Số điện thoại khách hàng"
+    android:padding="@dimen/padding_edit_text"
+    android:textColor="@color/darkTextColor"
+    android:textSize="14dp"
+    android:imeOptions="actionSearch"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

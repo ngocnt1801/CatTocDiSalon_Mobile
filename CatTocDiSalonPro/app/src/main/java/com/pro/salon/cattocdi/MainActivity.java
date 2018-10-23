@@ -1,6 +1,7 @@
 package com.pro.salon.cattocdi;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -47,56 +48,63 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        int fragmentId = intent.getIntExtra("fragment_id", 0);
+            bottomNav = findViewById(R.id.bottom_nav);
 
-        bottomNav = findViewById(R.id.bottom_nav);
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.bottom_nav_home_item:
-                        currentPos = nextPos;
-                        nextPos = 0;
-                        HomeFragment homeFragment = new HomeFragment(MainActivity.this);
+            bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+                        case R.id.bottom_nav_home_item:
+                            currentPos = nextPos;
+                            nextPos = 0;
+                            HomeFragment homeFragment = new HomeFragment(MainActivity.this);
 //                        HomeAppointmentFragment homeAppointmentFragment = new HomeAppointmentFragment();
-                        showFragment(homeFragment);
+                            showFragment(homeFragment);
 //                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
-                        return true;
-                    case R.id.bottom_nav_schedule_item:
-                        currentPos = nextPos;
-                        nextPos = 1;
-                        ScheduleFragment scheduleFragment = new ScheduleFragment();
-                        showFragment(scheduleFragment);
-                        return true;
-                    case R.id.bottom_nav_client_item:
-                        currentPos = nextPos;
-                        nextPos = 2;
-                        ClientFragment clientFragment = new ClientFragment();
-                        showFragment(clientFragment);
-                        return true;
-                    case R.id.bottom_nav_profile_item:
-                        currentPos = nextPos;
-                        nextPos = 4;
-                        ProfileFragment profileFragment = new ProfileFragment(MainActivity.this);
-                        showFragment(profileFragment);
-                        return true;
+                            return true;
+                        case R.id.bottom_nav_schedule_item:
+                            currentPos = nextPos;
+                            nextPos = 1;
+                            ScheduleFragment scheduleFragment = new ScheduleFragment();
+                            showFragment(scheduleFragment);
+                            return true;
+                        case R.id.bottom_nav_client_item:
+                            currentPos = nextPos;
+                            nextPos = 2;
+                            ClientFragment clientFragment = new ClientFragment();
+                            showFragment(clientFragment);
+                            return true;
+                        case R.id.bottom_nav_profile_item:
+                            currentPos = nextPos;
+                            nextPos = 4;
+                            ProfileFragment profileFragment = new ProfileFragment(MainActivity.this);
+                            showFragment(profileFragment);
+                            return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
-        //HOME FRAGMENT will show first
-        showFragment(new HomeFragment(MainActivity.this));
+            });
+        if(fragmentId != 0){
+            goToSpecificFragment(fragmentId);
+        }else{
+
+            //HOME FRAGMENT will show first
+            showFragment(new HomeFragment(MainActivity.this));
 //        showFragment(new HomeAppointmentFragment(),MyContants.FRAGMENT_BELOW);
 
+        }
     }
 
-    private ArrayList<TimeTableData> getSamples(long date){
+    private ArrayList<TimeTableData> getSamples(long date) {
 
         ArrayList<TimeTableData> tables = new ArrayList<>();
-        for(int i=0; i< 7; i++){
+        for (int i = 0; i < 7; i++) {
             ArrayList<TimeData> values = new ArrayList<>();
             DateTime start = new DateTime(date);
-            DateTime end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
-            for(int j=0; j< 7; j++){
+            DateTime end = start.plusMinutes((int) ((Math.random() * 10) + 1) * 30);
+            for (int j = 0; j < 7; j++) {
                 int textColor = R.color.black;
 
 
@@ -104,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
                 values.add(timeData);
 
-                start = end.plusMinutes((int)((Math.random() * 10) + 1) * 10);
-                end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
+                start = end.plusMinutes((int) ((Math.random() * 10) + 1) * 10);
+                end = start.plusMinutes((int) ((Math.random() * 10) + 1) * 30);
             }
 
             tables.add(new TimeTableData("", values));
@@ -113,76 +121,56 @@ public class MainActivity extends AppCompatActivity {
         return tables;
     }
 
-//    private ArrayList<TimeTableData> getData(){
-//
-//        Random random = new Random();
-//        ArrayList<TimeTableData> table = new ArrayList<>();
-//
-//        for(int i = 0; i < 7; i++){
-//            ArrayList<TimeData> col = new ArrayList<>();
-//
-//
-//            TimeData t = new TimeData(0, "",
-//                        R.color.color_table_1,
-//                        R.color.lightTextColor,
-//                        getMillis("2018-10-19 7:00:00"), getMillis("2018-10-19 8:30:00")) ;
-//
-//            TimeData t1 = new TimeData(1, "",
-//                    R.color.color_table_2,
-//                    R.color.lightTextColor,
-//                    getMillis("2018-10-19 9:00:00"), getMillis("2018-10-19 10:00:00")) ;
-//            TimeData t2 = new TimeData(1, "",
-//                    R.color.color_table_3,
-//                    R.color.lightTextColor,
-//                    getMillis("2018-10-19 11:00:00"), getMillis("2018-10-19 11:45:00")) ;
-//            TimeData t3 = new TimeData(1, "",
-//                    R.color.color_table_4,
-//                    R.color.lightTextColor,
-//                    getMillis("2018-10-19 12:00:00"), getMillis("2018-10-19 13:20:00")) ;
-//            TimeData t4 = new TimeData(1, "",
-//                    R.color.color_table_5,
-//                    R.color.lightTextColor,
-//                    getMillis("2018-10-19 13:30:00"), getMillis("2018-10-19 14:15:00")) ;
-//            TimeData t5 = new TimeData(1, "",
-//                    R.color.color_table_6,
-//                    R.color.lightTextColor,
-//                    getMillis("2018-10-19 15:00:00"), getMillis("2018-10-19 16:30:00")) ;
-//            TimeData t6 = new TimeData(1, "",
-//                    R.color.color_table_7,
-//                    R.color.lightTextColor,
-//                    getMillis("2018-10-19 17:00:00"), getMillis("2018-10-19 19:00:00")) ;
-//
-//                col.add(t);
-//                col.add(t1);
-//                col.add(t2);
-//                col.add(t3);
-//                col.add(t4);
-//                col.add(t5);
-//                col.add(t6);
-//
-//            table.add(new TimeTableData("", col));
-//        }
-//
-//        return table;
-//    }
-    private long getMillis(String day){
-        DateTime date = getDateTimePattern().parseDateTime(day);
-        return date.getMillis();
-    }
-    private DateTimeFormatter getDateTimePattern(){
-        return DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-    }
+
 
     @SuppressLint("ResourceType")
-    private void showFragment(Fragment fragment){
+    private void showFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if(currentPos < nextPos){
+        if (currentPos < nextPos) {
             transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
-        }else if(currentPos > nextPos){
+        } else if (currentPos > nextPos) {
             transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
         }
 
         transaction.replace(R.id.activity_main_container_fl, fragment);
         transaction.commit();
     }
+
+    private void goToSpecificFragment(int fragmentId) {
+        switch (fragmentId) {
+            case R.id.bottom_nav_home_item:
+                currentPos = nextPos;
+                nextPos = 0;
+                HomeFragment homeFragment = new HomeFragment(MainActivity.this);
+//                        HomeAppointmentFragment homeAppointmentFragment = new HomeAppointmentFragment();
+                showFragment(homeFragment);
+//                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
+                return;
+            case R.id.bottom_nav_schedule_item:
+                currentPos = nextPos;
+                nextPos = 1;
+                ScheduleFragment scheduleFragment = new ScheduleFragment();
+                showFragment(scheduleFragment);
+                return;
+            case R.id.bottom_nav_client_item:
+                currentPos = nextPos;
+                nextPos = 2;
+                ClientFragment clientFragment = new ClientFragment();
+                showFragment(clientFragment);
+                return;
+            case R.id.bottom_nav_profile_item:
+                currentPos = nextPos;
+                nextPos = 4;
+                ProfileFragment profileFragment = new ProfileFragment(MainActivity.this);
+                showFragment(profileFragment);
+                return;
+            default:
+                currentPos = nextPos;
+                nextPos = 0;
+                HomeFragment homeFragment2 = new HomeFragment(MainActivity.this);
+                showFragment(homeFragment2);
+                return;
+        }
+    }
+    
 }

@@ -11,29 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chi tiết lịch hẹn"
-                android:textStyle="bold"
-                android:padding="12dp"
-                android:textSize="14dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/darkTextColor" />
 
             <TextView
-                android:id="@+id/activity_info_save_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OK"
-                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
                 android:padding="12dp"
+                android:text="Chi tiết lịch hẹn"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/appointment_detail_save_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:padding="12dp"
+                android:text="OK"
                 android:textColor="@color/light"
-                />
+                android:textStyle="bold" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
@@ -43,228 +44,262 @@
         android:padding="24dp">
 
 
+        <TextView
+            android:id="@+id/appointment_item_expand_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngọc Nguyễn"
+            android:textColor="@color/darkTextColor"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/appointment_item_expand_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ngọc Nguyễn"
-        android:textColor="@color/darkTextColor"
-        android:textSize="18dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/appointment_item_expand_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appointment_item_expand_name_tv"
+            android:text="Thứ 5, 18/10/2018"
+            android:textColor="@color/darkTextColor" />
 
-    <TextView
-        android:id="@+id/appointment_item_expand_date_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/appointment_item_expand_name_tv"
-        android:text="Thứ 5, 18/10/2018"
-        android:textColor="@color/darkTextColor" />
+        <TextView
+            android:id="@+id/appointment_item_expand_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appointment_item_expand_date_tv"
+            android:text="3:00PM - 4:00PM"
+            android:textColor="@color/darkTextColor" />
 
-    <TextView
-        android:id="@+id/appointment_item_expand_time_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/appointment_item_expand_date_tv"
-        android:text="3:00PM - 4:00PM"
-        android:textColor="@color/darkTextColor" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/appointment_detail_phone_ic"
+            android:background="@drawable/circle_background_primary"
+            android:padding="8dp"
+            android:src="@drawable/ic_sms" />
 
-    <Button
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/ripple_circle_outline_error"
-        android:text="HỦY"
-        android:textAllCaps="false"
-        android:textSize="14dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@drawable/ripple_circle_outline_error_for_text"
-        android:layout_alignParentRight="true"
-        />
+        <ImageView
+            android:id="@+id/appointment_detail_phone_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/circle_background_primary"
+            android:padding="8dp"
+            android:src="@drawable/ic_phone" />
 
-    <TableLayout
-        android:id="@+id/tbl_service_bill"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/appointment_item_expand_time_tv"
-        android:layout_marginTop="16dp"
-        android:stretchColumns="0">
 
-        <TableRow android:layout_marginBottom="4dp">
+        <TableLayout
+            android:id="@+id/tbl_service_bill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appointment_item_expand_time_tv"
+            android:layout_marginTop="16dp"
+            android:stretchColumns="0">
 
-            <TextView
-                android:text="Top Knot Bun"
-                android:textColor="@color/darkTextColor" />
+            <TableRow android:layout_marginBottom="4dp">
 
-            <TextView
-                android:layout_marginRight="4dp"
-                android:text="30,000"
-                android:textAlignment="textEnd"
-                android:textColor="@color/darkTextColor" />
+                <TextView
+                    android:text="Top Knot Bun"
+                    android:textColor="@color/darkTextColor" />
 
-            <TextView
-                android:layout_gravity="right"
-                android:text="vnd"
-                android:textColor="@color/darkTextColor" />
-        </TableRow>
+                <TextView
+                    android:layout_marginRight="4dp"
+                    android:text="30,000"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/darkTextColor" />
 
-        <TableRow android:layout_marginBottom="4dp">
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="vnd"
+                    android:textColor="@color/darkTextColor" />
+            </TableRow>
 
-            <TextView
-                android:text="Top Knot Bun"
-                android:textColor="@color/darkTextColor" />
+            <TableRow android:layout_marginBottom="4dp">
 
-            <TextView
-                android:layout_marginRight="4dp"
-                android:text="30,000"
-                android:textAlignment="textEnd"
-                android:textColor="@color/darkTextColor" />
+                <TextView
+                    android:text="Top Knot Bun"
+                    android:textColor="@color/darkTextColor" />
 
-            <TextView
-                android:layout_gravity="right"
-                android:text="vnd"
-                android:textColor="@color/darkTextColor" />
-        </TableRow >
+                <TextView
+                    android:layout_marginRight="4dp"
+                    android:text="30,000"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/darkTextColor" />
 
-        <TableRow android:layout_marginBottom="4dp">
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="vnd"
+                    android:textColor="@color/darkTextColor" />
+            </TableRow>
 
-            <TextView
-                android:text="Top Knot Bun"
-                android:textColor="@color/darkTextColor" />
+            <TableRow android:layout_marginBottom="4dp">
 
-            <TextView
-                android:layout_marginRight="4dp"
-                android:text="30,000"
-                android:textAlignment="textEnd"
-                android:textColor="@color/darkTextColor" />
+                <TextView
+                    android:text="Top Knot Bun"
+                    android:textColor="@color/darkTextColor" />
 
-            <TextView
-                android:layout_gravity="right"
-                android:text="vnd"
-                android:textColor="@color/darkTextColor" />
-        </TableRow>
+                <TextView
+                    android:layout_marginRight="4dp"
+                    android:text="30,000"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/darkTextColor" />
 
-        <TableRow android:layout_marginBottom="4dp">
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="vnd"
+                    android:textColor="@color/darkTextColor" />
+            </TableRow>
 
-            <TextView
-                android:text="Top Knot Bun"
-                android:textColor="@color/darkTextColor" />
+            <TableRow android:layout_marginBottom="4dp">
 
-            <TextView
-                android:layout_marginRight="4dp"
-                android:text="30,000"
-                android:textAlignment="textEnd"
-                android:textColor="@color/darkTextColor" />
+                <TextView
+                    android:text="Top Knot Bun"
+                    android:textColor="@color/darkTextColor" />
 
-            <TextView
-                android:layout_gravity="right"
-                android:text="vnd"
-                android:textColor="@color/darkTextColor" />
-        </TableRow>
+                <TextView
+                    android:layout_marginRight="4dp"
+                    android:text="30,000"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/darkTextColor" />
 
-        <View
-            android:layout_height="1dp"
-            android:layout_marginVertical="12dp"
-            android:background="#eee" />
-
-        <TableRow android:layout_marginBottom="4dp">
-
-            <TextView
-                android:text="Tổng giá dịch vụ"
-                android:textColor="@color/darkTextColor"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_marginRight="4dp"
-                android:text="120,000"
-                android:textAlignment="textEnd"
-                android:textColor="@color/darkTextColor"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_gravity="right"
-                android:text="vnd"
-                android:textColor="@color/darkTextColor"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-        </TableRow>
-        <TableRow android:layout_marginBottom="4dp">
-
-            <TextView
-                android:text="Giảm giá"
-                android:textColor="@color/darkTextColor"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_marginRight="4dp"
-                android:text=""
-                android:textAlignment="textEnd"
-                android:textColor="@color/darkTextColor"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_gravity="right"
-                android:text="30%"
-                android:textColor="@color/darkTextColor"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-        </TableRow>
-        <TableRow android:layout_marginBottom="-12dp">
-            <TextView
-                android:text=""
-                android:textColor="@color/darkTextColor"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="vnd"
+                    android:textColor="@color/darkTextColor" />
+            </TableRow>
 
             <View
-                android:layout_height="1.5dp"
-                android:background="#ccc"/>
-            <View
-                android:layout_height="1.5dp"
-                android:background="#ccc"/>
-        </TableRow>
-        <TableRow android:layout_marginBottom="4dp">
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp"
+                android:background="#eee" />
 
-            <TextView
-                android:text="TỔNG CỘNG"
-                android:textColor="@color/light"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+            <TableRow android:layout_marginBottom="4dp">
 
-            <TextView
-                android:layout_marginRight="4dp"
-                android:text="84,000"
-                android:textAlignment="textEnd"
-                android:textColor="@color/light"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:text="Tổng giá dịch vụ"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_gravity="right"
-                android:text="vnd"
-                android:textColor="@color/light"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:layout_marginRight="4dp"
+                    android:text="120,000"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="vnd"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:text="Giảm giá"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginRight="4dp"
+                    android:text=""
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="30%"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="-12dp">
+
+                <TextView
+                    android:text=""
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_height="1.5dp"
+                    android:background="#ccc" />
+
+                <View
+                    android:layout_height="1.5dp"
+                    android:background="#ccc" />
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:text="TỔNG CỘNG"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginRight="4dp"
+                    android:text="84,000"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="vnd"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
     </RelativeLayout>
-    <Button
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tbl_service_bill"
-        android:layout_marginTop="12dp"
-        android:text="Khách hàng đã đến"
-        android:textAllCaps="false"
-        android:textSize="16dp"
-        android:background="@drawable/ripple_effect"
-        android:stateListAnimator="@drawable/click_effect"
-        android:textColor="@color/lightTextColor"
-        android:layout_marginBottom="12dp"
-        android:layout_marginHorizontal="24dp"/>
+        android:orientation="horizontal">
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/appointment_detail_arrived_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tbl_service_bill"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/ripple_circle_outline_error"
+            android:stateListAnimator="@drawable/click_effect"
+            android:text="Hủy"
+            android:textColor="@drawable/ripple_circle_outline_error_for_text"
+            android:textStyle="bold"
+            android:textSize="16dp" />
+        <Button
+            android:id="@+id/appointment_detail_cancel_btn"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tbl_service_bill"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/ripple_radius_outline_primary"
+            android:stateListAnimator="@drawable/click_effect"
+            android:text="Xác nhận"
+            android:textStyle="bold"
+            android:textColor="@drawable/ripple_radius_outline_primary_for_text"
+            android:textSize="16dp" />
+    </LinearLayout>
+
 
 
 </LinearLayout>
