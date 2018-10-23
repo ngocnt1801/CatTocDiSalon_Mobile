@@ -58,5 +58,6 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
             serviceTitle = itemView.findViewById(R.id.service_signup_title);
             addBtn = itemView.findViewById(R.id.service_signup_add);
         }
+
     }
 }
