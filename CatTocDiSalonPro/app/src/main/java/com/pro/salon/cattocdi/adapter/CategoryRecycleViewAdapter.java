@@ -1,6 +1,7 @@
 package com.pro.salon.cattocdi.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRec
     private Context context;
     private String[] categoryList;
     private RecyclerView serviceRv;
+    private TextView previousClick = null;
 
     public CategoryRecycleViewAdapter(Context context, String[] categoryList, RecyclerView serviceRv) {
         this.context = context;
@@ -32,12 +34,16 @@ public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRec
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
-
+    public void onBindViewHolder(final CategoryViewHolder holder, final int position) {
         holder.tvCategory.setText(categoryList[position]);
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(previousClick != null){
+                    previousClick.setTextColor(Color.parseColor("#808080"));
+                }
+                holder.tvCategory.setTextColor(Color.parseColor("#8d6aa1"));
+                previousClick = holder.tvCategory;
                 String[] serviceList = {"Something","Something","Something"};
                 String[] hairCutList = {"Cắt tóc nam","Cắt tóc nữ"};
                 String[] kidList = {"Cắt tóc","Gội đầu","Bính tóc"};
