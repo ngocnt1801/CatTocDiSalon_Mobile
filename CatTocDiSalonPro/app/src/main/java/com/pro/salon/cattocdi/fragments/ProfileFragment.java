@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.R;
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvPreview;
     private boolean isAtEditPage = true;
     private TextView tvTitle;
+    private ImageView icFavorite;
 
 
     public ProfileFragment() {
@@ -57,6 +59,18 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ReviewProfileActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        icFavorite = view.findViewById(R.id.fg_profile_favorite_ic);
+        icFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(icFavorite.getDrawable().getConstantState().equals(context.getDrawable(R.drawable.ic_favorite_border_white).getConstantState())){
+                    icFavorite.setImageResource(R.drawable.ic_favorite_fill);
+                }else{
+                    icFavorite.setImageResource(R.drawable.ic_favorite_border_white);
+                }
             }
         });
 
