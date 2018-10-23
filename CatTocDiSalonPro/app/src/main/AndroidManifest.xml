@@ -48,7 +48,9 @@
         <activity android:name=".PromotionDetailActivity" />
         <activity android:name=".ReviewProfileActivity" />
         <activity android:name=".ServiceSignupActivity" />
-        <activity android:name=".AddPromotionActivity"></activity>
+        <activity android:name=".AddPromotionActivity" />
+        <activity android:name=".WorkingHourSignupActivity" />
+        <activity android:name=".InformationSignupActivity"></activity>
     </application>
 
 </manifest>

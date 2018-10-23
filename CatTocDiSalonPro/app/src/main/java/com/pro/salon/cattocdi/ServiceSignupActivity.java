@@ -1,13 +1,18 @@
 package com.pro.salon.cattocdi;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.CategoryRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceSignupRecycleViewAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -28,5 +33,14 @@ public class ServiceSignupActivity extends AppCompatActivity {
         rvCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvCategory.setAdapter(new CategoryRecycleViewAdapter(this,categoryList,rvService));
 
+        TextView saveTv = findViewById(R.id.activity_service_save_tv);
+        saveTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Change to Activity
+                Intent intent = new Intent(ServiceSignupActivity.this, WorkingHourSignupActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

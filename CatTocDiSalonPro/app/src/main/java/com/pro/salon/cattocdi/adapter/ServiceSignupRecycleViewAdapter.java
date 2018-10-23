@@ -2,6 +2,7 @@ package com.pro.salon.cattocdi.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.WorkingHourSignupActivity;
 
 import java.util.ArrayList;
 
@@ -45,7 +47,6 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if(holder.addBtn.getDrawable().getConstantState().equals(context.getDrawable(R.drawable.ic_add).getConstantState())){
-
                         final Dialog dialog = new Dialog(context);
                         dialog.setContentView(R.layout.fragment_service_update_dialog);
                         dialog.setTitle("Thêm dịch vụ");
