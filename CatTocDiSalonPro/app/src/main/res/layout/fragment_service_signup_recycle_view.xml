@@ -13,6 +13,13 @@
         android:textColor="#000"
         android:textSize="16dp"
         android:text="Cắt tóc nam"/>
+    <TextView
+        android:id="@+id/service_signup_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/service_signup_title"
+        android:text="Giá:  - Thời gian:  min"
+        android:visibility="gone"/>
     <ImageView
         android:id="@+id/service_signup_add"
         android:layout_width="24dp"
@@ -26,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eee"
-        android:layout_below="@id/service_signup_title"
+        android:layout_below="@id/service_signup_details"
         android:layout_marginTop="12dp"
         />
 </RelativeLayout>
