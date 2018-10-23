@@ -14,7 +14,10 @@
         android:textSize="16dp"
         android:paddingVertical="16dp"
         android:paddingHorizontal="16dp"
-        android:text="Category Name" />
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:text="Category Name"
+        />
     <View
         android:layout_width="2dp"
         android:layout_height="16dp"
