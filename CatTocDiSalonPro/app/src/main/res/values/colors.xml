@@ -13,5 +13,6 @@
 
     <color name="tableLight">#C8E6C9</color>
     <color name="tableLightDisable">#EEE</color>
+    <color name="currentTimeBar">#2196f3</color>
 
 </resources>
