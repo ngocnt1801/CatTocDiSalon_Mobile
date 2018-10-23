@@ -40,29 +40,59 @@
     </android.support.v7.widget.CardView>
 
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:padding="12dp">
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Email"
-           android:textStyle="bold"
-           android:textColor="@color/darkTextColor"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
-       <EditText
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="salon@abc.com"
-           android:layout_weight="1"
-           android:gravity="right"
-           android:background="@null"
-           android:textSize="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên salon"
+            android:textStyle="bold"
+            android:textColor="@color/darkTextColor"/>
 
-   </LinearLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beautiful Hair"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:background="@null"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số lượng chỗ"
+            android:textStyle="bold"
+            android:textColor="@color/darkTextColor"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:background="@null"
+            android:inputType="number"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -85,7 +115,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="132 Nguyễn Huệ, Q1, Tp.HCM"
+            android:text="174 Phó Đức Chính, P.BìnhKhánh, TP.HCM"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
@@ -114,7 +144,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0123465798"
+            android:text="0913-952-190"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
@@ -122,7 +152,6 @@
             android:textSize="16dp"/>
 
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -136,24 +165,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Số lượng chỗ"
+            android:text="Email"
             android:textStyle="bold"
             android:textColor="@color/darkTextColor"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5"
+            android:text="beautifulhair@gmai.com"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
-            android:inputType="number"
             android:textSize="16dp"/>
 
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ccc"/>
+
 </LinearLayout>

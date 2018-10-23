@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
@@ -14,6 +15,7 @@ public class ServiceActivity extends AppCompatActivity {
 
     private RecyclerView rvService;
     private TextView tvSave;
+    private TextView btnAddService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,15 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToProfileFragment();
+            }
+        });
+
+        btnAddService = findViewById(R.id.activity_service_add_tv);
+        btnAddService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ServiceActivity.this, ServiceSignupActivity.class);
+                startActivity(intent);
             }
         });
     }

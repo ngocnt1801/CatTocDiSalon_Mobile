@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToSpecificFragment(int fragmentId) {
+        BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
         switch (fragmentId) {
             case R.id.bottom_nav_home_item:
                 currentPos = nextPos;
@@ -145,30 +146,35 @@ public class MainActivity extends AppCompatActivity {
 //                        HomeAppointmentFragment homeAppointmentFragment = new HomeAppointmentFragment();
                 showFragment(homeFragment);
 //                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
+                navigationView.getMenu().getItem(0).setChecked(true);
                 return;
             case R.id.bottom_nav_schedule_item:
                 currentPos = nextPos;
                 nextPos = 1;
                 ScheduleFragment scheduleFragment = new ScheduleFragment();
                 showFragment(scheduleFragment);
+                navigationView.getMenu().getItem(1).setChecked(true);
                 return;
             case R.id.bottom_nav_client_item:
                 currentPos = nextPos;
                 nextPos = 2;
                 ClientFragment clientFragment = new ClientFragment();
                 showFragment(clientFragment);
+                navigationView.getMenu().getItem(2).setChecked(true);
                 return;
             case R.id.bottom_nav_profile_item:
                 currentPos = nextPos;
                 nextPos = 4;
                 ProfileFragment profileFragment = new ProfileFragment(MainActivity.this);
                 showFragment(profileFragment);
+                navigationView.getMenu().getItem(3).setChecked(true);
                 return;
             default:
                 currentPos = nextPos;
                 nextPos = 0;
                 HomeFragment homeFragment2 = new HomeFragment(MainActivity.this);
                 showFragment(homeFragment2);
+                navigationView.getMenu().getItem(4).setChecked(true);
                 return;
         }
     }

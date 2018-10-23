@@ -38,7 +38,7 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
     }
     @Override
     public int getItemCount() {
-        return 3;
+        return 1;
     }
 
     public class PromotionViewHolder extends RecyclerView.ViewHolder{

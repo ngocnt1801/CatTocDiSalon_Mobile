@@ -34,6 +34,7 @@
             android:textStyle="bold"
             android:text="12/8 - 15/8"/>
 
+
         <ImageView
             android:id="@+id/promotion_ic_expand"
             android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/frame_promotion_title"
-        app:el_expanded="false"
+        app:el_expanded="true"
         app:el_duration="300"
         app:el_parallax="1">
         <TableLayout
@@ -63,7 +64,7 @@
             android:stretchColumns="0">
             <TableRow>
                 <TextView
-                    android:text="Cắt tóc nam"
+                    android:text="7:00 AM - 9:00 AM"
                     android:textSize="16dp" />
                 <TextView
                     android:paddingRight="4dp"
@@ -81,7 +82,7 @@
 
             <TableRow>
                 <TextView
-                    android:text="Cạo râu"
+                    android:text="12:00 AM - 1:00 PM"
                     android:textSize="16dp" />
                 <TextView
                     android:paddingRight="4dp"
@@ -99,7 +100,7 @@
 
             <TableRow>
                 <TextView
-                    android:text="Rái tay"
+                    android:text="2:00 PM - 3:00 PM"
                     android:textSize="16dp" />
                 <TextView
                     android:paddingRight="4dp"
