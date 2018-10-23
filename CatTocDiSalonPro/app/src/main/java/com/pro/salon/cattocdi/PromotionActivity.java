@@ -12,7 +12,7 @@ import com.pro.salon.cattocdi.adapter.PromotionAdapter;
 
 public class PromotionActivity extends AppCompatActivity {
 
-    private TextView tvOK;
+    private TextView tvOK, tvAdd;
     private RecyclerView rvPromotion;
 
     @Override
@@ -24,7 +24,7 @@ public class PromotionActivity extends AppCompatActivity {
         tvOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                goToProfileFragment();
             }
         });
 
@@ -32,5 +32,26 @@ public class PromotionActivity extends AppCompatActivity {
         rvPromotion.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvPromotion.setAdapter(new PromotionAdapter(this));
 
+        tvAdd = findViewById(R.id.promotion_activity_add_tv);
+        tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PromotionActivity.this, AddPromotionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void goToProfileFragment(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        goToProfileFragment();
     }
 }

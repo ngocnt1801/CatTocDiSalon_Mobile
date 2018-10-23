@@ -10,4 +10,8 @@
     <color name="darkTextColor">#000000</color>
     <color name="ratingColor">#ffc947</color>
     <color name="errorColor">#bc0609</color>
+
+    <color name="tableLight">#C8E6C9</color>
+    <color name="tableLightDisable">#EEE</color>
+
 </resources>

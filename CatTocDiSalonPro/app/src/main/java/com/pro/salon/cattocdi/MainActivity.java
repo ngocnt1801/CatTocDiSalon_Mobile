@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int fragmentId = intent.getIntExtra("fragment_id", 0);
-        if(fragmentId != 0){
-            goToSpecificFragment(fragmentId);
-        }else{
-
             bottomNav = findViewById(R.id.bottom_nav);
 
             bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -90,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
             });
+        if(fragmentId != 0){
+            goToSpecificFragment(fragmentId);
+        }else{
+
             //HOME FRAGMENT will show first
             showFragment(new HomeFragment(MainActivity.this));
 //        showFragment(new HomeAppointmentFragment(),MyContants.FRAGMENT_BELOW);
@@ -121,14 +121,7 @@ public class MainActivity extends AppCompatActivity {
         return tables;
     }
 
-    private long getMillis(String day) {
-        DateTime date = getDateTimePattern().parseDateTime(day);
-        return date.getMillis();
-    }
 
-    private DateTimeFormatter getDateTimePattern() {
-        return DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-    }
 
     @SuppressLint("ResourceType")
     private void showFragment(Fragment fragment) {
@@ -179,4 +172,5 @@ public class MainActivity extends AppCompatActivity {
                 return;
         }
     }
+    
 }

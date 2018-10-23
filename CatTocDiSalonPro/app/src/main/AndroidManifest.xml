@@ -11,19 +11,29 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashStyle"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/SplashStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:launchMode="singleTop"/>
-        <activity android:name=".LoginActivity" android:launchMode="singleTop"/>
-        <activity android:name=".SignupActivity" android:launchMode="singleTop"/>
-        <activity android:name=".ListAppointmentActivity" android:launchMode="singleTop"/>
-        <activity android:name=".AppointmentDetailActivity" android:launchMode="singleTop"/>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".LoginActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".SignupActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ListAppointmentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".AppointmentDetailActivity"
+            android:launchMode="singleTop" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -36,8 +46,9 @@
         <activity android:name=".ContactDetailActivity" />
         <activity android:name=".ServiceDetailActivity" />
         <activity android:name=".PromotionDetailActivity" />
-        <activity android:name=".ReviewProfileActivity"></activity>
-        <activity android:name=".ServiceSignupActivity"></activity>
+        <activity android:name=".ReviewProfileActivity" />
+        <activity android:name=".ServiceSignupActivity" />
+        <activity android:name=".AddPromotionActivity"></activity>
     </application>
 
 </manifest>

@@ -27,7 +27,7 @@
                 android:textColor="@color/darkTextColor" />
 
             <TextView
-                android:id="@+id/service_detail_save_tv"
+                android:id="@+id/promotion_detail_save_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="OK"
