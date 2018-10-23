@@ -14,7 +14,7 @@ import com.pro.salon.cattocdi.ServiceActivity;
 import com.pro.salon.cattocdi.ServiceDetailActivity;
 import com.pro.salon.cattocdi.utils.MyContants;
 
-public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecycleViewAdapter.ServiceViewHolder>{
+public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecycleViewAdapter.ServiceViewHolder> {
     private Context context;
     private boolean isPreview = false;
 
@@ -36,7 +36,7 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
 
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder serviceViewHolder, int i) {
-        if(!isPreview){
+        if (!isPreview) {
             serviceViewHolder.btnEditService.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -44,10 +44,9 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
                     context.startActivity(intent);
                 }
             });
-        }else{
+        } else {
             serviceViewHolder.btnEditService.setText("Đặt");
         }
-
     }
 
     @Override
@@ -58,6 +57,7 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
     public class ServiceViewHolder extends RecyclerView.ViewHolder {
         public View item;
         public Button btnEditService;
+
         public ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
             this.item = itemView;

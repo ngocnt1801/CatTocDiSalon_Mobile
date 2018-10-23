@@ -7,16 +7,16 @@
     android:paddingHorizontal="12dp"
     android:clipToPadding="false">
     <TextView
-        android:id="@+id/promotion_title"
+        android:id="@+id/service_signup_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000"
         android:textSize="16dp"
-        android:textStyle="bold"
         android:text="Cắt tóc nam"/>
     <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:id="@+id/service_signup_add"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/ic_add"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eee"
-        android:layout_below="@id/service_price_time"
+        android:layout_below="@id/service_signup_title"
         android:layout_marginTop="12dp"
         />
 </RelativeLayout>

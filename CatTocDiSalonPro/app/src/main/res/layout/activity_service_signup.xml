@@ -44,11 +44,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="horizontal" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ddd"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_service_signup_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:scrollbars="horizontal" />
 
 </LinearLayout>
