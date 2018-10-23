@@ -4,12 +4,14 @@ package com.pro.salon.cattocdi.fragments;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.github.eunsiljo.timetablelib.data.TimeGridData;
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
 import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
+import com.google.android.gms.common.util.CrashUtils;
 import com.greasemonk.timetable.TimeTable;
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
@@ -36,6 +39,7 @@ import java.util.Locale;
 public class ScheduleFragment extends Fragment {
 
     int failed = 8;
+    private View currentTimeBar;
     public ScheduleFragment() {
         // Required empty public constructor
     }
@@ -86,6 +90,36 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
+        //custom time bar
+
+//        currentTimeBar = view.findViewById(R.id.fg_schedult_time_current_bar);
+//        ViewTreeObserver vto = scheduleTable.getViewTreeObserver();
+//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+//                    scheduleTable.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                } else {
+//                    scheduleTable.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                }
+//                int width  = scheduleTable.getMeasuredWidth();
+//                int height = scheduleTable.getMeasuredHeight();
+//                //        currentTimeBar.getLayoutParams().width = get;
+//                int tableHeight = height;
+//                int unitMinute = (int)tableHeight / (24*60);
+//                int totalCurrentMinute = DateTime.now().getMinuteOfDay();
+//                if (currentTimeBar.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+//                    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) currentTimeBar.getLayoutParams();
+//                    Log.d("MINUTE", )
+//                    p.setMarginStart(totalCurrentMinute * unitMinute + 40);
+//                    currentTimeBar.requestLayout();
+//                }
+//
+//            }
+//        });
+//
+
+
         return view;
     }
 
@@ -118,7 +152,7 @@ public class ScheduleFragment extends Fragment {
                 start = end.plusMinutes((int)((Math.random() * 10) + 1) * 10);
                 end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
             }
-
+            values.add(new TimeData(3, "", R.color.currentTimeBar, R.color.lightTextColor, DateTime.now().getMillis(), DateTime.now().plus(5*60*1000).getMillis()));
             tables.add(new TimeTableData("" + (i+1), values));
         }
         return tables;

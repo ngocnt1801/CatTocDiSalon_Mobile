@@ -2,10 +2,12 @@ package com.pro.salon.cattocdi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
@@ -40,6 +42,13 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public void onBindViewHolder(AppointmentViewHolder holder, int position) {
+
+        if(mode == MyContants.APPOINTMENT_SMALL && position == 0 ){
+            holder.tvStatus.setText("Lịch hẹn kế tiếp");
+            holder.tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_active, 0,0,0);
+            holder.tvStatus.setTextColor(Color.parseColor("#8d6aa1"));
+        }
+
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,10 +67,12 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
+        public TextView tvStatus;
 
         public AppointmentViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
+            tvStatus = itemView.findViewById(R.id.fg_appointment_upcomming_tv);
         }
     }
 
