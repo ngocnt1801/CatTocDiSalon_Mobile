@@ -21,9 +21,15 @@ import java.util.Calendar;
 
 public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.WorkingHourViewHolder>{
     private Context context;
+    private boolean isCheck = false;
 
     public WorkingHourAdapter(Context context) {
         this.context = context;
+    }
+
+    public WorkingHourAdapter(Context context, boolean isCheck) {
+        this.context = context;
+        this.isCheck = isCheck;
     }
 
     @Override
@@ -88,6 +94,8 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
                 timePickerDialog.show();
             }
         });
+
+        holder.dayOfWeek.setChecked(isCheck);
 
     }
 
