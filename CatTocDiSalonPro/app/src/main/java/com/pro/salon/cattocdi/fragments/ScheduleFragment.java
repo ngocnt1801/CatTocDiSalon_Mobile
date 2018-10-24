@@ -24,6 +24,7 @@ import com.google.android.gms.common.util.CrashUtils;
 import com.greasemonk.timetable.TimeTable;
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 import org.joda.time.DateTime;
 
@@ -56,7 +57,7 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onTimeItemClick(View view, int i, TimeGridData timeGridData) {
                 Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
-                intent.putExtra("from_page", "schedule");
+                intent.putExtra("from_page", MyContants.SCHEDULE_PAGE);
                 startActivity(intent);
             }
         });

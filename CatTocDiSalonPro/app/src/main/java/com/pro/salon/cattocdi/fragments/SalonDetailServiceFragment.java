@@ -21,6 +21,7 @@ import com.pro.salon.cattocdi.WorkingHoursActivity;
 import com.pro.salon.cattocdi.adapter.SalonDetailPromotionRecycleView;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 
 /**
@@ -46,7 +47,11 @@ public class SalonDetailServiceFragment extends Fragment {
         // Inflate the layout for this fragment
         RecyclerView serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
         serviceRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), isPreview));
+        if(!isPreview){
+            serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PROFILE_PAGE));
+        }else{
+            serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PREVIEW_PAGE));
+        }
 
         RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
         promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

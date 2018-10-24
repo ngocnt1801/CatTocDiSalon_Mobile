@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.pro.salon.cattocdi.adapter.CategoryRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceSignupRecycleViewAdapter;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 import org.w3c.dom.Text;
 
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class ServiceSignupActivity extends AppCompatActivity {
     private RecyclerView rvCategory;
     private RecyclerView rvService;
+    private int from_page = -1;
     String[] categoryList = { "Cắt tóc","Trẻ em","Nhuộm màu","Uốn và Duỗi","Phục hồi tóc","Massage","Nail","Dịch vụ khác"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,33 @@ public class ServiceSignupActivity extends AppCompatActivity {
         rvCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvCategory.setAdapter(new CategoryRecycleViewAdapter(this,categoryList,rvService));
 
+        Intent intent = getIntent();
+        from_page = intent.getIntExtra("from_page", -1);
+
         TextView saveTv = findViewById(R.id.activity_service_save_tv);
         saveTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Change to Activity
-                Intent intent = new Intent(ServiceSignupActivity.this, WorkingHourSignupActivity.class);
-                startActivity(intent);
+                backToPrevious(from_page);
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        backToPrevious(from_page);
+    }
+
+    private void backToPrevious(int from_page){
+        if(from_page == MyContants.SIGNUP_PAGE){
+            Intent intent = new Intent(ServiceSignupActivity.this, WorkingHourSignupActivity.class);
+            startActivity(intent);
+        }else if(from_page == MyContants.MANAGER_SERVICE_PAGE){
+            Intent intent = new Intent(ServiceSignupActivity.this, ServiceActivity.class);
+            startActivity(intent);
+        }
     }
 }

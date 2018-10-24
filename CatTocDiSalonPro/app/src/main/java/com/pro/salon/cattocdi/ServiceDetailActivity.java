@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.pro.salon.cattocdi.utils.MyContants;
+
 public class ServiceDetailActivity extends AppCompatActivity {
 
     private TextView tvPrice, tvPriceUnit, tvDuration, tvDurationUnit, tvSave, tvDelete;
     private EditText etPrice, etDuration;
+    private int from_page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +57,44 @@ public class ServiceDetailActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        from_page = intent.getIntExtra("from_page", -1);
+
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ServiceDetailActivity.this, ServiceActivity.class);
-                startActivity(intent);
+                backToPrevious(from_page);
             }
         });
 
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ServiceDetailActivity.this, ServiceActivity.class);
-                startActivity(intent);
+                backToPrevious(from_page);
             }
         });
+
+
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        backToPrevious(from_page);
+    }
 
+    private void backToPrevious(int from_page){
+        if(from_page == MyContants.PROFILE_PAGE){
+            goToProfileFragment();
+        }else if(from_page == MyContants.MANAGER_SERVICE_PAGE){
+            Intent intent = new Intent(ServiceDetailActivity.this, ServiceActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void goToProfileFragment(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
+        startActivity(intent);
+    }
 }

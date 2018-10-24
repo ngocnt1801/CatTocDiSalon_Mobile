@@ -20,7 +20,10 @@
             android:background="@drawable/border_radius_outline_primary_fill_white"
             android:text="Nhắn tin"
             android:textColor="@color/primary"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:stateListAnimator="@drawable/click_effect"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"/>
 
         <Button
             android:layout_width="100dp"
@@ -29,7 +32,9 @@
             android:background="@drawable/border_radius_outline_primary_fill_white"
             android:text="Gọi điện"
             android:textColor="@color/primary"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:layout_marginTop="4dp"
+            android:stateListAnimator="@drawable/click_effect"/>
     </LinearLayout>
     <!-- Address Information -->
     <LinearLayout
@@ -38,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/contact_bar"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="vertical">
 

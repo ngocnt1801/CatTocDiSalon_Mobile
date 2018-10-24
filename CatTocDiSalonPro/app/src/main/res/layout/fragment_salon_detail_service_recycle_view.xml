@@ -7,7 +7,7 @@
     android:paddingHorizontal="12dp"
     android:clipToPadding="false">
     <TextView
-        android:id="@+id/promotion_title"
+        android:id="@+id/service_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
@@ -17,7 +17,7 @@
         android:id="@+id/service_price_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/promotion_title"
+        android:layout_below="@id/service_title"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
         android:text="20,000 trong 20 phút"/>
 

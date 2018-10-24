@@ -17,7 +17,7 @@
             android:drawableLeft="@drawable/ic_calendar_past"
             android:drawablePadding="12dp"
             android:gravity="center_vertical"
-            android:text="Lịch đã đặt"
+            android:text="Cuộc hẹn đã đặt"
             android:textColor="@color/dark" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/fg_appointment_upcomming_tv"
             android:textColor="@color/darkTextColor"
-            android:text="Godness Braids"
+            android:text="Ngọc Nguyễn"
             android:textSize="16dp" />
 
         <TextView

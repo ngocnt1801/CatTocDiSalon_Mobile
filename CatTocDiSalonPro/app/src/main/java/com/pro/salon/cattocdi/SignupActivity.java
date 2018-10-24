@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.pro.salon.cattocdi.utils.MyContants;
+
 public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +16,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void signupStepOne(View view) {
         Intent intent = new Intent(this, ServiceSignupActivity.class);
+        intent.putExtra("from_page", MyContants.SIGNUP_PAGE);
         startActivity(intent);
     }
 }

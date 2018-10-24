@@ -61,18 +61,18 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        icFavorite = view.findViewById(R.id.fg_profile_favorite_ic);
-        icFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(icFavorite.getDrawable().getConstantState().equals(context.getDrawable(R.drawable.ic_favorite_border_white).getConstantState())){
-                    icFavorite.setImageResource(R.drawable.ic_favorite_fill);
-                }else{
-                    icFavorite.setImageResource(R.drawable.ic_favorite_border_white);
-                }
-            }
-        });
+//
+//        icFavorite = view.findViewById(R.id.fg_profile_favorite_ic);
+//        icFavorite.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(icFavorite.getDrawable().getConstantState().equals(context.getDrawable(R.drawable.ic_favorite_border_white).getConstantState())){
+//                    icFavorite.setImageResource(R.drawable.ic_favorite_fill);
+//                }else{
+//                    icFavorite.setImageResource(R.drawable.ic_favorite_border_white);
+//                }
+//            }
+//        });
 
         return view;
     }

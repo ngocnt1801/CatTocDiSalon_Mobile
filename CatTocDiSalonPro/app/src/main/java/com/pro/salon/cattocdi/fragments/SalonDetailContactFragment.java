@@ -24,6 +24,7 @@ import com.pro.salon.cattocdi.R;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class SalonDetailContactFragment extends Fragment implements OnMapReadyCallback{
     private GoogleMapOptions options = new GoogleMapOptions().liteMode(true);
     private GoogleMap map;

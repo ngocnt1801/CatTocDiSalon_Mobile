@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 public class ServiceActivity extends AppCompatActivity {
 
@@ -24,7 +24,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         rvService = findViewById(R.id.activity_service_rv);
         rvService.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvService.setAdapter(new ServiceRecycleViewAdapter(this));
+        rvService.setAdapter(new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE));
 
         tvSave = findViewById(R.id.activity_service_save_tv);
         tvSave.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +39,7 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ServiceActivity.this, ServiceSignupActivity.class);
+                intent.putExtra("from_page", MyContants.MANAGER_SERVICE_PAGE);
                 startActivity(intent);
             }
         });
