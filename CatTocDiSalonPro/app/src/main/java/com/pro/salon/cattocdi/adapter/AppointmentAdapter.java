@@ -49,6 +49,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                 holder.tvStatus.setText("Cuộc hẹn kế tiếp");
                 holder.tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_active, 0,0,0);
                 holder.tvStatus.setTextColor(Color.parseColor("#8d6aa1"));
+            }else{
+                holder.tvDate.setText("25/10/2018");
             }
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,6 +64,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             if(position != 0){
                 holder.tvStatus.setText("Cuộc hẹn đã đặt");
                 holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
+                holder.tvDate.setText("15/8/2018");
             }
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,12 +87,13 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
-        public TextView tvStatus;
+        public TextView tvStatus, tvDate;
         public RelativeLayout rl;
         public AppointmentViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
             tvStatus = itemView.findViewById(R.id.fg_appointment_upcomming_tv);
+            tvDate = itemView.findViewById(R.id.fg_appointment_date_tv);
             rl = itemView.findViewById(R.id.fg_appointment_rv_item_rl);
         }
     }
