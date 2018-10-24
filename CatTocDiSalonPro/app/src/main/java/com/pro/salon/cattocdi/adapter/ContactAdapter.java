@@ -6,11 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.pro.salon.cattocdi.ContactDetailActivity;
 import com.pro.salon.cattocdi.R;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder>{
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private Context context;
 
@@ -26,6 +27,26 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(ContactViewHolder holder, int position) {
+
+        switch (position) {
+            case 0:
+                holder.tvSymbol.setText("TN");
+                holder.tvName.setText("Thảo Nhi");
+                break;
+            case 1:
+                holder.tvSymbol.setText("TĐ");
+                holder.tvName.setText("Tiến Đạt");
+                break;
+            case 2:
+                holder.tvSymbol.setText("TP");
+                holder.tvName.setText("Thành Phong");
+                break;
+            case 3:
+                holder.tvSymbol.setText("NN");
+                holder.tvName.setText("Ngọc Nguyễn");
+                break;
+            }
+
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,15 +58,18 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 4;
     }
 
-    public class ContactViewHolder extends RecyclerView.ViewHolder{
+    public class ContactViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
+        public TextView tvSymbol, tvName;
         public ContactViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
+            this.tvSymbol = itemView.findViewById(R.id.contact_item_symbol);
+            this.tvName = itemView.findViewById(R.id.contact_item_name);
         }
     }
 }

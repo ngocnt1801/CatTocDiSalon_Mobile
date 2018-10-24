@@ -12,6 +12,7 @@
         android:layout_marginVertical="8dp">
 
         <TextView
+            android:id="@+id/contact_item_symbol"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/circle_background_light"
@@ -23,6 +24,7 @@
             />
 
         <TextView
+            android:id="@+id/contact_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ngọc Nguyễn"
