@@ -25,4 +25,5 @@
         <item>1 hour 45</item>
         <item>2 hours</item>
     </string-array>
+    <string name="dialog_text">Lí do</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.pro.salon.cattocdi;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.utils.MyContants;
 
+import static com.pro.salon.cattocdi.R.layout.dialog_cancel_appointment;
 import static com.pro.salon.cattocdi.utils.MyContants.CLIENT_PAGE;
 import static com.pro.salon.cattocdi.utils.MyContants.HOME_PAGE;
 import static com.pro.salon.cattocdi.utils.MyContants.SCHEDULE_PAGE;
@@ -29,7 +32,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         tvOK = findViewById(R.id.appointment_detail_save_tv);
         btnCancel = findViewById(R.id.appointment_detail_cancel_btn);
         btnArrived = findViewById(R.id.appointment_detail_arrived_btn);
-
+        final Dialog dialog = new Dialog(this);
         tvOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,14 +43,32 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         btnArrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToPrevious(fromPage);
+               backToPrevious(fromPage);
             }
         });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToPrevious(fromPage);
+                Button btnOk, btnCancel;
+                dialog.setContentView(R.layout.dialog_cancel_appointment);
+                btnOk = dialog.findViewById(R.id.dialog_ok);
+                btnCancel = dialog.findViewById(R.id.dialog_cancel);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        backToPrevious(fromPage);
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //backToPrevious(fromPage);
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+
             }
         });
 
@@ -85,4 +106,6 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         }
     }
+
 }
+

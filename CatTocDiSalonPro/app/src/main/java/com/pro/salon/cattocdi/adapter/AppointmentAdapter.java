@@ -43,10 +43,10 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public void onBindViewHolder(AppointmentViewHolder holder, int position) {
-        holder.tvStatus.setText("Cuộc hẹn sắp tới");
+        holder.tvStatus.setText("Khách hàng kế tiếp");
         if(mode == MyContants.APPOINTMENT_SMALL){
             if(position == 0){
-                holder.tvStatus.setText("Cuộc hẹn kế tiếp");
+                holder.tvStatus.setText("Khách hàng kế tiếp");
                 holder.tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_active, 0,0,0);
                 holder.tvStatus.setTextColor(Color.parseColor("#8d6aa1"));
             }else{

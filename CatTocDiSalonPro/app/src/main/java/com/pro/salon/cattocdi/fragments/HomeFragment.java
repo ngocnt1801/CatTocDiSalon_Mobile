@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
 
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new HomeAppointmentFragment(), DateTime.now().toString("EEE, MMM dd"));
+        adapter.addFragment(new HomeAppointmentFragment(), "Hôm nay");
         adapter.addFragment(new NotificationFragment(), "Thông báo");
         viewPager.setAdapter(adapter);
 

@@ -32,7 +32,7 @@
             android:layout_alignParentRight="true"
             android:elevation="8dp"
             android:textStyle="bold"
-            android:text="22/10 - 29/10"/>
+            android:text="5/11 - 8/11"/>
 
 
         <ImageView
