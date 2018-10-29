@@ -37,23 +37,34 @@
                 android:id="@+id/signup_fullname_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/full_name"
+                android:hint="Tên đăng nhập"
                 android:textSize="16dp"
                 android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
-
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp">
             <EditText
-                android:id="@+id/signup_salonname_txt"
+                android:id="@+id/signup_password_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/salon_name"
+                android:hint="@string/password"
                 android:textSize="16dp"
-                android:inputType="text"/>
+                android:inputType="textPassword"/>
         </android.support.design.widget.TextInputLayout>
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingVertical="4dp">-->
+            <!--<EditText-->
+                <!--android:id="@+id/signup_salonname_txt"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="@string/salon_name"-->
+                <!--android:textSize="16dp"-->
+                <!--android:inputType="text"/>-->
+        <!--</android.support.design.widget.TextInputLayout>-->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -77,18 +88,7 @@
                 android:textSize="16dp"
                 android:inputType="phone"/>
         </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="4dp">
-            <EditText
-                android:id="@+id/signup_password_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:textSize="16dp"
-                android:inputType="textPassword"/>
-        </android.support.design.widget.TextInputLayout>
+
         <Button
             android:id="@+id/signup_activity_create_first_btn"
             android:layout_width="match_parent"

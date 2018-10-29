@@ -12,10 +12,6 @@
 
         <include layout="@layout/review_cart_view"/>
         <include layout="@layout/appointment_cart_view"/>
-        <include layout="@layout/appointment_cart_view"/>
-        <include layout="@layout/review_cart_view"/>
-        <include layout="@layout/appointment_cart_view"/>
-        <include layout="@layout/review_cart_view"/>
-        <include layout="@layout/review_cart_view"/>
+
     </LinearLayout>
 </ScrollView>

@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="StyleViet Salon"
+            android:text="Tên cửa hàng"
             android:textStyle="bold"
             android:textColor="@color/darkTextColor"/>
 
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:hint="Tên tiệm của bạn"
+            android:hint="vd: StyleViet salon"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:hint="5"
+            android:hint="vd: 5"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
@@ -117,7 +117,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="174 Phó Đức Chính, P.BìnhKhánh, TP.HCM"
+            android:hint="vd: 174 Nguyễn Huệ, Q.1, TP.HCM"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
@@ -130,60 +130,61 @@
         android:layout_height="1dp"
         android:background="#ccc"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:padding="12dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Số điện thoại"
-            android:textStyle="bold"
-            android:textColor="@color/darkTextColor"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Số điện thoại"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/darkTextColor"/>-->
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="0913-952-190"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:background="@null"
-            android:inputType="phone"
-            android:textSize="16dp"/>
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="0913-952-190"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="right"-->
+            <!--android:background="@null"-->
+            <!--android:inputType="phone"-->
+            <!--android:textSize="16dp"/>-->
 
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ccc"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp">
+    <!--</LinearLayout>-->
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#ccc"/>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:padding="12dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textStyle="bold"
-            android:textColor="@color/darkTextColor"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Email"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/darkTextColor"/>-->
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="beautifulhair@gmai.com"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:background="@null"
-            android:textSize="16dp"/>
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=""-->
+            <!--android:hint="vd: salon@gmail.com"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="right"-->
+            <!--android:background="@null"-->
+            <!--android:textSize="16dp"/>-->
 
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ccc"/>
+    <!--</LinearLayout>-->
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#ccc"/>-->
 
 </LinearLayout>

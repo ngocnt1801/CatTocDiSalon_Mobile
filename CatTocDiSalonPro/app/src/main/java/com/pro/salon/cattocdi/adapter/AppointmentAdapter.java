@@ -18,10 +18,17 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     private Context context;
     private int mode;
+    private String name = "Ngọc Nguyễn";
 
     public AppointmentAdapter(Context context, int mode) {
         this.context = context;
         this.mode = mode;
+    }
+
+    public AppointmentAdapter(Context context, int mode, String name) {
+        this.context = context;
+        this.mode = mode;
+        this.name = name;
     }
 
     @Override
@@ -49,8 +56,10 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                 holder.tvStatus.setText("Cuộc hẹn kế tiếp");
                 holder.tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_active, 0,0,0);
                 holder.tvStatus.setTextColor(Color.parseColor("#8d6aa1"));
+                holder.tvDate.setText("24/10/2018");
+
             }else{
-                holder.tvDate.setText("25/10/2018");
+                holder.tvDate.setText("2"+(position + 5)+"/10/2018");
             }
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,6 +83,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                     context.startActivity(intent);
                 }
             });
+            holder.tvName.setText(name);
         }
 
 
@@ -87,7 +97,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
-        public TextView tvStatus, tvDate;
+        public TextView tvStatus, tvDate, tvName;
         public RelativeLayout rl;
         public AppointmentViewHolder(View itemView) {
             super(itemView);
@@ -95,6 +105,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             tvStatus = itemView.findViewById(R.id.fg_appointment_upcomming_tv);
             tvDate = itemView.findViewById(R.id.fg_appointment_date_tv);
             rl = itemView.findViewById(R.id.fg_appointment_rv_item_rl);
+            tvName = itemView.findViewById(R.id.fg_appointment_salon_name);
         }
     }
 
