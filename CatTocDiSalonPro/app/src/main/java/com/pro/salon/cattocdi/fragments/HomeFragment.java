@@ -75,8 +75,8 @@ public class HomeFragment extends Fragment {
 
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new HomeAppointmentFragment(), "Hôm nay");
-        adapter.addFragment(new NotificationFragment(), "Thông báo");
+        adapter.addFragment(new HomeAppointmentFragment(), "Tiếp theo");
+        adapter.addFragment(new CurrentAppoinmentFragment(), "Hiện tại");
         viewPager.setAdapter(adapter);
 
 

@@ -21,7 +21,7 @@
             android:drawableLeft="@drawable/ic_calendar_past"
             android:drawablePadding="12dp"
             android:gravity="center_vertical"
-            android:text="Khách hàng kế tiếp"
+            android:text="Khách hàng"
             android:textColor="@color/darkTextColor" />
 
         <TextView

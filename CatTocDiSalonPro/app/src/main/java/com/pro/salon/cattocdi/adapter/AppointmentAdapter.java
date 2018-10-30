@@ -43,14 +43,14 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public void onBindViewHolder(AppointmentViewHolder holder, int position) {
-        holder.tvStatus.setText("Khách hàng kế tiếp");
+        holder.tvStatus.setText("Khách hàng");
         if(mode == MyContants.APPOINTMENT_SMALL){
             if(position == 0){
-                holder.tvStatus.setText("Khách hàng kế tiếp");
+                holder.tvStatus.setText("Khách hàng");
                 holder.tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_active, 0,0,0);
                 holder.tvStatus.setTextColor(Color.parseColor("#8d6aa1"));
             }else{
-                holder.tvDate.setText("25/10/2018");
+                holder.tvDate.setText("1/11/2018");
             }
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,7 +62,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             });
         }else{
             if(position != 0){
-                holder.tvStatus.setText("Cuộc hẹn đã đặt");
+                holder.tvStatus.setText("Đã hoàn thành");
                 holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
                 holder.tvDate.setText("15/8/2018");
             }
