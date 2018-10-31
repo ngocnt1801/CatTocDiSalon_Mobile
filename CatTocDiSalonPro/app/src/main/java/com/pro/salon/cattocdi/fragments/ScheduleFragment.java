@@ -126,13 +126,13 @@ public class ScheduleFragment extends Fragment {
 
 
     private ArrayList<TimeTableData> getSamples(long date){
-
+        String[] names = {"Ngọc Nguyễn", "Tiến Đạt", "Thảo Nhi", "Thành Phong"};
         ArrayList<TimeTableData> tables = new ArrayList<>();
-        for(int i=0; i< 7; i++){
+        for(int i=0; i< 4; i++){
             ArrayList<TimeData> values = new ArrayList<>();
             DateTime start = new DateTime(date);
             DateTime end = start.plusMinutes((int)((Math.random() * 10) + 1) * 60);
-            for(int j=0; j< 3; j++){
+            for(int j=0; j< 1; j++){
                 int textColor = R.color.black;
                 int cellColor = R.color.tableLight;
                 if(DateTime.now().withTimeAtStartOfDay().getMillis() > date){
@@ -146,7 +146,7 @@ public class ScheduleFragment extends Fragment {
                     }
                 }
 
-                TimeData timeData = new TimeData(j, "Ngọc Nguyễn:\nCắt tóc, uốn tóc, nhuộm tóc (xanh)\n"+start.toString("HH:mm") + " - " + end.toString("HH:mm"), cellColor, textColor, start.getMillis(), end.getMillis());
+                TimeData timeData = new TimeData(j, names[i]+"\nCắt tóc, uốn tóc, nhuộm tóc (xanh)\n"+start.toString("HH:mm") + " - " + end.toString("HH:mm"), cellColor, textColor, start.getMillis(), end.getMillis());
 
                 values.add(timeData);
 

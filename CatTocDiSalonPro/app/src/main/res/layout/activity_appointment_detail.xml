@@ -279,7 +279,7 @@
             android:layout_marginHorizontal="12dp"
             android:background="@drawable/ripple_radius_outline_primary"
             android:stateListAnimator="@drawable/click_effect"
-            android:text="Xán nhận"
+            android:text="Xác nhận"
             android:textColor="@drawable/ripple_radius_outline_primary_for_text"
             android:textStyle="bold"
             android:textSize="16dp" />

@@ -36,7 +36,7 @@ public class CurrentAppoinmentFragment extends Fragment {
         final ArrayList<Customer> customers = new ArrayList<>();
         customers.add(new Customer("Ngọc Nguyễn", "31/10/2018", "3:00PM", "4:00PM"));
         customers.add(new Customer("Nhi Nguyễn", "31/10/2018", "3:00PM", "4:30PM"));
-        customers.add(new Customer("Phong Nguyễn", "31/10/2018", "4:00PM", "5:00PM"));
+        customers.add(new Customer("Phong Nguyễn", "31/10/2018", "3:15PM", "5:00PM"));
         customers.add(new Customer("Đạt Trần", "31/10/2018", "2:00PM", "4:00PM"));
         mAdapter = new CustomerAppoinmentAdapter(getActivity(),customers);
         listView.setAdapter(mAdapter);

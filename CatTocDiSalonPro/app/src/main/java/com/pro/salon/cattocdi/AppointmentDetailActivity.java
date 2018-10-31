@@ -20,6 +20,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private TextView tvOK, tvname;
     private Button btnCancel, btnArrived;
+    private String nameCus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int fromPage = intent.getIntExtra("from_page", -1);
-        String nameCus = intent.getStringExtra("name_cus");
+        nameCus = intent.getStringExtra("name_cus");
 
         tvOK = findViewById(R.id.appointment_detail_save_tv);
         tvname = findViewById(R.id.appointment_item_expand_name_tv);
@@ -90,6 +91,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private void goToContactDetail() {
         Intent intent = new Intent(this, ContactDetailActivity.class);
+        intent.putExtra("contact_name", nameCus);
         startActivity(intent);
     }
 
