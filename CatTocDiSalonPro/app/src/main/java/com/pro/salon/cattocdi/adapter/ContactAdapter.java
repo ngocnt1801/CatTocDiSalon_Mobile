@@ -26,8 +26,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder holder, int position) {
-
+    public void onBindViewHolder(ContactViewHolder holder, final int position) {
         switch (position) {
             case 0:
                 holder.tvSymbol.setText("TN");
@@ -36,6 +35,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             case 1:
                 holder.tvSymbol.setText("TĐ");
                 holder.tvName.setText("Tiến Đạt");
+
                 break;
             case 2:
                 holder.tvSymbol.setText("TP");
@@ -51,6 +51,18 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ContactDetailActivity.class);
+                if (position == 0){
+                    intent.putExtra("contact_name", "Thảo Nhi");
+                }
+                if (position == 1){
+                    intent.putExtra("contact_name", "Tiến Đạt");
+                }
+                if (position == 2){
+                    intent.putExtra("contact_name", "Thành Phong");
+                }
+                if (position == 3){
+                    intent.putExtra("contact_name", "Ngọc Nguyễn");
+                }
                 context.startActivity(intent);
             }
         });

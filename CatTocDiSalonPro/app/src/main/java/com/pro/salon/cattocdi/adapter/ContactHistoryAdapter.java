@@ -1,38 +1,31 @@
 package com.pro.salon.cattocdi.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
-import com.pro.salon.cattocdi.utils.Customer;
 import com.pro.salon.cattocdi.utils.MyContants;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder> {
+public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAdapter.AppointmentViewHolder> {
 
     private Context context;
     private int mode;
+    private String name;
     private CustomerAppoinmentAdapter holder;
     private int position;
 
-    public AppointmentAdapter(Context context, int mode) {
+    public ContactHistoryAdapter(Context context, int mode, String name) {
         this.context = context;
         this.mode = mode;
+        this.name = name;
     }
 
     @Override
@@ -56,8 +49,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     @Override
     public void onBindViewHolder(AppointmentViewHolder holder, int position) {
 
-        holder.tvStatus.setText("Khách hàng");
-        if(mode == MyContants.APPOINTMENT_SMALL){
+        holder.tvStatus.setText("Đã hoàn thành");
+        /*if(mode == MyContants.APPOINTMENT_SMALL){
             if(position == 0){
                 holder.tvStatus.setText("Khách hàng");
                 holder.tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_active, 0,0,0);
@@ -73,11 +66,29 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                     context.startActivity(intent);
                 }
             });
-        }else{
-            if(position != 0){
-                holder.tvStatus.setText("Đã hoàn thành");
-                //holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
+        }*/
+        if(mode == MyContants.APPOINTMENT_FULL){
+            holder.tvName.setText(name);
+            holder.tvStatus.setText("Đã hoàn thành");
+            if(position == 0){
+               // holder.tvStatus.setText("Đã hoàn thành");
+               // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
                 holder.tvDate.setText("15/8/2018");
+            }
+            if(position == 1){
+                // holder.tvStatus.setText("Đã hoàn thành");
+                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
+                holder.tvDate.setText("14/8/2018");
+            }
+            if(position == 2){
+                // holder.tvStatus.setText("Đã hoàn thành");
+                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
+                holder.tvDate.setText("12/8/2018");
+            }
+            if(position == 3){
+                // holder.tvStatus.setText("Đã hoàn thành");
+                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
+                holder.tvDate.setText("11/8/2018");
             }
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,13 +111,14 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
-        public TextView tvStatus, tvDate;
+        public TextView tvStatus, tvDate, tvName;
         public RelativeLayout rl;
         public AppointmentViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
             tvStatus = itemView.findViewById(R.id.fg_appointment_upcomming_tv);
             tvDate = itemView.findViewById(R.id.fg_appointment_date_tv);
+            tvName = itemView.findViewById(R.id.fg_contact_history_customer_name);
             rl = itemView.findViewById(R.id.fg_appointment_rv_item_rl);
         }
     }

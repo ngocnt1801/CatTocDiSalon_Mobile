@@ -9,8 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include layout="@layout/appointment_cart_view"/>
-        <include layout="@layout/appointment_cart_view"/>
-        <include layout="@layout/appointment_cart_view"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:layout_margin="16dp">
+            <ListView
+                android:id="@+id/fg_home_appointment_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="12.0sp">
+            </ListView>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </FrameLayout>

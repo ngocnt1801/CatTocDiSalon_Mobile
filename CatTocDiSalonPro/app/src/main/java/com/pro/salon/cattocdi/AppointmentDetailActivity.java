@@ -18,7 +18,7 @@ import static com.pro.salon.cattocdi.utils.MyContants.SCHEDULE_PAGE;
 
 public class AppointmentDetailActivity extends AppCompatActivity {
 
-    private TextView tvOK;
+    private TextView tvOK, tvname;
     private Button btnCancel, btnArrived;
 
     @Override
@@ -28,8 +28,11 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int fromPage = intent.getIntExtra("from_page", -1);
+        String nameCus = intent.getStringExtra("name_cus");
 
         tvOK = findViewById(R.id.appointment_detail_save_tv);
+        tvname = findViewById(R.id.appointment_item_expand_name_tv);
+        tvname.setText(nameCus);
         btnCancel = findViewById(R.id.appointment_detail_cancel_btn);
         btnArrived = findViewById(R.id.appointment_detail_arrived_btn);
         final Dialog dialog = new Dialog(this);

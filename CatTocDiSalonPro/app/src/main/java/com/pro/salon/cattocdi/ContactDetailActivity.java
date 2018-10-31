@@ -9,22 +9,25 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.AppointmentAdapter;
+import com.pro.salon.cattocdi.adapter.ContactHistoryAdapter;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 public class ContactDetailActivity extends AppCompatActivity {
 
     private RecyclerView rvAppointment;
-    private TextView tvOK;
+    private TextView tvOK, tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
-
+        Intent intent = getIntent();
+        tvName = findViewById(R.id.contact_name_customer);
+        String contactName = intent.getStringExtra("contact_name");
+        tvName.setText(contactName);
         rvAppointment = findViewById(R.id.contact_detail_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvAppointment.setAdapter(new AppointmentAdapter(this, MyContants.APPOINTMENT_FULL));
-
+        rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, contactName));
         tvOK = findViewById(R.id.contact_detail_save_tv);
         tvOK.setOnClickListener(new View.OnClickListener() {
             @Override

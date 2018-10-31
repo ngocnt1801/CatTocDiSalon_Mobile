@@ -24,11 +24,19 @@
         android:textColor="@color/darkTextColor"
         android:textSize="14dp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fg_home_appointment_rv"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:layout_margin="16dp">
+        <ListView
+            android:id="@+id/fg_home_appointment_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="12.0sp">
+        </ListView>
+    </android.support.v7.widget.CardView>
 
-    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
