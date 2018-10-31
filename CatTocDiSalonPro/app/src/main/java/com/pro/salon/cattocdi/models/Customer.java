@@ -1,20 +1,22 @@
-package com.pro.salon.cattocdi.utils;
+package com.pro.salon.cattocdi.models;
 
 public class Customer {
     private String name;
     private String date;
     private String startTime;
     private String endTime;
+    private String phone;
 
     public Customer() {
 
     }
 
-    public Customer(String name, String date, String startTime, String endTime) {
+    public Customer(String name, String date, String startTime, String endTime, String phone) {
         this.name = name;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -47,5 +49,13 @@ public class Customer {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
