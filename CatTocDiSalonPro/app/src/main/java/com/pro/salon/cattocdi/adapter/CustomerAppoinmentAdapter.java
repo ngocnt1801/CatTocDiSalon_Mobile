@@ -37,7 +37,6 @@ public class CustomerAppoinmentAdapter extends ArrayAdapter<Customer> {
             Customer currentCustomer = customerList.get(position);
             TextView name = listItem.findViewById(R.id.fg_appointment_salon_name);
             name.setText(currentCustomer.getName());
-
             TextView date = listItem.findViewById(R.id.fg_appointment_date_tv);
             date.setText(currentCustomer.getDate());
             TextView startTime = listItem.findViewById(R.id.fg_appointment_start_time);
