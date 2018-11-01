@@ -17,37 +17,47 @@ import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.utils.MyContants;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CustomerAppoinmentAdapter extends ArrayAdapter<Customer> {
     private Context mContext;
-    private List<Customer> customerList = new ArrayList<>();
-    private Customer[] customers;
+    private ArrayList<Customer> customerList = new ArrayList<>();
+    //private Customer[] customers;
 
     public CustomerAppoinmentAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Customer> list) {
         super(context,0, list);
         mContext = context;
         customerList = list;
     }
-
+    /*public CustomerAppoinmentAdapter(@NonNull Context context, Customer[] list) {
+        super(context,0, list);
+        mContext = context;
+        this.customers = list;
+    }*/
 
 
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItem = convertView;
+        View listItem = null;
         if (listItem == null){
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.appointment_cart_view, parent, false);
-            Customer currentCustomer = customerList.get(position);
-            TextView name = listItem.findViewById(R.id.fg_appointment_salon_name);
-            name.setText(currentCustomer.getName());
-            TextView date = listItem.findViewById(R.id.fg_appointment_date_tv);
-            date.setText(currentCustomer.getDate());
-            TextView startTime = listItem.findViewById(R.id.fg_appointment_start_time);
-            startTime.setText(currentCustomer.getStartTime());
-            TextView endTime = listItem.findViewById(R.id.fg_appointment_end_time);
-            endTime.setText(currentCustomer.getEndTime());
+                listItem = LayoutInflater.from(mContext).inflate(R.layout.appointment_cart_view, parent, false);
+                Customer currentCustomer = customerList.get(position);
+                TextView tvName = listItem.findViewById(R.id.fg_appointment_salon_name);
+                tvName.setText(currentCustomer.getName());
+                TextView tvDate = listItem.findViewById(R.id.fg_appointment_date_tv);
+                tvDate.setText(currentCustomer.getDate());
+                TextView startTime = listItem.findViewById(R.id.fg_appointment_start_time);
+                startTime.setText(currentCustomer.getStartTime());
+                TextView endTime = listItem.findViewById(R.id.fg_appointment_end_time);
+                endTime.setText(currentCustomer.getEndTime());
+
+
         }
         listItem.setOnClickListener(new View.OnClickListener() {
             @Override

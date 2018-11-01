@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.adapter.CustomerAppoinmentAdapter;
 import com.pro.salon.cattocdi.models.Customer;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 import java.util.ArrayList;
 
@@ -31,12 +32,12 @@ public class CurrentAppoinmentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_current_appoinment, container, false);
         listView = (ListView) view.findViewById(R.id.fg_home_appointment_rv);
-        final ArrayList<Customer> customers = new ArrayList<>();
+        /*final ArrayList<Customer> customers = new ArrayList<>();
         customers.add(new Customer("Ngọc Nguyễn", "31/10/2018", "3:00PM", "4:00PM"));
         customers.add(new Customer("Nhi Nguyễn", "31/10/2018", "3:00PM", "4:30PM"));
         customers.add(new Customer("Phong Nguyễn", "31/10/2018", "4:00PM", "5:00PM"));
-        customers.add(new Customer("Đạt Trần", "31/10/2018", "2:00PM", "4:00PM"));
-        mAdapter = new CustomerAppoinmentAdapter(getActivity(),customers);
+        customers.add(new Customer("Đạt Trần", "31/10/2018", "2:00PM", "4:00PM"));*/
+        mAdapter = new CustomerAppoinmentAdapter(getActivity(), MyContants.CUSTOMERS);
         listView.setAdapter(mAdapter);
         return view;
     }

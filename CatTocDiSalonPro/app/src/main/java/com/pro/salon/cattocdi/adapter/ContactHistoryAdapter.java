@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.utils.MyContants;
+
+import java.util.ArrayList;
 
 public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAdapter.AppointmentViewHolder> {
 
@@ -21,12 +24,15 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
     private String name;
     private CustomerAppoinmentAdapter holder;
     private int position;
+    private ArrayList<Customer> customers;
 
-    public ContactHistoryAdapter(Context context, int mode, String name) {
+    public ContactHistoryAdapter(Context context, int mode, String name, ArrayList<Customer> list) {
         this.context = context;
         this.mode = mode;
         this.name = name;
+        this.customers = list;
     }
+
 
     @Override
     public AppointmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,7 +53,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
 
 
     @Override
-    public void onBindViewHolder(AppointmentViewHolder holder, int position) {
+    public void onBindViewHolder(AppointmentViewHolder holder, final int position) {
 
         holder.tvStatus.setText("Đã hoàn thành");
         /*if(mode == MyContants.APPOINTMENT_SMALL){
@@ -72,8 +78,10 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             holder.tvStatus.setText("Đã hoàn thành");
             //temp edit later
             final Intent intent = new Intent(context, AppointmentDetailActivity.class);
-
-            if(position == 0){
+            Customer currentCustomer = new Customer();
+            currentCustomer = customers.get(position);
+            holder.tvDate.setText(currentCustomer.getDate());
+           /* if(position == 0){
                // holder.tvStatus.setText("Đã hoàn thành");
                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
                 holder.tvDate.setText("15/8/2018");
@@ -93,14 +101,14 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
                 // holder.tvStatus.setText("Đã hoàn thành");
                 // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
                 holder.tvDate.setText("11/8/2018");
-            }
+            }*/
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    intent.putExtra("cusName", name);
-                    intent.putExtra("startTime", "3:00PM");
-                    intent.putExtra("endTime", "3:00PM");
-                   intent.putExtra("date", "14/8/2018");
+                    intent.putExtra("cusName", customers.get(position).getName());
+                    intent.putExtra("startTime", customers.get(position).getStartTime());
+                    intent.putExtra("endTime", customers.get(position).getEndTime());
+                   intent.putExtra("date", customers.get(position).getDate());
                     intent.putExtra("from_page", MyContants.CLIENT_PAGE);
                     intent.putExtra("expired", 1);
                     context.startActivity(intent);
@@ -113,7 +121,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
 
     @Override
     public int getItemCount() {
-        return 5;
+        return customers.size();
     }
 
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {

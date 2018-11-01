@@ -39,13 +39,14 @@ public class HomeAppointmentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home_appointment, container, false);
         listView = (ListView) view.findViewById(R.id.fg_home_appointment_rv);
-       final ArrayList<Customer> customers = new ArrayList<>();
+      /* final ArrayList<Customer> customers = new ArrayList<>();
         customers.add(new Customer("Ngọc Nguyễn", "31/10/2018", "3:00PM", "4:00PM"));
         customers.add(new Customer("Nhi Nguyễn", "1/11/2018", "3:00PM", "4:00PM"));
         customers.add(new Customer("Phong Nguyễn", "1/11/2018", "4:00PM", "5:00PM"));
-        customers.add(new Customer("Đạt Trần", "2/11/2018", "3:00PM", "4:00PM"));
+        customers.add(new Customer("Đạt Trần", "2/11/2018", "3:00PM", "4:00PM"));*/
 
-        mAdapter = new CustomerAppoinmentAdapter(getActivity(),customers);
+
+        mAdapter = new CustomerAppoinmentAdapter(getActivity(),MyContants.CUSTOMERS);
         listView.setAdapter(mAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -53,8 +54,8 @@ public class HomeAppointmentFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
                 intent.putExtra("from_page", MyContants.HOME_PAGE);
-               //intent.putExtra("cusName", MyContants.CUSTOMERS);
-                if (listView.getPositionForView(view) == 0){
+               intent.putExtra("cusName", MyContants.CUSTOMERS.get(i).getName());
+                /*if (listView.getPositionForView(view) == 0){
                     intent.putExtra("name_cus", "Ngọc Nguyễn");
                 }
                 if (listView.getPositionForView(view) == 1){
@@ -65,7 +66,7 @@ public class HomeAppointmentFragment extends Fragment {
                 }
                 if (listView.getPositionForView(view) == 3){
                     intent.putExtra("name_cus", "Đạt Trần");
-                }
+                }*/
 
                 startActivity(intent);
             }

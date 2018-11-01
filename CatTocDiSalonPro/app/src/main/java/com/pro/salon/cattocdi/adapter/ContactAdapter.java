@@ -10,13 +10,22 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.ContactDetailActivity;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.Customer;
+
+import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private Context context;
+    private ArrayList<Customer> customers;
 
     public ContactAdapter(Context context) {
         this.context = context;
+    }
+
+    public ContactAdapter(Context context, ArrayList<Customer> list) {
+        this.context = context;
+        this.customers = list;
     }
 
     @Override
@@ -27,7 +36,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(ContactViewHolder holder, final int position) {
-        switch (position) {
+
+        final Customer currentCustomer = customers.get(position);
+        holder.tvName.setText(customers.get(position).getName());
+        String symbol1 = Character.toString(currentCustomer.getName().charAt(0));
+        holder.tvSymbol.setText(symbol1);
+        /*switch (position) {
             case 0:
                 holder.tvSymbol.setText("TN");
                 holder.tvName.setText("Thảo Nhi");
@@ -45,24 +59,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                 holder.tvSymbol.setText("NN");
                 holder.tvName.setText("Ngọc Nguyễn");
                 break;
-            }
+            }*/
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ContactDetailActivity.class);
-                if (position == 0){
-                    intent.putExtra("contactName", "Thảo Nhi");
-                }
-                if (position == 1){
-                    intent.putExtra("contactName", "Tiến Đạt");
-                }
-                if (position == 2){
-                    intent.putExtra("contactName", "Thành Phong");
-                }
-                if (position == 3){
-                    intent.putExtra("contactName", "Ngọc Nguyễn");
-                }
+                intent.putExtra("contactName", currentCustomer.getName());
+                intent.putExtra("contactPhone", currentCustomer.getPhone());
                 context.startActivity(intent);
             }
         });
@@ -70,13 +74,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public int getItemCount() {
-        return 4;
+        return customers.size();
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
         public TextView tvSymbol, tvName;
+
         public ContactViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
