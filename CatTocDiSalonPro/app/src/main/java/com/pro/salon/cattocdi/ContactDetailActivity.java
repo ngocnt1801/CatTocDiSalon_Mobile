@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.AppointmentAdapter;
 import com.pro.salon.cattocdi.adapter.ContactHistoryAdapter;
+import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 public class ContactDetailActivity extends AppCompatActivity {
@@ -21,22 +22,29 @@ public class ContactDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         tvName = findViewById(R.id.contact_name_customer);
-        String contactName = intent.getStringExtra("contactName");
+        final String contactName = intent.getStringExtra("contactName");
         tvName.setText(contactName);
-       //Intent intentSend = new Intent(this, AppointmentDetailActivity.class);
-        //intentSend.putExtra("cusName", contactName);
+
+        //This is for demo
+        //Intent intentSend = new Intent(this, AppointmentDetailActivity.class);
+       // intentSend.putExtra("cusName", contactName);
+
         rvAppointment = findViewById(R.id.contact_detail_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, contactName));
+
         tvOK = findViewById(R.id.contact_detail_save_tv);
+
         tvOK.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 goToClientFragment();
             }
         });
+        //startActivity(intentSend);
 
     }
 

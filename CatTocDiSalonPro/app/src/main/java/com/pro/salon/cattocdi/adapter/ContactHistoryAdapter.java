@@ -68,9 +68,10 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             });
         }*/
         if(mode == MyContants.APPOINTMENT_FULL){
-           // holder.tvName.setText(name);
+           holder.tvName.setText("");
             holder.tvStatus.setText("Đã hoàn thành");
             //temp edit later
+            final Intent intent = new Intent(context, AppointmentDetailActivity.class);
 
             if(position == 0){
                // holder.tvStatus.setText("Đã hoàn thành");
@@ -96,7 +97,10 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, AppointmentDetailActivity.class);
+                    intent.putExtra("cusName", name);
+                    intent.putExtra("startTime", "3:00PM");
+                    intent.putExtra("endTime", "3:00PM");
+                   intent.putExtra("date", "14/8/2018");
                     intent.putExtra("from_page", MyContants.CLIENT_PAGE);
                     intent.putExtra("expired", 1);
                     context.startActivity(intent);

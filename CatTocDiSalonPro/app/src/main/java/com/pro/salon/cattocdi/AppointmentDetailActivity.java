@@ -22,6 +22,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private TextView tvOK, tvname, tvDate, tvTime;
     private Button btnCancel, btnArrived;
+    String cusName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,10 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         final  String date = intent.getStringExtra("date");
         final String startTime = intent.getStringExtra("startTime");
         final String endTime = intent.getStringExtra("endTime");
-        final String cusName = intent.getStringExtra("cusName");
+        cusName = intent.getStringExtra("cusName");
+
+        //Contact
+        //final String conName = intent.getStringExtra("name_from_contact");
 
         //String nameCus = intent.getStringExtra("name_cus");
 
@@ -108,6 +112,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private void goToContactDetail() {
         Intent intent = new Intent(this, ContactDetailActivity.class);
+        intent.putExtra("contactName",cusName);
         startActivity(intent);
     }
 
