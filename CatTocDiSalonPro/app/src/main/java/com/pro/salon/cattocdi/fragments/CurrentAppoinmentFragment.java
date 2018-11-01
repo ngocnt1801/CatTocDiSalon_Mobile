@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.adapter.CustomerAppoinmentAdapter;
+import com.pro.salon.cattocdi.models.Customer;
 
 import java.util.ArrayList;
 

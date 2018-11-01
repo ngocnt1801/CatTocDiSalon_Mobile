@@ -23,8 +23,10 @@ public class ContactDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact_detail);
         Intent intent = getIntent();
         tvName = findViewById(R.id.contact_name_customer);
-        String contactName = intent.getStringExtra("contact_name");
+        String contactName = intent.getStringExtra("contactName");
         tvName.setText(contactName);
+       //Intent intentSend = new Intent(this, AppointmentDetailActivity.class);
+        //intentSend.putExtra("cusName", contactName);
         rvAppointment = findViewById(R.id.contact_detail_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, contactName));

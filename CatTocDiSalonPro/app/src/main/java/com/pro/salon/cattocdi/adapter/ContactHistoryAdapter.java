@@ -70,10 +70,13 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
         if(mode == MyContants.APPOINTMENT_FULL){
             holder.tvName.setText(name);
             holder.tvStatus.setText("Đã hoàn thành");
+            //temp edit later
+
             if(position == 0){
                // holder.tvStatus.setText("Đã hoàn thành");
                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
                 holder.tvDate.setText("15/8/2018");
+
             }
             if(position == 1){
                 // holder.tvStatus.setText("Đã hoàn thành");
@@ -95,6 +98,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
                 public void onClick(View v) {
                     Intent intent = new Intent(context, AppointmentDetailActivity.class);
                     intent.putExtra("from_page", MyContants.CLIENT_PAGE);
+                    intent.putExtra("expired", 1);
                     context.startActivity(intent);
                 }
             });

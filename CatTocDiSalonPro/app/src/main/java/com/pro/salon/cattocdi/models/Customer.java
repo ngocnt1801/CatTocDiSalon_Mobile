@@ -18,6 +18,13 @@ public class Customer {
         this.endTime = endTime;
         this.phone = phone;
     }
+    public Customer(String name, String date, String startTime, String endTime) {
+        this.name = name;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+
+    }
 
     public String getName() {
         return name;

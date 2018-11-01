@@ -3,6 +3,8 @@ package com.pro.salon.cattocdi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +20,7 @@ import static com.pro.salon.cattocdi.utils.MyContants.SCHEDULE_PAGE;
 
 public class AppointmentDetailActivity extends AppCompatActivity {
 
-    private TextView tvOK, tvname;
+    private TextView tvOK, tvname, tvDate, tvTime;
     private Button btnCancel, btnArrived;
 
     @Override
@@ -28,11 +30,21 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int fromPage = intent.getIntExtra("from_page", -1);
-        String nameCus = intent.getStringExtra("name_cus");
+        final int expired = intent.getIntExtra("expired", -1);
+        final  String date = intent.getStringExtra("date");
+        final String startTime = intent.getStringExtra("startTime");
+        final String endTime = intent.getStringExtra("endTime");
+        final String cusName = intent.getStringExtra("cusName");
+
+        //String nameCus = intent.getStringExtra("name_cus");
 
         tvOK = findViewById(R.id.appointment_detail_save_tv);
         tvname = findViewById(R.id.appointment_item_expand_name_tv);
-        tvname.setText(nameCus);
+        tvname.setText(cusName);
+        tvDate = findViewById(R.id.appointment_item_expand_date_tv);
+        tvTime = findViewById(R.id.appointment_item_expand_time_tv);
+        tvDate.setText(date);
+        tvTime.setText(startTime + " - " + endTime);
         btnCancel = findViewById(R.id.appointment_detail_cancel_btn);
         btnArrived = findViewById(R.id.appointment_detail_arrived_btn);
         final Dialog dialog = new Dialog(this);
@@ -49,31 +61,37 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                backToPrevious(fromPage);
             }
         });
+      if(expired == 1){
+            btnCancel.setBackground(getDrawable(R.drawable.ripple_circle_outline_error_disable));
+            btnCancel.setEnabled(false);
+        }
+       else{
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Button btnOk, btnCancel;
+                    dialog.setContentView(R.layout.dialog_cancel_appointment);
+                    btnOk = dialog.findViewById(R.id.dialog_ok);
+                    btnCancel = dialog.findViewById(R.id.dialog_cancel);
+                    btnOk.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            backToPrevious(fromPage);
+                        }
+                    });
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //backToPrevious(fromPage);
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Button btnOk, btnCancel;
-                dialog.setContentView(R.layout.dialog_cancel_appointment);
-                btnOk = dialog.findViewById(R.id.dialog_ok);
-                btnCancel = dialog.findViewById(R.id.dialog_cancel);
-                btnOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        backToPrevious(fromPage);
-                    }
-                });
-                btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //backToPrevious(fromPage);
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                }
+            });
+        }
 
-            }
-        });
 
     }
 
