@@ -24,7 +24,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         tvName = findViewById(R.id.contact_name_customer);
         String contactName = intent.getStringExtra("contactName");
-        tvName.setText(contactName);
+        //tvName.setText(contactName);
        //Intent intentSend = new Intent(this, AppointmentDetailActivity.class);
         //intentSend.putExtra("cusName", contactName);
         rvAppointment = findViewById(R.id.contact_detail_appointment_rv);

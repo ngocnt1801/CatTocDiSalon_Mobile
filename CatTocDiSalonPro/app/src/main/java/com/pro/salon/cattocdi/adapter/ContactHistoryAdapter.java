@@ -68,7 +68,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             });
         }*/
         if(mode == MyContants.APPOINTMENT_FULL){
-            holder.tvName.setText(name);
+           // holder.tvName.setText(name);
             holder.tvStatus.setText("Đã hoàn thành");
             //temp edit later
 
