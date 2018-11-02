@@ -18,12 +18,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
             android:textColor="#000"
             android:text="Golden week for sale"/>
-        <TextView
-            android:id="@+id/promotion_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/promotion_title"
-            android:text="Làm đẹp đồng giá chỉ với 100k"/>
+
         <TextView
             android:id="@+id/promotion_day_active"
             android:layout_width="wrap_content"

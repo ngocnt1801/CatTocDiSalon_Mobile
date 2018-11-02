@@ -309,7 +309,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
-                android:text="2 reviews"
+                android:text="5 reviews"
                 android:textColor="@color/darkTextColor"
                 android:textStyle="bold" />
 
@@ -352,7 +352,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Awsome stylish.I will comeback soon."
+                        android:text="Cắt đẹp quá."
                         android:textColor="@color/darkTextColor"
                         android:textSize="14dp" />
 
@@ -407,7 +407,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Awsome stylish.I will comeback soon."
+                        android:text="Nhân viên dễ thương"
                         android:textColor="@color/darkTextColor"
                         android:textSize="14dp" />
 
@@ -462,7 +462,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Awsome stylish.I will comeback soon."
+                        android:text="Đúng giờ hẹn"
                         android:textColor="@color/darkTextColor"
                         android:textSize="14dp" />
 
@@ -517,7 +517,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Awsome stylish. But price not good enough. I will comeback soon."
+                        android:text="Giá tốt"
                         android:textColor="@color/darkTextColor"
                         android:textSize="14dp" />
 
@@ -572,7 +572,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Awsome stylish. But price not good enough. I will comeback soon."
+                        android:text="Nhiều khuyến mãi"
                         android:textColor="@color/darkTextColor"
                         android:textSize="14dp" />
 
