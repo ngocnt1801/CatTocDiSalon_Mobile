@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,8 +34,8 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         final int fromPage = intent.getIntExtra("from_page", -1);
         final int expired = intent.getIntExtra("expired", -1);
         final  String date = intent.getStringExtra("date");
-        final String startTime = intent.getStringExtra("startTime");
-        final String endTime = intent.getStringExtra("endTime");
+        final String time = intent.getStringExtra("time");
+        //final String endTime = intent.getStringExtra("endTime");
         cusName = intent.getStringExtra("cusName");
 
         //Contact
@@ -48,7 +49,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         tvDate = findViewById(R.id.appointment_item_expand_date_tv);
         tvTime = findViewById(R.id.appointment_item_expand_time_tv);
         tvDate.setText(date);
-        tvTime.setText(startTime + " - " + endTime);
+        //tvTime.setText(startTime + " - " + endTime);
         btnCancel = findViewById(R.id.appointment_detail_cancel_btn);
         btnArrived = findViewById(R.id.appointment_detail_arrived_btn);
         final Dialog dialog = new Dialog(this);
@@ -117,6 +118,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
     }
 
     private void backToPrevious(int fromPage) {
+
         switch (fromPage) {
             case HOME_PAGE:
                 goToHomeFragment();

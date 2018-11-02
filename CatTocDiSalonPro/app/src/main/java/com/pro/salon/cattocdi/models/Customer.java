@@ -1,29 +1,38 @@
 package com.pro.salon.cattocdi.models;
 
+import java.util.List;
+
 public class Customer {
+    private String id;
     private String name;
-    private String date;
-    private String startTime;
-    private String endTime;
     private String phone;
+    private String emai;
+    private List<Appointment> appointments;
 
     public Customer() {
 
     }
 
-    public Customer(String name, String date, String startTime, String endTime, String phone) {
+    public Customer(String id, String name, String phone, String emai) {
+        this.id = id;
         this.name = name;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.phone = phone;
+        this.emai = emai;
     }
-    public Customer(String name, String date, String startTime, String endTime) {
+    public Customer(String id, String name, String phone, String emai, List<Appointment> appointments) {
+        this.id = id;
         this.name = name;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.phone = phone;
+        this.emai = emai;
+        this.appointments = appointments;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,35 +43,27 @@ public class Customer {
         this.name = name;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmai() {
+        return emai;
+    }
+
+    public void setEmai(String emai) {
+        this.emai = emai;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

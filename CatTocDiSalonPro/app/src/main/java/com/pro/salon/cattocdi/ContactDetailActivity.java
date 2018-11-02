@@ -2,6 +2,8 @@ package com.pro.salon.cattocdi;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ public class ContactDetailActivity extends AppCompatActivity {
     private TextView tvOK, tvName, tvPhone;
     private ImageView ivCall, ivSms;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         rvAppointment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, contactName, MyContants.CUSTOMERS));
 
+
         tvOK = findViewById(R.id.contact_detail_save_tv);
 
         tvOK.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +83,5 @@ public class ContactDetailActivity extends AppCompatActivity {
         intent.putExtra("fragment_id", R.id.bottom_nav_client_item);
         startActivity(intent);
     }
-    private String getPhoneByName(int i){
-        String phonet = null;
-        MyContants.CUSTOMERS.get(i).getDate();
-        return phonet;
-    }
+
 }

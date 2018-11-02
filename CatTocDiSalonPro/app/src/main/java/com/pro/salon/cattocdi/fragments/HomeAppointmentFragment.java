@@ -54,7 +54,7 @@ public class HomeAppointmentFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
                 intent.putExtra("from_page", MyContants.HOME_PAGE);
-               intent.putExtra("cusName", MyContants.CUSTOMERS.get(i).getName());
+               intent.putExtra("cusName", MyContants.CUSTOMERS[i].getName());
                 /*if (listView.getPositionForView(view) == 0){
                     intent.putExtra("name_cus", "Ngọc Nguyễn");
                 }

@@ -1,27 +1,23 @@
 package com.pro.salon.cattocdi.models;
 
 public class Service {
-    private String id;
+    private int id;
     private String name;
     private float price;
-    private int avgTime;
+    private int minutes;
+
+    public Service(int id, String name, float price, int minutes) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.minutes = minutes;
+    }
 
     public Service() {
     }
 
-    public Service(String id, String name, float price, int avgTime) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.avgTime = avgTime;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -40,11 +36,11 @@ public class Service {
         this.price = price;
     }
 
-    public int getAvgTime() {
-        return avgTime;
+    public int getMinutes() {
+        return minutes;
     }
 
-    public void setAvgTime(int avgTime) {
-        this.avgTime = avgTime;
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 }

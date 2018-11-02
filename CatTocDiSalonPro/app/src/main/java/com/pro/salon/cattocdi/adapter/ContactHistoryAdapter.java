@@ -15,6 +15,7 @@ import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.utils.MyContants;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAdapter.AppointmentViewHolder> {
@@ -24,9 +25,9 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
     private String name;
     private CustomerAppoinmentAdapter holder;
     private int position;
-    private ArrayList<Customer> customers;
+    private Customer[] customers;
 
-    public ContactHistoryAdapter(Context context, int mode, String name, ArrayList<Customer> list) {
+    public ContactHistoryAdapter(Context context, int mode, String name, Customer[] list) {
         this.context = context;
         this.mode = mode;
         this.name = name;
@@ -79,8 +80,8 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             //temp edit later
             final Intent intent = new Intent(context, AppointmentDetailActivity.class);
             Customer currentCustomer = new Customer();
-            currentCustomer = customers.get(position);
-            holder.tvDate.setText(currentCustomer.getDate());
+            currentCustomer = customers[position];
+            holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(currentCustomer.getAppointments().get(position).getStartTime()));
            /* if(position == 0){
                // holder.tvStatus.setText("Đã hoàn thành");
                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
@@ -105,10 +106,10 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    intent.putExtra("cusName", customers.get(position).getName());
-                    intent.putExtra("startTime", customers.get(position).getStartTime());
-                    intent.putExtra("endTime", customers.get(position).getEndTime());
-                   intent.putExtra("date", customers.get(position).getDate());
+                    intent.putExtra("cusName", customers[position].getName());
+                   // intent.putExtra("startTime", customers.get(position).getStartTime());
+                    //intent.putExtra("endTime", customers.get(position).getEndTime());
+                   //intent.putExtra("date", customers.get(position).getDate());
                     intent.putExtra("from_page", MyContants.CLIENT_PAGE);
                     intent.putExtra("expired", 1);
                     context.startActivity(intent);
@@ -121,7 +122,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
 
     @Override
     public int getItemCount() {
-        return customers.size();
+        return customers.length;
     }
 
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {

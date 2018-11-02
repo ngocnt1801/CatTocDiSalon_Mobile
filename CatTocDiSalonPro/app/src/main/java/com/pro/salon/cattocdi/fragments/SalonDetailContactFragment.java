@@ -17,6 +17,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pro.salon.cattocdi.InformationActivity;
 import com.pro.salon.cattocdi.R;
@@ -69,7 +70,8 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+       // map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.map_styled));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));

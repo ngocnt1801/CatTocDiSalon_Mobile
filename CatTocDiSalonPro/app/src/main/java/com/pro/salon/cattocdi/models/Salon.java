@@ -1,41 +1,77 @@
 package com.pro.salon.cattocdi.models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Salon {
-    private String salonId;
+    private int salonId;
     private String name;
+    private String address;
+    private String phone;
+    private String email;
+    private String password;
     private float ratingNumber;
     private boolean full;
     private int discount;
-    private String imgUrl;
+    private String imageUrl;
     private int reviewsAmount;
     private Timestamp startTime;
     private double latitude;
     private double longtitude;
+    private List<Category> categories;
+    private List<DayWorkingHour> workingHours;
 
 
     public Salon() {
     }
 
-    public Salon(String name, float ratingNumber, boolean full, int discount, String imgUrl, int reviewsAmount, Timestamp startTime, double latitude, double longtitude) {
+    public Salon(String name,String phone, String email, String password) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Salon(String name,
+                 float ratingNumber,
+                 boolean full,
+                 int discount,
+                 List<Category> categories,
+                 double latitude,
+                 double longtitude,
+                 String address,
+                 int reviewsAmount,
+                 String phone,
+                 String email) {
         this.name = name;
         this.ratingNumber = ratingNumber;
         this.full = full;
         this.discount = discount;
-        this.imgUrl = imgUrl;
-        this.reviewsAmount = reviewsAmount;
-        this.startTime = startTime;
+        this.categories = categories;
         this.latitude = latitude;
         this.longtitude = longtitude;
+        this.address = address;
+        this.reviewsAmount = reviewsAmount;
+        this.phone = phone;
+        this.email = email;
     }
 
-    public String getSalonId() {
-        return salonId;
-    }
-
-    public void setSalonId(String salonId) {
+    public void setSalonId(int salonId) {
         this.salonId = salonId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getSalonId() {
+        return salonId;
     }
 
     public String getName() {
@@ -44,6 +80,14 @@ public class Salon {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public float getRatingNumber() {
@@ -70,12 +114,12 @@ public class Salon {
         this.discount = discount;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getReviewsAmount() {
@@ -110,42 +154,53 @@ public class Salon {
         this.longtitude = longtitude;
     }
 
-    public class WorkingHour{
-        private String day;
-        private float startTime;
-        private float endTime;
+    public List<Category> getCategories() {
+        return categories;
+    }
 
-        public WorkingHour() {
-        }
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 
-        public WorkingHour(String day, float startTime, float endTime) {
-            this.day = day;
-            this.startTime = startTime;
-            this.endTime = endTime;
-        }
+    public List<DayWorkingHour> getWorkingHours() {
+        return workingHours;
+    }
 
-        public String getDay() {
-            return day;
-        }
+    public void setWorkingHours(List<DayWorkingHour> workingHours) {
+        this.workingHours = workingHours;
+    }
 
-        public void setDay(String day) {
-            this.day = day;
-        }
+    public LatLng getLatLng() {
+        return new LatLng(latitude, longtitude);
+    }
 
-        public float getStartTime() {
-            return startTime;
-        }
+    public String getPhone() {
+        return phone;
+    }
 
-        public void setStartTime(float startTime) {
-            this.startTime = startTime;
-        }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-        public float getEndTime() {
-            return endTime;
-        }
+    public String getEmail() {
+        return email;
+    }
 
-        public void setEndTime(float endTime) {
-            this.endTime = endTime;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public class DayWorkingHour {
+        private int dayInWeek;
+        private float startHour;
+        private float endHour;
+        private boolean open;
+
+        public DayWorkingHour(int dayInWeek, float startHour, float endHour, boolean open) {
+            this.dayInWeek = dayInWeek;
+            this.startHour = startHour;
+            this.endHour = endHour;
+            this.open = open;
         }
     }
 }

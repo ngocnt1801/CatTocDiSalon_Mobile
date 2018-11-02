@@ -1,7 +1,9 @@
 package com.pro.salon.cattocdi.adapter;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,36 +28,32 @@ import java.util.List;
 
 public class CustomerAppoinmentAdapter extends ArrayAdapter<Customer> {
     private Context mContext;
-    private ArrayList<Customer> customerList = new ArrayList<>();
-    //private Customer[] customers;
+    private Customer[] customerList;
 
-    public CustomerAppoinmentAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Customer> list) {
-        super(context,0, list);
+
+    public CustomerAppoinmentAdapter(@NonNull Context context, Customer[] list) {
+        super(context, 0, list);
         mContext = context;
         customerList = list;
     }
-    /*public CustomerAppoinmentAdapter(@NonNull Context context, Customer[] list) {
-        super(context,0, list);
-        mContext = context;
-        this.customers = list;
-    }*/
 
 
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = null;
-        if (listItem == null){
-                listItem = LayoutInflater.from(mContext).inflate(R.layout.appointment_cart_view, parent, false);
-                Customer currentCustomer = customerList.get(position);
-                TextView tvName = listItem.findViewById(R.id.fg_appointment_salon_name);
-                tvName.setText(currentCustomer.getName());
-                TextView tvDate = listItem.findViewById(R.id.fg_appointment_date_tv);
-                tvDate.setText(currentCustomer.getDate());
-                TextView startTime = listItem.findViewById(R.id.fg_appointment_start_time);
-                startTime.setText(currentCustomer.getStartTime());
-                TextView endTime = listItem.findViewById(R.id.fg_appointment_end_time);
-                endTime.setText(currentCustomer.getEndTime());
+        if (listItem == null) {
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.appointment_cart_view, parent, false);
+            Customer currentCustomer = customerList[position];
+            TextView tvName = listItem.findViewById(R.id.fg_appointment_salon_name);
+            tvName.setText(currentCustomer.getName());
+            TextView tvDate = listItem.findViewById(R.id.fg_appointment_date_tv);
+            //tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(MyContants.CUSTOMERS[position].getAppointments().get(position).getStartTime()));
+            TextView tvTime = listItem.findViewById(R.id.fg_appointment_time);
+//            tvTime.setText(new SimpleDateFormat("dd/MM/yyyy").format(currentCustomer.getAppointments().get(position).getStartTime())
+   //                 + new SimpleDateFormat("dd/MM/yyyy").format(currentCustomer.getAppointments().get(position).getEndTime()));
+            //TextView endTime = listItem.findViewById(R.id.fg_appointment_end_time);
+            // endTime.setText(new SimpleDateFormat("dd/MM/yyyy").format(currentCustomer.getAppointments().get(position).getEndTime()));
 
 
         }
@@ -63,11 +61,13 @@ public class CustomerAppoinmentAdapter extends ArrayAdapter<Customer> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, AppointmentDetailActivity.class);
+
                 intent.putExtra("from_page", MyContants.HOME_PAGE);
-                intent.putExtra("cusName", customerList.get(position).getName());
-                intent.putExtra("date", customerList.get(position).getDate());
-                intent.putExtra("startTime", customerList.get(position).getStartTime());
-                intent.putExtra("endTime", customerList.get(position).getEndTime());
+
+                //intent.putExtra("cusName", customerList.get(position).getName());
+                //intent.putExtra("date", customerList.get(position).getDate());
+                //intent.putExtra("time", customerList.get(position).getStartTime());
+                //intent.putExtra("endTime", customerList.get(position).getEndTime());
                 mContext.startActivity(intent);
             }
         });

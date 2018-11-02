@@ -3,7 +3,7 @@ package com.pro.salon.cattocdi.models;
 import java.util.List;
 
 public class Category {
-    private String id;
+    private int id;
     private String name;
     private List<Service> services;
 
@@ -11,17 +11,17 @@ public class Category {
     public Category() {
     }
 
-    public Category(String id, String name, List<Service> services) {
+    public Category(int id, String name, List<Service> services) {
         this.id = id;
         this.name = name;
         this.services = services;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

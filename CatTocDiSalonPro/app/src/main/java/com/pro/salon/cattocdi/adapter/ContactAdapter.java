@@ -17,13 +17,13 @@ import java.util.ArrayList;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private Context context;
-    private ArrayList<Customer> customers;
+    private Customer[] customers;
 
     public ContactAdapter(Context context) {
         this.context = context;
     }
 
-    public ContactAdapter(Context context, ArrayList<Customer> list) {
+    public ContactAdapter(Context context, Customer[] list) {
         this.context = context;
         this.customers = list;
     }
@@ -37,8 +37,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     @Override
     public void onBindViewHolder(ContactViewHolder holder, final int position) {
 
-        final Customer currentCustomer = customers.get(position);
-        holder.tvName.setText(customers.get(position).getName());
+        final Customer currentCustomer = customers[position];
+        holder.tvName.setText(customers[position].getName());
         String symbol1 = Character.toString(currentCustomer.getName().charAt(0));
         holder.tvSymbol.setText(symbol1);
         /*switch (position) {
@@ -74,7 +74,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public int getItemCount() {
-        return customers.size();
+        return customers.length;
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {

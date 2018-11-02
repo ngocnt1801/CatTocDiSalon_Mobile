@@ -1,45 +1,75 @@
 package com.pro.salon.cattocdi.models;
 
+import com.pro.salon.cattocdi.models.enums.AppointmentStatus;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Appointment {
-    private String id;
-    private String cusName;
+    private int appointmentId;
+    private Salon salon;
+    private AppointmentStatus status;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private List<Service> services;
     private int discount;
-    private int status;
-    private String cusId;
-    private String phone;
-    private float startTime;
-    private float endTime;
 
     public Appointment() {
     }
 
-    public Appointment(String id, String cusName, List<Service> services, int discount, int status, String cusId, String phone) {
-        this.id = id;
-        this.cusName = cusName;
+    public Appointment(int appointmentId, Salon salon, AppointmentStatus status, Timestamp startTime, Timestamp endTime, List<Service> services, int discount) {
+        this.appointmentId = appointmentId;
+        this.salon = salon;
+        this.status = status;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.services = services;
+        this.discount = discount;
+    }
+
+    public Appointment(Salon salon, Timestamp startTime, Timestamp endTime, List<Service> services, int discount, AppointmentStatus status) {
+        this.salon = salon;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.services = services;
         this.discount = discount;
         this.status = status;
-        this.cusId = cusId;
-        this.phone = phone;
     }
 
-    public String getId() {
-        return id;
+    public int getAppointmentId() {
+        return appointmentId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Salon getSalon() {
+        return salon;
     }
 
-    public String getCusName() {
-        return cusName;
+    public void setSalon(Salon salon) {
+        this.salon = salon;
     }
 
-    public void setCusName(String cusName) {
-        this.cusName = cusName;
+    public AppointmentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     public List<Service> getServices() {
@@ -56,29 +86,5 @@ public class Appointment {
 
     public void setDiscount(int discount) {
         this.discount = discount;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getCusId() {
-        return cusId;
-    }
-
-    public void setCusId(String cusId) {
-        this.cusId = cusId;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 }
