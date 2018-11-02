@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dylan Salon"
+        android:text="Beautiful Hair"
         android:textColor="@color/lightTextColor"
         android:layout_alignTop="@id/header_cover_image"
         android:textStyle="bold"
