@@ -30,7 +30,7 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
     private GoogleMap map;
     private LatLng latLng;
     private SupportMapFragment supportMapFragment;
-    private Button btManageInfo;
+    private Button btManageInfo, btnCall, btnSms;
     private boolean isPreview;
 
     @SuppressLint("ValidFragment")
@@ -48,9 +48,13 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
         latLng = new LatLng(10.8466881,106.6329596);
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.salon_detail_map);
         supportMapFragment.getMapAsync(this);
+        btnCall = view.findViewById(R.id.btn_Call);
+        btnSms = view.findViewById(R.id.btn_SMS);
 
         btManageInfo = view.findViewById(R.id.salon_info_manage_btn);
         if(!isPreview){
+            btnCall.setVisibility(View.INVISIBLE);
+            btnSms.setVisibility(View.INVISIBLE);
             btManageInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -60,6 +64,8 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
             });
         }else {
             btManageInfo.setVisibility(View.GONE);
+            btnCall.setVisibility(View.VISIBLE);
+            btnSms.setVisibility(View.VISIBLE);
         }
 
 

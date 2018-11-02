@@ -5,10 +5,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.utils.MyContants;
@@ -22,6 +24,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private TextView tvOK, tvname, tvDate, tvTime;
     private Button btnCancel, btnArrived;
+    private ImageView ivCall, ivSms;
     String cusName;
 
     @Override
@@ -49,6 +52,27 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         tvTime = findViewById(R.id.appointment_item_expand_time_tv);
         tvDate.setText(date);
         tvTime.setText(startTime + " - " + endTime);
+        ivCall = findViewById(R.id.contact_call);
+        ivSms = findViewById(R.id.contact_SMS);
+
+        ivCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:0967776167"));
+                startActivity(callIntent);
+            }
+        });
+        ivSms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("smsto:"+ "0967776167");
+                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                it.putExtra("sms_body", "Style Việt xin chào bạn!");
+                startActivity(it);
+            }
+        });
+
         btnCancel = findViewById(R.id.appointment_detail_cancel_btn);
         btnArrived = findViewById(R.id.appointment_detail_arrived_btn);
         final Dialog dialog = new Dialog(this);
