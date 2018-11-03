@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:autofillHints="15 min"></Spinner>
+                        android:autofillHints="15"></Spinner>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

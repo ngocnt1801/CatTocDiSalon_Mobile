@@ -46,7 +46,7 @@ public class HomeAppointmentFragment extends Fragment {
         customers.add(new Customer("Đạt Trần", "2/11/2018", "3:00PM", "4:00PM"));*/
 
 
-        mAdapter = new CustomerAppoinmentAdapter(getActivity(),MyContants.CUSTOMERS);
+        //mAdapter = new CustomerAppoinmentAdapter(getActivity(),MyContants.CUSTOMERS);
         listView.setAdapter(mAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,7 +54,7 @@ public class HomeAppointmentFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
                 intent.putExtra("from_page", MyContants.HOME_PAGE);
-               intent.putExtra("cusName", MyContants.CUSTOMERS[i].getName());
+              // intent.putExtra("cusName", MyContants.CUSTOMERS[i].getName());
                 /*if (listView.getPositionForView(view) == 0){
                     intent.putExtra("name_cus", "Ngọc Nguyễn");
                 }

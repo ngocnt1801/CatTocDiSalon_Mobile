@@ -21,6 +21,8 @@ import static java.util.stream.Collectors.toList;
 
 
 public class MyContants {
+   public static String TOKEN = "";
+    public static final String BASE_URL = "http://192.168.2.192/cattocdi.api/";
     public static final String USERNAME_TEST = "salon";
     public static final String PASSWORD_TEST = "123";
     public static final int FRAGMENT_ABOVE = 1;
@@ -40,7 +42,7 @@ public class MyContants {
 
 
 
-    public static final Service[] SERVICES_1 = {
+    /*public static final Service[] SERVICES_1 = {
             new Service(1, "Cắt tóc nam", 30000, 15),
             new Service(2, "Cắt tóc nữ", 100000, 30),
     };
@@ -101,7 +103,7 @@ public class MyContants {
             new Customer("c6","Thiện Lâm","012456789", "abc@gmail.com",toList(APPOINTMENTS)),
             new Customer("c7","Nam Đặng","012456789", "abc@gmail.com",toList(APPOINTMENTS)),
             new Customer("c8","Lộc Ngô","012456789", "abc@gmail.com",toList(APPOINTMENTS))
-    };
+    };*/
    // public static final  ArrayList<Customer> CUSTOMERS2 = new ArrayList<Customer>()
    /* public static final ArrayList<Customer> CUSTOMERS2 = new ArrayList<Customer>(Arrays.asList(
             new Customer("c1","Ngọc Nguyễn", "012456789", "abc@gmail.com",toList(APPOINTMENTS)),

@@ -1,16 +1,26 @@
 package com.pro.salon.cattocdi.models;
 
-public class Service {
-    private int id;
-    private String name;
-    private float price;
-    private int minutes;
+import com.google.gson.annotations.SerializedName;
 
-    public Service(int id, String name, float price, int minutes) {
+public class Service {
+    @SerializedName("CategoryId")
+    private int id;
+    @SerializedName("ServiceName")
+    private String name;
+    private double price;
+    private int durantion;
+
+
+    public Service(int id, String name, double price, int durantion) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.minutes = minutes;
+        this.durantion = durantion;
+    }
+
+    public Service(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Service() {
@@ -28,19 +38,19 @@ public class Service {
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getMinutes() {
-        return minutes;
+    public int getdurantion() {
+        return durantion;
     }
 
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
+    public void setdurantion(int durantion) {
+        this.durantion = durantion;
     }
 }

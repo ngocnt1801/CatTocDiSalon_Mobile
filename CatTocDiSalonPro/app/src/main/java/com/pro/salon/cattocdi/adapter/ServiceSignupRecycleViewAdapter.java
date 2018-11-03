@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,22 +17,32 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.ServiceSignupActivity;
+import com.pro.salon.cattocdi.SignupActivity;
 import com.pro.salon.cattocdi.WorkingHourSignupActivity;
+import com.pro.salon.cattocdi.models.Account;
+import com.pro.salon.cattocdi.models.Service;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<ServiceSignupRecycleViewAdapter.ServiceSignupViewHolder> {
     private Context context;
-    private String[] serviceList;
+    private List<Service> serviceList;
 
-    public ServiceSignupRecycleViewAdapter(Context context) {
+    public ServiceSignupRecycleViewAdapter(Context context, List<Service> services) {
         this.context = context;
+        this.serviceList = services;
     }
 
-    public ServiceSignupRecycleViewAdapter(Context context, String[] serviceList) {
-        this.context = context;
-        this.serviceList = serviceList;
-    }
+
 
     @Override
     public ServiceSignupViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,9 +51,9 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
     }
 
     @Override
-    public void onBindViewHolder(final ServiceSignupViewHolder holder, int position) {
+    public void onBindViewHolder(final ServiceSignupViewHolder holder, final int position) {
         if (serviceList != null) {
-            holder.serviceTitle.setText(serviceList[position]);
+            holder.serviceTitle.setText(serviceList.get(position).getName());
             holder.itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -65,6 +76,22 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                                 Spinner spinnerDetail = dialog.findViewById(R.id.fragment_service_update_durations_spinner);
                                 String price = priceTxt.getText().toString();
                                 String duration = spinnerDetail.getSelectedItem().toString();
+                                ApiClient.getInstance()
+                                        .create(SalonClient.class)
+                                        .updateServices("Bearer " + MyContants.TOKEN, serviceList.get(position).getId(),
+                                                Double.parseDouble(price), Integer.parseInt(duration))
+                                        .enqueue(new Callback<List<Service>>() {
+                                            @Override
+                                            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                                                Log.d("RESPONSE", response.toString());
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<List<Service>> call, Throwable t) {
+                                                Log.d("FAILED", t.getMessage());
+                                            }
+                                        });
+
                                 if (!price.isEmpty()) {
                                     // Set service description for service
                                     String detailSrc = "Giá: " + price + " - " + "Thời gian: " + duration;
@@ -73,6 +100,9 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                                     holder.serviceDetails.setVisibility(View.VISIBLE);
                                     dialog.dismiss();
                                 }
+
+
+
                             }
                         });
                         // Set on click for cancel service;
@@ -99,10 +129,12 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
         }
     }
 
+
+
     @Override
     public int getItemCount() {
-        if (serviceList == null) return 1;
-        return serviceList.length;
+        if (serviceList == null) return 0;
+        return serviceList.size();
     }
 
     public class ServiceSignupViewHolder extends RecyclerView.ViewHolder {

@@ -56,7 +56,7 @@ public class ContactDetailActivity extends AppCompatActivity {
 
         rvAppointment = findViewById(R.id.contact_detail_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, contactName, MyContants.CUSTOMERS));
+        //rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, contactName, MyContants.CUSTOMERS));
 
 
         tvOK = findViewById(R.id.contact_detail_save_tv);

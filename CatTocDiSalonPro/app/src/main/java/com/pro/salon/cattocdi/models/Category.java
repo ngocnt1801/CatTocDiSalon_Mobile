@@ -1,10 +1,15 @@
 package com.pro.salon.cattocdi.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Category {
+    @SerializedName("CategoryId")
     private int id;
+    @SerializedName("CategoryName")
     private String name;
+    @SerializedName("Services")
     private List<Service> services;
 
 

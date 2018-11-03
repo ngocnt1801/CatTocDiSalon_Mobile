@@ -32,7 +32,7 @@ public class ClientFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_client, container, false);
         rvContactList = view.findViewById(R.id.fg_client_contact_rv);
         rvContactList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rvContactList.setAdapter(new ContactAdapter(getActivity(), MyContants.CUSTOMERS));
+       //rvContactList.setAdapter(new ContactAdapter(getActivity(), MyContants.CUSTOMERS));
         return view;
     }
 

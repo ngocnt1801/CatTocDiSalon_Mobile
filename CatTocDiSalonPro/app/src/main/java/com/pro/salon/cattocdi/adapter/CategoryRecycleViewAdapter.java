@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.Category;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRecycleViewAdapter.CategoryViewHolder>{
     private Context context;
-    private String[] categoryList;
+    private List<Category> categoryList;
     private RecyclerView serviceRv;
     private TextView previousClick = null;
 
-    public CategoryRecycleViewAdapter(Context context, String[] categoryList, RecyclerView serviceRv) {
+    public CategoryRecycleViewAdapter(Context context, List<Category> categoryList, RecyclerView serviceRv) {
         this.context = context;
         this.categoryList = categoryList;
         this.serviceRv = serviceRv;
@@ -35,7 +38,8 @@ public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRec
 
     @Override
     public void onBindViewHolder(final CategoryViewHolder holder, final int position) {
-        holder.tvCategory.setText(categoryList[position]);
+        holder.tvCategory.setText(categoryList.get(position).getName());
+        //holder.tvCategory.setText(categoryList.get(position).getName());
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,50 +48,23 @@ public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRec
                 }
                 holder.tvCategory.setTextColor(Color.parseColor("#8d6aa1"));
                 previousClick = holder.tvCategory;
-                String[] serviceList = {"Something","Something","Something"};
-                String[] hairCutList = {"Cắt tóc nam","Cắt tóc nữ"};
-                String[] kidList = {"Cắt tóc","Gội đầu","Bính tóc"};
-                String[] colorList = {"Nhuộm tóc nam","Nhuộm tóc nữ","Phủ bóng","Nhuộm Henna (THUỐC NHUỘM DẠNG BỘT)","Móc Light"};
-                String[] curlAndStraighList = {"Uốn tóc (Lạnh)","Uốn tóc (Nóng)","Duỗi tóc","Nhuộm 1 điểm trên tóc","Uốn duỗi 1 điểm trên tóc"};
-                String[] repairList = {"Phục hồi (Phủ Nano)","Milbon (Phủ Nano)"};
-                String[] massageList = {"Message đầu","Message thư giãn (gội, massage mặt, đầu)","Massage đặc biệt (Sản phẩm chuyên dụng)"};
-                String[] nailList = {"Làm móng","Sơn móng"};
-                String[] otherList = {"Rửa mặt","Tỉa chân mày","Cạo râu","Ráy tai"};
-                switch (position) {
-                    case 0: // Cắt tóc
-                        serviceList = hairCutList;
-                        break;
-                    case 1:
-                        serviceList = kidList;
-                        break;
-                    case 2:
-                        serviceList = colorList;
-                        break;
-                    case 3:
-                        serviceList = curlAndStraighList;
-                        break;
-                    case 4:
-                        serviceList = repairList;
-                        break;
-                    case 5:
-                        serviceList = massageList;
-                        break;
-                    case 6:
-                        serviceList = nailList;
-                        break;
-                    case 7:
-                        serviceList = otherList;
-                        break;
-
-                }
-                serviceRv.setAdapter(new ServiceSignupRecycleViewAdapter(context, serviceList));
+                serviceRv.setAdapter(new ServiceSignupRecycleViewAdapter(context, categoryList.get(position).getServices()));
             }
+
         });
+
     }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
-        return categoryList.length;
+        if(categoryList == null) return 0;
+        return categoryList.size();
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
@@ -98,6 +75,7 @@ public class CategoryRecycleViewAdapter extends RecyclerView.Adapter<CategoryRec
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCategory = itemView.findViewById(R.id.category_signup_title);
+
             item = itemView;
         }
     }

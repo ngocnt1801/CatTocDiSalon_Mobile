@@ -1,17 +1,30 @@
 package com.pro.salon.cattocdi.models;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.annotations.SerializedName;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 public class Salon {
     private int salonId;
+    @SerializedName("SalonName")
     private String name;
+    @SerializedName("Address")
     private String address;
-    private String phone;
-    private String email;
+    private Boolean isForMen;
+    private Boolean isForWomen;
+    @SerializedName("Username")
+    private String username;
+    @SerializedName("Password")
     private String password;
+    @SerializedName("Email")
+    private String email;
+    @SerializedName("PhoneNumber")
+    private String phone;
+    private String LoggedOn;
+    @SerializedName("Role")
+    private String role;
     private float ratingNumber;
     private boolean full;
     private int discount;
@@ -22,16 +35,34 @@ public class Salon {
     private double longtitude;
     private List<Category> categories;
     private List<DayWorkingHour> workingHours;
+    private String grant_type;
+
 
 
     public Salon() {
     }
 
-    public Salon(String name,String phone, String email, String password) {
+    public Salon(String name, String password, String grant_type) {
+        this.name = name;
+        this.password = password;
+        this.grant_type = grant_type;
+    }
+
+    public Salon(String name, String phone, String email, String password) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.password = password;
+    }
+
+    public Salon(String name, String address,String username, String password, String email, String phone,String role) {
+        this.name = name;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
     }
 
     public Salon(String name,
@@ -56,6 +87,54 @@ public class Salon {
         this.reviewsAmount = reviewsAmount;
         this.phone = phone;
         this.email = email;
+    }
+
+    public Boolean getForMen() {
+        return isForMen;
+    }
+
+    public void setForMen(Boolean forMen) {
+        isForMen = forMen;
+    }
+
+    public Boolean getForWomen() {
+        return isForWomen;
+    }
+
+    public void setForWomen(Boolean forWomen) {
+        isForWomen = forWomen;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getLoggedOn() {
+        return LoggedOn;
+    }
+
+    public void setLoggedOn(String loggedOn) {
+        LoggedOn = loggedOn;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getGrant_type() {
+        return grant_type;
+    }
+
+    public void setGrant_type(String grant_type) {
+        this.grant_type = grant_type;
     }
 
     public void setSalonId(int salonId) {
