@@ -34,6 +34,9 @@ import retrofit2.Response;
 public class ServiceSignupActivity extends AppCompatActivity {
     private RecyclerView rvCategory;
     private RecyclerView rvService;
+    private TextView tvPrice;
+    private TextView tvDuration, tvServiceId;
+    private String serviceId;
     private int from_page = -1;
 
     private CategoryRecycleViewAdapter adapter;
@@ -48,7 +51,7 @@ public class ServiceSignupActivity extends AppCompatActivity {
         rvService = findViewById(R.id.activity_service_signup_rv);
         rvCategory = findViewById(R.id.activity_category_signup_rv);
         rvService.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new CategoryRecycleViewAdapter(ServiceSignupActivity.this, new ArrayList<Category>(), rvService);
+        adapter = new CategoryRecycleViewAdapter(ServiceSignupActivity.this, new ArrayList<Category >(), rvService);
         rvCategory.setLayoutManager(new LinearLayoutManager(ServiceSignupActivity.this, LinearLayoutManager.HORIZONTAL, false));
         rvCategory.setAdapter(adapter);
         ApiClient.getInstance()
@@ -75,7 +78,12 @@ public class ServiceSignupActivity extends AppCompatActivity {
         saveTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tvServiceId = view.findViewById(R.id.service_signup_id);
+                tvPrice = view.findViewById(R.id.service_signup_price);
+                tvDuration = findViewById(R.id.service_signup_duration);
                 // Change to Activity
+
+
                 backToPrevious(from_page);
             }
         });

@@ -31,8 +31,14 @@ public class Salon {
     private String imageUrl;
     private int reviewsAmount;
     private Timestamp startTime;
+
+    @SerializedName("Latitude")
     private double latitude;
+    @SerializedName("Longtitude")
     private double longtitude;
+
+    @SerializedName("Capital")
+    private int capital;
     private List<Category> categories;
     private List<DayWorkingHour> workingHours;
     private String grant_type;
@@ -40,6 +46,24 @@ public class Salon {
 
 
     public Salon() {
+    }
+
+    public Salon(String name, String address, String email, String phone, int capital) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.capital = capital;
+    }
+
+    public Salon(String name, String address, String email, String phone, double latitude, double longtitude, int capital) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+        this.capital = capital;
     }
 
     public Salon(String name, String password, String grant_type) {

@@ -13,15 +13,32 @@ import android.widget.TextView;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.ServiceActivity;
 import com.pro.salon.cattocdi.ServiceDetailActivity;
+import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.utils.MyContants;
+
+import java.util.List;
 
 public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecycleViewAdapter.ServiceViewHolder> {
     private Context context;
     private int fromPage = -1;
+    //private List<Service> serviceList;
+    private List<Category> categoryList;
 
     public ServiceRecycleViewAdapter(Context context, int fromPage) {
         this.context = context;
         this.fromPage = fromPage;
+
+    }
+   /* public ServiceRecycleViewAdapter(Context context, int fromPage, List<Category> services) {
+        this.context = context;
+        this.fromPage = fromPage;
+        this.serviceList = services;
+    }*/
+    public ServiceRecycleViewAdapter(Context context, int fromPage, List<Category> categories) {
+        this.context = context;
+        this.fromPage = fromPage;
+        this.categoryList = categories;
     }
 
     @NonNull
@@ -34,7 +51,10 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder serviceViewHolder, int i) {
 
-        switch (i){
+        serviceViewHolder.tvServiceTitle.setText(categoryList.get(i).getServices().get(i).getName());
+        serviceViewHolder.tvPriceTime.setText(Double.toString(categoryList.get(i).getServices().get(i).getPrice()) + " " +
+                Integer.toString(categoryList.get(i).getServices().get(i).getDurantion()));
+       /* switch (i){
             case 0:
                 serviceViewHolder.tvServiceTitle.setText("Cắt tóc");
                 serviceViewHolder.tvPriceTime.setText("30,000 vnd trong 15 phút");
@@ -55,7 +75,7 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
                 serviceViewHolder.tvServiceTitle.setText("Highlight");
                 serviceViewHolder.tvPriceTime.setText("400,000 vnd trong 2 tiếng");
                 break;
-        }
+        }*/
 
         if (fromPage == MyContants.PROFILE_PAGE) {
             serviceViewHolder.btnEditService.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +102,8 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
 
     @Override
     public int getItemCount() {
-        return 5;
+        if (categoryList == null) return 0;
+        return categoryList.size();
     }
 
     public class ServiceViewHolder extends RecyclerView.ViewHolder {

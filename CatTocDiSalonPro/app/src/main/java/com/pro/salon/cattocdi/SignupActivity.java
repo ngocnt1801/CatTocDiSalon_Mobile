@@ -62,7 +62,7 @@ public class SignupActivity extends AppCompatActivity {
                             loginGetToken();
 //                            signupStepOne(view);
                         } else {
-                            showDialogLoginFail("Username này đã tồn tại");
+                            showDialogLoginFail("Tên đăng nhập này đã tồn tại");
                         }
 
 
@@ -71,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseMsg> call, Throwable t) {
                         Log.d("FAILURE", t.getMessage());
-                        showDialogLoginFail("Failed Failed");
+                        showDialogLoginFail("Có lỗi xảy ra. Không thể đăng kí");
                     }
                 });
 

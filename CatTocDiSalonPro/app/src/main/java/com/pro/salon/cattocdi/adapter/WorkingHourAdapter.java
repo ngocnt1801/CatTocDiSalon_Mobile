@@ -14,23 +14,32 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.WorkingHour;
 
 import org.w3c.dom.Text;
 
 import java.util.Calendar;
+import java.util.List;
 
-public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.WorkingHourViewHolder>{
+public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.WorkingHourViewHolder> {
     private Context context;
     private boolean isCheck = false;
+    private List<WorkingHour> workingHourList;
 
     public WorkingHourAdapter(Context context) {
         this.context = context;
+    }
+
+    public WorkingHourAdapter(Context context, List<WorkingHour> list) {
+        this.context = context;
+        this.workingHourList = list;
     }
 
     public WorkingHourAdapter(Context context, boolean isCheck) {
         this.context = context;
         this.isCheck = isCheck;
     }
+
 
     @Override
     public WorkingHourViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,15 +48,15 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final WorkingHourViewHolder holder, int position) {
+    public void onBindViewHolder(final WorkingHourViewHolder holder, final int position) {
 
         if (position == 6) {
             // Chu nhat
             holder.dayOfWeek.setText("Chủ nhật");
-        }
-        else {
+        } else {
             holder.dayOfWeek.setText("Thứ " + (position + 2));
         }
+
         // set from
         holder.fromHour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,10 +101,25 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
                             }
                         }, hour, minute, false);
                 timePickerDialog.show();
+
+            }
+        });
+        holder.dayOfWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.dayOfWeek.isChecked()){
+                    workingHourList.get(position).setdate(position);
+                    workingHourList.get(position).setStartTime(holder.fromHour.getText().toString());
+                    workingHourList.get(position).setEndTime(holder.toHour.getText().toString());
+                }
             }
         });
 
-        holder.dayOfWeek.setChecked(isCheck);
+      //  holder.dayOfWeek.setChecked(isCheck);
+
+
+
+
 
     }
 

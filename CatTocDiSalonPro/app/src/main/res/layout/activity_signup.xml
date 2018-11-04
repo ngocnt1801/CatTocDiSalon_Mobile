@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Username"
                 android:textSize="16dp"
-                android:text="QuocCuong"
+                android:text="muadong"
                 android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/salon_name"
-                android:text="Quoc Cuong"
+                android:text="muadong"
                 android:textSize="16dp"
                 android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>

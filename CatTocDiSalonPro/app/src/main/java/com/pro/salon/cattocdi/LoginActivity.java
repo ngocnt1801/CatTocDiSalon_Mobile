@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.code() == 400){
                             showDialogLoginFail("Failed Login");
                         }else{
+                            MyContants.TOKEN = response.body().getToken();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }

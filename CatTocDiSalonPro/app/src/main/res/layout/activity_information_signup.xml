@@ -55,6 +55,7 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/signup_activity_salon_name_edt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
@@ -84,6 +85,7 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/signup_activity_capacity_edt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
@@ -115,6 +117,7 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/signup_activity_address_edt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="174 Phó Đức Chính, P.BìnhKhánh, TP.HCM"
@@ -122,6 +125,7 @@
             android:gravity="right"
             android:background="@null"
             android:textSize="16dp"/>
+
 
     </LinearLayout>
 
@@ -144,6 +148,7 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/signup_activity_phone_edt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="0913-952-190"
@@ -172,6 +177,7 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/signup_activity_mail_edt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="beautifulhair@gmai.com"

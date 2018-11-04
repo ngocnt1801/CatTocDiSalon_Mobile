@@ -21,7 +21,18 @@ import com.pro.salon.cattocdi.WorkingHoursActivity;
 import com.pro.salon.cattocdi.adapter.SalonDetailPromotionRecycleView;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Service;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -32,6 +43,9 @@ public class SalonDetailServiceFragment extends Fragment {
 
     private Button btManagePromotion, btManagerService, btManageWorkingHour;
     private boolean isPreview = false;
+    private ServiceRecycleViewAdapter serviceAdapter;
+    private RecyclerView serviceRecycleView;
+    private List<Category> categoryList;
 
     @SuppressLint("ValidFragment")
     public SalonDetailServiceFragment(boolean isPreview) {
@@ -45,9 +59,30 @@ public class SalonDetailServiceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_salon_detail_service, container, false);
         // Inflate the layout for this fragment
-        RecyclerView serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
+        categoryList = new ArrayList<Category>();
+        serviceAdapter = new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, categoryList);
+        serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
         serviceRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE,categoryList));
         if(!isPreview){
+            ApiClient.getInstance()
+                    .create(SalonClient.class)
+                    .getCategoried("Bearer " + MyContants.TOKEN)
+                    .enqueue(new Callback<List<Category>>() {
+                        @Override
+                        public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                            List<Category> listCategories = response.body();
+                            serviceAdapter = new ServiceRecycleViewAdapter(getContext(),MyContants.PROFILE_PAGE, listCategories);
+                            serviceRecycleView.setAdapter(serviceAdapter);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Category>> call, Throwable t) {
+
+                        }
+                    });
+
             serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PROFILE_PAGE));
         }else{
             serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PREVIEW_PAGE));

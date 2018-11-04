@@ -8,8 +8,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pro.salon.cattocdi.adapter.CategoryRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
+import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Service;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ServiceActivity extends AppCompatActivity {
 
@@ -17,6 +29,8 @@ public class ServiceActivity extends AppCompatActivity {
     private TextView tvSave;
     private TextView btnAddService;
 
+
+    private ServiceRecycleViewAdapter serviceAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +38,26 @@ public class ServiceActivity extends AppCompatActivity {
 
         rvService = findViewById(R.id.activity_service_rv);
         rvService.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvService.setAdapter(new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE));
+        serviceAdapter = new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE, new ArrayList<Category>());
+       // rvService.setAdapter(new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE));
+
+        ApiClient.getInstance()
+                .create(SalonClient.class)
+                .getCategoried("Bearer " + MyContants.TOKEN)
+                .enqueue(new Callback<List<Category>>() {
+                    @Override
+                    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                        List<Category> categories = response.body();
+                        serviceAdapter = new ServiceRecycleViewAdapter(ServiceActivity.this,MyContants.MANAGER_SERVICE_PAGE, categories);
+                        rvService.setAdapter(serviceAdapter);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Category>> call, Throwable t) {
+
+                    }
+                });
 
         tvSave = findViewById(R.id.activity_service_save_tv);
         tvSave.setOnClickListener(new View.OnClickListener() {
