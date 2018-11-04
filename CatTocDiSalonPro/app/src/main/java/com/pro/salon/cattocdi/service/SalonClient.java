@@ -47,7 +47,7 @@ public interface SalonClient {
 
 
     @POST("api/Salons/WorkingHour")
-    Call<List<WorkingHour>> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
+    Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
 
     @FormUrlEncoded
     @PUT("api/Salons/Profile")

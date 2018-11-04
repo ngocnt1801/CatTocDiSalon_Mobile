@@ -49,7 +49,9 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
 
     @Override
     public void onBindViewHolder(final WorkingHourViewHolder holder, final int position) {
-
+        workingHourList.get(position).setdate(position);
+        workingHourList.get(position).setStartTime(holder.fromHour.getText().toString());
+        workingHourList.get(position).setEndTime(holder.toHour.getText().toString());
         if (position == 6) {
             // Chu nhat
             holder.dayOfWeek.setText("Chủ nhật");
@@ -104,21 +106,15 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
 
             }
         });
+
         holder.dayOfWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(holder.dayOfWeek.isChecked()){
-                    workingHourList.get(position).setdate(position);
-                    workingHourList.get(position).setStartTime(holder.fromHour.getText().toString());
-                    workingHourList.get(position).setEndTime(holder.toHour.getText().toString());
-                }
+                workingHourList.get(position).setClose(holder.dayOfWeek.isChecked());
             }
         });
 
-      //  holder.dayOfWeek.setChecked(isCheck);
-
-
-
+        //  holder.dayOfWeek.setChecked(isCheck);
 
 
     }

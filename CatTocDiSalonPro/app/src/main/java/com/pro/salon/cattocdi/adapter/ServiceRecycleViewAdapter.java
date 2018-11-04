@@ -51,9 +51,9 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder serviceViewHolder, int i) {
 
-        serviceViewHolder.tvServiceTitle.setText(categoryList.get(i).getServices().get(i).getName());
+      /*  serviceViewHolder.tvServiceTitle.setText(categoryList.get(i).getServices().get(i).getName());
         serviceViewHolder.tvPriceTime.setText(Double.toString(categoryList.get(i).getServices().get(i).getPrice()) + " " +
-                Integer.toString(categoryList.get(i).getServices().get(i).getDurantion()));
+                Integer.toString(categoryList.get(i).getServices().get(i).getDurantion()));*/
        /* switch (i){
             case 0:
                 serviceViewHolder.tvServiceTitle.setText("Cắt tóc");

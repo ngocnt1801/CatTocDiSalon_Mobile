@@ -51,9 +51,9 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .updateWorkingHour("Bearer " + MyContants.TOKEN, workingHourList)
-                        .enqueue(new Callback<List<WorkingHour>>() {
+                        .enqueue(new Callback<String>() {
                             @Override
-                            public void onResponse(Call<List<WorkingHour>> call, Response<List<WorkingHour>> response) {
+                            public void onResponse(Call<String> call, Response<String> response) {
                                 workingHourAdapter = new WorkingHourAdapter(WorkingHourSignupActivity.this, workingHourList);
                                 Log.d("RESPONSE", response.toString());
                                 if(response.code() == 200){
@@ -68,7 +68,7 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<List<WorkingHour>> call, Throwable t) {
+                            public void onFailure(Call<String> call, Throwable t) {
                                 Log.d("FAILED", t.getMessage());
                                 showDialogLoginFail("Failed");
                             }
