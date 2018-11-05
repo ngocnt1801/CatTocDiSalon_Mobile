@@ -60,7 +60,7 @@ public class SalonDetailServiceFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_salon_detail_service, container, false);
         // Inflate the layout for this fragment
         categoryList = new ArrayList<Category>();
-        serviceAdapter = new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, categoryList);
+       // serviceAdapter = new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, categoryList);
         serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
         serviceRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE,categoryList));

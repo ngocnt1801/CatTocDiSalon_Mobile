@@ -11,6 +11,8 @@ public class Service {
     private String name;
     private double price;
     private int durantion;
+    @SerializedName("CategoryName")
+    private String categoryName;
 
 
     public Service(int id, String name, double price, int durantion) {
@@ -68,5 +70,11 @@ public class Service {
         this.price = price;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
 
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

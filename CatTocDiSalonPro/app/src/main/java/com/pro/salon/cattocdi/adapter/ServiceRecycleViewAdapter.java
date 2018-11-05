@@ -14,31 +14,37 @@ import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.ServiceActivity;
 import com.pro.salon.cattocdi.ServiceDetailActivity;
 import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.utils.MyContants;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecycleViewAdapter.ServiceViewHolder> {
     private Context context;
     private int fromPage = -1;
-    //private List<Service> serviceList;
+    private List<Service> serviceList;
     private List<Category> categoryList;
+    private Salon salon;
 
     public ServiceRecycleViewAdapter(Context context, int fromPage) {
         this.context = context;
         this.fromPage = fromPage;
 
     }
-   /* public ServiceRecycleViewAdapter(Context context, int fromPage, List<Category> services) {
+    public ServiceRecycleViewAdapter(Context context, int fromPage, List<Service> services, Salon salon) {
         this.context = context;
         this.fromPage = fromPage;
         this.serviceList = services;
-    }*/
+        this.salon = salon;
+    }
     public ServiceRecycleViewAdapter(Context context, int fromPage, List<Category> categories) {
         this.context = context;
         this.fromPage = fromPage;
         this.categoryList = categories;
+        this.salon = salon;
     }
 
     @NonNull
@@ -51,6 +57,9 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder serviceViewHolder, int i) {
 
+        final Service service = serviceList.get(i);
+        serviceViewHolder.tvServiceTitle.setText(service.getName());
+        serviceViewHolder.tvPriceTime.setText(NumberFormat.getNumberInstance(Locale.US).format(service.getPrice()) + " vnd trong " + service.getDurantion() + " phút");
       /*  serviceViewHolder.tvServiceTitle.setText(categoryList.get(i).getServices().get(i).getName());
         serviceViewHolder.tvPriceTime.setText(Double.toString(categoryList.get(i).getServices().get(i).getPrice()) + " " +
                 Integer.toString(categoryList.get(i).getServices().get(i).getDurantion()));*/

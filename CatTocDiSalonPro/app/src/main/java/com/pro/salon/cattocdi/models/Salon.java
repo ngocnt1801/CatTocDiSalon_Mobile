@@ -40,6 +40,8 @@ public class Salon {
     @SerializedName("Capital")
     private int capital;
     private List<Category> categories;
+    @SerializedName("Services")
+    private List<Service> services;
     private List<DayWorkingHour> workingHours;
     private String grant_type;
 
@@ -291,6 +293,14 @@ public class Salon {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 
     public class DayWorkingHour {
