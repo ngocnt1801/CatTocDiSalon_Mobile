@@ -1,5 +1,6 @@
 package com.pro.salon.cattocdi.service;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.pro.salon.cattocdi.models.Account;
 import com.pro.salon.cattocdi.models.Category;
 import com.pro.salon.cattocdi.models.ResponseMsg;
@@ -13,12 +14,14 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Query;
 
 public interface SalonClient {
     @FormUrlEncoded
@@ -37,21 +40,31 @@ public interface SalonClient {
     @GET("api/Categories")
     Call<List<Category>> getCategoried(@Header("Authorization") String auth);
 
-    @GET("api/Categories")
-    Call<List<Service>> getService(@Header("Authorization") String auth);
+
 
     @FormUrlEncoded
-    @POST("api/Salons/Profile")
-    Call<List<Service>> updateServices(@Header("Authorization") String auth, @Field("ServiceId") int serviceId
+    @POST("api/Services/Update")
+    Call<String> updateServices(@Header("Authorization") String auth,@Field("Id") int salonServiceId, @Field("ServiceId") int serviceId
             , @Field("Price") double price, @Field("Duration") int duration);
+
+
+    @DELETE("api/Services")
+    Call<String> deleteService(@Header("Authorization") String auth, @Query("salonServiceId") int id);
+
+    @GET("api/Services")
+    Call<List<Service>> getService(@Header("Authorization") String auth);
 
 
     @POST("api/Salons/WorkingHour")
     Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
 
     @FormUrlEncoded
-    @PUT("api/Salons/Profile")
+    @POST("api/Salons/Profile")
     Call<String> updateProfile(@Header("Authorization") String auth, @Field("SalonName") String salonName,
                                     @Field("Address") String address, @Field("Capacity") int capital, @Field("Phone") String phone,
                                     @Field("Email") String email, @Field("Longitude") double longtitude, @Field("Latitude") double latitude);
+    @GET("api/Salons")
+    Call<Salon> getSalonProfile(@Header("Authorization") String auth);
+
+
 }

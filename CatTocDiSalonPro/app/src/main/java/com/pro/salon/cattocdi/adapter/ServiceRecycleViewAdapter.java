@@ -34,16 +34,16 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
         this.fromPage = fromPage;
 
     }
-    public ServiceRecycleViewAdapter(Context context, int fromPage, List<Service> services, Salon salon) {
+   /* public ServiceRecycleViewAdapter(Context context, int fromPage, List<Service> services, Salon salon) {
         this.context = context;
         this.fromPage = fromPage;
         this.serviceList = services;
         this.salon = salon;
-    }
-    public ServiceRecycleViewAdapter(Context context, int fromPage, List<Category> categories) {
+    }*/
+    public ServiceRecycleViewAdapter(Context context, int fromPage, List<Service> services) {
         this.context = context;
         this.fromPage = fromPage;
-        this.categoryList = categories;
+        this.serviceList = services;
         this.salon = salon;
     }
 
@@ -55,11 +55,11 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ServiceViewHolder serviceViewHolder, int i) {
+    public void onBindViewHolder(@NonNull ServiceViewHolder serviceViewHolder, final int i) {
 
-        final Service service = serviceList.get(i);
-        serviceViewHolder.tvServiceTitle.setText(service.getName());
-        serviceViewHolder.tvPriceTime.setText(NumberFormat.getNumberInstance(Locale.US).format(service.getPrice()) + " vnd trong " + service.getDurantion() + " phút");
+
+        serviceViewHolder.tvServiceTitle.setText(serviceList.get(i).getName());
+        serviceViewHolder.tvPriceTime.setText(NumberFormat.getNumberInstance(Locale.US).format(serviceList.get(i).getPrice()) + " vnd trong " + serviceList.get(i).getDurantion() + " phút");
       /*  serviceViewHolder.tvServiceTitle.setText(categoryList.get(i).getServices().get(i).getName());
         serviceViewHolder.tvPriceTime.setText(Double.toString(categoryList.get(i).getServices().get(i).getPrice()) + " " +
                 Integer.toString(categoryList.get(i).getServices().get(i).getDurantion()));*/
@@ -91,6 +91,12 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ServiceDetailActivity.class);
+                    intent.putExtra("salon_service_id", serviceList.get(i).getSalonServiceId());
+                    intent.putExtra("service_id", serviceList.get(i).getServiceId());
+                    intent.putExtra("service_name", serviceList.get(i).getName());
+                    intent.putExtra("category_name", serviceList.get(i).getCategoryName());
+                    intent.putExtra("price", serviceList.get(i).getPrice());
+                    intent.putExtra("duration", serviceList.get(i).getDurantion());
                     intent.putExtra("from_page", MyContants.PROFILE_PAGE);
                     context.startActivity(intent);
                 }
@@ -102,6 +108,12 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ServiceDetailActivity.class);
+                    intent.putExtra("salon_service_id", serviceList.get(i).getSalonServiceId());
+                    intent.putExtra("service_id", serviceList.get(i).getServiceId());
+                    intent.putExtra("service_name", serviceList.get(i).getName());
+                    intent.putExtra("category_name", serviceList.get(i).getCategoryName());
+                    intent.putExtra("price", serviceList.get(i).getPrice());
+                    intent.putExtra("duration", serviceList.get(i).getDurantion());
                     intent.putExtra("from_page", MyContants.MANAGER_SERVICE_PAGE);
                     context.startActivity(intent);
                 }
@@ -111,8 +123,8 @@ public class ServiceRecycleViewAdapter extends RecyclerView.Adapter<ServiceRecyc
 
     @Override
     public int getItemCount() {
-        if (categoryList == null) return 0;
-        return categoryList.size();
+        if (serviceList == null) return 0;
+        return serviceList.size();
     }
 
     public class ServiceViewHolder extends RecyclerView.ViewHolder {

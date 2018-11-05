@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.pro.salon.cattocdi.adapter.CategoryRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
@@ -28,6 +29,8 @@ public class ServiceActivity extends AppCompatActivity {
     private RecyclerView rvService;
     private TextView tvSave;
     private TextView btnAddService;
+    private Salon salon;
+    private List<Service> services;
 
 
     private ServiceRecycleViewAdapter serviceAdapter;
@@ -35,26 +38,25 @@ public class ServiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
-
+        services = new ArrayList<Service>();
         rvService = findViewById(R.id.activity_service_rv);
         rvService.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        serviceAdapter = new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE, new ArrayList<Category>());
-       // rvService.setAdapter(new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE));
-
+        //serviceAdapter = new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE, new ArrayList<Service>());
+       rvService.setAdapter(new ServiceRecycleViewAdapter(this, MyContants.MANAGER_SERVICE_PAGE, services));
         ApiClient.getInstance()
                 .create(SalonClient.class)
-                .getCategoried("Bearer " + MyContants.TOKEN)
-                .enqueue(new Callback<List<Category>>() {
+                .getService("Bearer " + MyContants.TOKEN)
+                .enqueue(new Callback<List<Service>>() {
                     @Override
-                    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                        List<Category> categories = response.body();
-                        serviceAdapter = new ServiceRecycleViewAdapter(ServiceActivity.this,MyContants.MANAGER_SERVICE_PAGE, categories);
+                    public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                        List<Service> services = response.body();
+                        serviceAdapter = new ServiceRecycleViewAdapter(ServiceActivity.this,MyContants.MANAGER_SERVICE_PAGE, services);
                         rvService.setAdapter(serviceAdapter);
 
                     }
 
                     @Override
-                    public void onFailure(Call<List<Category>> call, Throwable t) {
+                    public void onFailure(Call<List<Service>> call, Throwable t) {
 
                     }
                 });
@@ -63,6 +65,7 @@ public class ServiceActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 goToProfileFragment();
             }
         });

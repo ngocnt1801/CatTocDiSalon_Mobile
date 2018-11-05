@@ -38,13 +38,13 @@ import retrofit2.Response;
 public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<ServiceSignupRecycleViewAdapter.ServiceSignupViewHolder> {
     private Context context;
     private List<Service> serviceList;
-   private int serviceId;
-   TextView serviceNameDialog;
+    private int serviceId;
+    TextView serviceNameDialog;
+
     public ServiceSignupRecycleViewAdapter(Context context, List<Service> services) {
         this.context = context;
         this.serviceList = services;
     }
-
 
 
     @Override
@@ -62,15 +62,15 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                 public boolean onTouch(View v, MotionEvent event) {
                     serviceId = serviceList.get(position).getServiceId();
                     System.out.println(serviceId);
-                    if(holder.addBtn.getDrawable().getConstantState().equals(context.getDrawable(R.drawable.ic_add).getConstantState())){
+                    if (holder.addBtn.getDrawable().getConstantState().equals(context.getDrawable(R.drawable.ic_add).getConstantState())) {
                         final Dialog dialog = new Dialog(context);
                         dialog.setContentView(R.layout.fragment_service_update_dialog);
-                       // holder.serviceId.setText(serviceList.get(position).getServiceId());
+                        // holder.serviceId.setText(serviceList.get(position).getServiceId());
                         dialog.setTitle("Thêm dịch vụ");
                         serviceNameDialog = dialog.findViewById(R.id.service_name);
                         serviceNameDialog.setText(serviceList.get(position).getName());
                         String[] durations = context.getResources().getStringArray(R.array.service_duration_array);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item,durations);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, durations);
                         Spinner spinner = dialog.findViewById(R.id.fragment_service_update_durations_spinner);
                         spinner.setAdapter(adapter);
                         dialog.show();
@@ -91,23 +91,25 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                                     //String detailSrc = "Giá: " + price + " - " + "Thời gian: " + duration;
                                     ApiClient.getInstance()
                                             .create(SalonClient.class)
-                                            .updateServices( "Bearer "+ MyContants.TOKEN,serviceList.get(position).getServiceId(),
+                                            .updateServices("Bearer " + MyContants.TOKEN, serviceList.get(position).getSalonServiceId(),
+                                                    serviceList.get(position).getServiceId(),
                                                     Double.parseDouble(price), Integer.parseInt(duration))
-                                            .enqueue(new Callback<List<Service>>() {
+                                            .enqueue(new Callback<String>() {
                                                 @Override
-                                                public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                                                public void onResponse(Call<String> call, Response<String> response) {
                                                     Log.d("RESPONSE", response.toString());
-                                                    if(response.code() == 400){
+                                                    if (response.code() == 400) {
                                                         showDialogFail("Cannot update");
-                                                    }else{}
+                                                    } else {
+                                                    }
                                                 }
 
                                                 @Override
-                                                public void onFailure(Call<List<Service>> call, Throwable t) {
+                                                public void onFailure(Call<String> call, Throwable t) {
                                                     Log.d("FAILED", t.getMessage());
                                                 }
                                             });
-                                    holder.servicePrice.setText("Giá: " +price);
+                                    holder.servicePrice.setText("Giá: " + price);
                                     //holder.serviceId.setText(serviceId);
                                     holder.serviceDuration.setText("Thời gian: " + duration);
                                     holder.addBtn.setImageResource(R.drawable.ic_add_white);
@@ -115,7 +117,6 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                                     holder.serviceDuration.setVisibility(View.VISIBLE);
                                     dialog.dismiss();
                                 }
-
 
 
                             }
@@ -129,7 +130,7 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                             }
                         });
 
-                    }else{
+                    } else {
                         // Remove
                         holder.serviceDuration.setText("");
                         holder.servicePrice.setText("");

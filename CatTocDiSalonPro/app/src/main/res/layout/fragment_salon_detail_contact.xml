@@ -56,23 +56,26 @@
             android:textStyle="bold" />
 
         <TextView
+           android:id="@+id/fg_contact_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="174 Phó Đức Chính, P.BìnhKhánh, TP.HCM"
+            android:text=""
             android:textSize="16dp" />
 
         <TextView
+            android:id="@+id/fg_contact_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="0913-952-190"
+            android:text=""
             android:textSize="16dp" />
 
         <TextView
+            android:id="@+id/fg_contact_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="beautifulhair@gmai.com"
+            android:text=""
             android:textSize="16dp" />
     </LinearLayout>
 

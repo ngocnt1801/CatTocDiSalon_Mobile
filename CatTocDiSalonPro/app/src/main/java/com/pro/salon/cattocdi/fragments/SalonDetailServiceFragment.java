@@ -45,7 +45,7 @@ public class SalonDetailServiceFragment extends Fragment {
     private boolean isPreview = false;
     private ServiceRecycleViewAdapter serviceAdapter;
     private RecyclerView serviceRecycleView;
-    private List<Category> categoryList;
+    private List<Service> services;
 
     @SuppressLint("ValidFragment")
     public SalonDetailServiceFragment(boolean isPreview) {
@@ -59,26 +59,26 @@ public class SalonDetailServiceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_salon_detail_service, container, false);
         // Inflate the layout for this fragment
-        categoryList = new ArrayList<Category>();
+        services = new ArrayList<Service>();
        // serviceAdapter = new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, categoryList);
         serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
         serviceRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE,categoryList));
+        serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, services));
         if(!isPreview){
             ApiClient.getInstance()
                     .create(SalonClient.class)
-                    .getCategoried("Bearer " + MyContants.TOKEN)
-                    .enqueue(new Callback<List<Category>>() {
+                    .getService("Bearer " + MyContants.TOKEN)
+                    .enqueue(new Callback<List<Service>>() {
                         @Override
-                        public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                            List<Category> listCategories = response.body();
-                            serviceAdapter = new ServiceRecycleViewAdapter(getContext(),MyContants.PROFILE_PAGE, listCategories);
+                        public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                            List<Service> serviceList = response.body();
+                            serviceAdapter = new ServiceRecycleViewAdapter(getContext(),MyContants.PROFILE_PAGE, serviceList);
                             serviceRecycleView.setAdapter(serviceAdapter);
 
                         }
 
                         @Override
-                        public void onFailure(Call<List<Category>> call, Throwable t) {
+                        public void onFailure(Call<List<Service>> call, Throwable t) {
 
                         }
                     });

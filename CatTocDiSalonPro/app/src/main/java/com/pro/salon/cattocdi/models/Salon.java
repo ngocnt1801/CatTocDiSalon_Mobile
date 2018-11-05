@@ -3,10 +3,11 @@ package com.pro.salon.cattocdi.models;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Salon {
+public class Salon implements Serializable{
     private int salonId;
     @SerializedName("SalonName")
     private String name;
@@ -20,7 +21,7 @@ public class Salon {
     private String password;
     @SerializedName("Email")
     private String email;
-    @SerializedName("PhoneNumber")
+    @SerializedName("Phone")
     private String phone;
     private String LoggedOn;
     @SerializedName("Role")
@@ -37,7 +38,7 @@ public class Salon {
     @SerializedName("Longtitude")
     private double longtitude;
 
-    @SerializedName("Capital")
+    @SerializedName("Capacity")
     private int capital;
     private List<Category> categories;
     @SerializedName("Services")
@@ -303,7 +304,7 @@ public class Salon {
         this.services = services;
     }
 
-    public class DayWorkingHour {
+    public class DayWorkingHour implements Serializable{
         private int dayInWeek;
         private float startHour;
         private float endHour;

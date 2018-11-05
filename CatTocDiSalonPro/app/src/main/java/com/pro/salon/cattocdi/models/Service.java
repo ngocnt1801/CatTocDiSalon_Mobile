@@ -2,14 +2,20 @@ package com.pro.salon.cattocdi.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Service {
+import java.io.Serializable;
+
+public class Service implements Serializable{
+    @SerializedName("Id")
+    private int salonServiceId;
     @SerializedName("CategoryId")
     private int id;
     @SerializedName("ServiceId")
     private int serviceId;
     @SerializedName("ServiceName")
     private String name;
+    @SerializedName("Price")
     private double price;
+    @SerializedName("AvarageTime")
     private int durantion;
     @SerializedName("CategoryName")
     private String categoryName;
@@ -72,6 +78,14 @@ public class Service {
 
     public String getCategoryName() {
         return categoryName;
+    }
+
+    public int getSalonServiceId() {
+        return salonServiceId;
+    }
+
+    public void setSalonServiceId(int salonServiceId) {
+        this.salonServiceId = salonServiceId;
     }
 
     public void setCategoryName(String categoryName) {

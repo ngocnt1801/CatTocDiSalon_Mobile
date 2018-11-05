@@ -58,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.tvCategory.setText(category.getName());
         holder.icExpand.setImageResource(R.drawable.ic_collapse);
         holder.rvService.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        holder.rvService.setAdapter(new ServiceRecycleViewAdapter(context, MyContants.MANAGER_SERVICE_PAGE ,category.getServices(), salon));
+       // holder.rvService.setAdapter(new ServiceRecycleViewAdapter(context, MyContants.MANAGER_SERVICE_PAGE ,category.getServices(), salon));
     }
 
     @Override

@@ -41,7 +41,7 @@ public class InformationSignupActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_information_signup);
         TextView saveTv = findViewById(R.id.activity_info_signup_save_tv);
-        edtSalonName = findViewById(R.id.signup_activity_salon_name_edt);
+       edtSalonName = findViewById(R.id.signup_activity_salon_name_edt);
         edtCapital = findViewById(R.id.signup_activity_capacity_edt);
         edtPhone = findViewById(R.id.signup_activity_phone_edt);
         edtAddress = findViewById(R.id.signup_activity_address_edt);
@@ -51,6 +51,27 @@ public class InformationSignupActivity extends AppCompatActivity {
         edtLat = findViewById(R.id.signup_activity_lattitude);*/
 
 
+        ApiClient.getInstance()
+                .create(SalonClient.class)
+                .getSalonProfile("Bearer " + MyContants.TOKEN)
+                .enqueue(new Callback<Salon>() {
+                    @Override
+                    public void onResponse(Call<Salon> call, Response<Salon> response) {
+                        String salonName = response.body().getName();
+                        edtSalonName.setText(salonName);
+                        String address = response.body().getAddress();
+                        edtAddress.setText(address);
+                        String phone = response.body().getPhone();
+                        edtPhone.setText(phone);
+                        String email = response.body().getEmail();
+                        edtmail.setText(email);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Salon> call, Throwable t) {
+
+                    }
+                });
 
         saveTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,18 +86,19 @@ public class InformationSignupActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 Log.d("RESPONSE", response.toString());
-                                if(response.body().equals("Update Profile Success")){
+                                if(response.code() == 200){
                                     Intent intent = new Intent(InformationSignupActivity.this, MainActivity.class);
                                     startActivity(intent);
                                 }else{
-                                    showDialogLoginFail("Failed ne");
+                                    showDialogLoginFail("Có lỗi xảy ra. Vui lòng kiểm tra kết nối");
+
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
                                 Log.d("FAIL", t.getMessage());
-                                showDialogLoginFail("Failed");
+                                showDialogLoginFail("Có lỗi xảy ra. Vui lòng kiểm tra kết nối");
                             }
                         });
 

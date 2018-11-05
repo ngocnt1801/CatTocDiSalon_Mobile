@@ -24,6 +24,7 @@
         <item>90</item>
         <item>105</item>
         <item>120</item>
+        <item>135</item>
     </string-array>
     <string name="dialog_text">Lí do</string>
 </resources>

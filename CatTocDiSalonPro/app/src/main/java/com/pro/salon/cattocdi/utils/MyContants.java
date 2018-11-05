@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toList;
 
 public class MyContants {
    public static String TOKEN = "";
-    public static final String BASE_URL = "http://192.168.1.72/cattocdi.api/";
+    public static final String BASE_URL = "http://192.168.1.90/cattocdi.api/";
     public static final String USERNAME_TEST = "salon";
     public static final String PASSWORD_TEST = "123";
     public static final int FRAGMENT_ABOVE = 1;
