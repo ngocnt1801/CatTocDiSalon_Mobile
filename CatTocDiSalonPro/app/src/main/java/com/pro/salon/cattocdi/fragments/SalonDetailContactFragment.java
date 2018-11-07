@@ -88,7 +88,7 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
 
                     @Override
                     public void onFailure(Call<Salon> call, Throwable t) {
-                        showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng");
+                        showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng (Contact)");
                     }
                 });
 

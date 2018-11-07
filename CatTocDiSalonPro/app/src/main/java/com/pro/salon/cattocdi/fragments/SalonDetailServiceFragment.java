@@ -67,7 +67,7 @@ public class SalonDetailServiceFragment extends Fragment {
         if(!isPreview){
             ApiClient.getInstance()
                     .create(SalonClient.class)
-                    .getService("Bearer " + MyContants.TOKEN)
+                    .getAllInSalon("Bearer " + MyContants.TOKEN)
                     .enqueue(new Callback<List<Service>>() {
                         @Override
                         public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
