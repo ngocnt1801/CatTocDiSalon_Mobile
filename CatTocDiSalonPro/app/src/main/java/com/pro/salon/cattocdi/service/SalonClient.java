@@ -54,6 +54,7 @@ public interface SalonClient {
     @DELETE("api/Services")
     Call<String> deleteService(@Header("Authorization") String auth, @Query("salonServiceId") int id);
 
+    //Sua cho nay nha
     @GET("api/Services")
     Call<List<Service>> getService(@Header("Authorization") String auth);
 
