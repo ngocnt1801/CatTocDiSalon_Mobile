@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:textColor="#000"
-        android:text="Cắt tóc nam"/>
+        android:text=""/>
     <TextView
         android:id="@+id/service_price_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/service_title"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-        android:text="20,000 trong 20 phút"/>
+        android:text=""/>
 
     <Button
         android:id="@+id/edit_service_btn"

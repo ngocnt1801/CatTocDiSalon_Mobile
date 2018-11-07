@@ -304,6 +304,14 @@ public class Salon implements Serializable{
         this.services = services;
     }
 
+    public int getCapital() {
+        return capital;
+    }
+
+    public void setCapital(int capital) {
+        this.capital = capital;
+    }
+
     public class DayWorkingHour implements Serializable{
         private int dayInWeek;
         private float startHour;

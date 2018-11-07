@@ -66,5 +66,6 @@ public interface SalonClient {
     @GET("api/Salons")
     Call<Salon> getSalonProfile(@Header("Authorization") String auth);
 
+    @GET("")
 
 }

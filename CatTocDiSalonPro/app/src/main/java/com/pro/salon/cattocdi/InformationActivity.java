@@ -38,6 +38,8 @@ public class InformationActivity extends AppCompatActivity {
 
         edtSalonName.setText(salon.getName());
 
+        edtCapital.setText(String.valueOf(salon.getCapital()));
+
         edtAddress.setText(salon.getAddress());
 
         edtPhone.setText(salon.getPhone());
@@ -78,7 +80,7 @@ public class InformationActivity extends AppCompatActivity {
                         .create(SalonClient.class)
                         .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
                                 edtAddress.getText().toString(), Integer.parseInt(edtCapital.getText().toString()),
-                                edtPhone.getText().toString(), edtmail.getText().toString(), 10.854637, 106.631690)
+                                edtPhone.getText().toString(), edtmail.getText().toString(), 106.635798, 10.856472)
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
