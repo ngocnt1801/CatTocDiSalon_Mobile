@@ -9,17 +9,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.PromotionAdapter;
+import com.pro.salon.cattocdi.models.Promotion;
+import com.pro.salon.cattocdi.models.Salon;
 
-public class PromotionActivity extends AppCompatActivity {
+import java.io.Serializable;
+import java.util.List;
+
+public class PromotionActivity extends AppCompatActivity implements Serializable {
 
     private TextView tvOK, tvAdd;
     private RecyclerView rvPromotion;
+    private Salon salon;
+    private List<Promotion> promotions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promotion);
 
+        Intent intent = getIntent();
+        promotions = (List<Promotion>) intent.getSerializableExtra("promotion");
         tvOK = findViewById(R.id.activity_promotion_save_tv);
         tvOK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +39,7 @@ public class PromotionActivity extends AppCompatActivity {
 
         rvPromotion = findViewById(R.id.promotion_activity_rv);
         rvPromotion.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvPromotion.setAdapter(new PromotionAdapter(this));
+        rvPromotion.setAdapter(new PromotionAdapter(this, promotions));
 
         tvAdd = findViewById(R.id.promotion_activity_add_tv);
         tvAdd.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +52,7 @@ public class PromotionActivity extends AppCompatActivity {
 
     }
 
-    private void goToProfileFragment(){
+    private void goToProfileFragment() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
         startActivity(intent);

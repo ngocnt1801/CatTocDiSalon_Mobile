@@ -11,19 +11,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.ProfileTabAdapter;
+import com.pro.salon.cattocdi.models.Salon;
 
 public class ReviewProfileActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView tvEdit;
     private ImageView icFavorite;
+    private Salon salon;
+
+    public ReviewProfileActivity(Salon salon) {
+        this.salon = salon;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_profile);
 
         viewPager = (ViewPager) findViewById(R.id.detail_pager);
-        ProfileTabAdapter adapter = new ProfileTabAdapter(getSupportFragmentManager(), true);
+        ProfileTabAdapter adapter = new ProfileTabAdapter(getSupportFragmentManager(), true, salon);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.detail_tab_layout);
         tabLayout.setupWithViewPager(viewPager);

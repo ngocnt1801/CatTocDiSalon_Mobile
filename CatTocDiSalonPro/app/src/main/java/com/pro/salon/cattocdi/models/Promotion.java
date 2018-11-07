@@ -2,21 +2,26 @@ package com.pro.salon.cattocdi.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-public class Promotion {
+public class Promotion implements Serializable{
     @SerializedName("SalonId")
     private int salonId;
     @SerializedName("PromotionId")
     private int id;
-    @SerializedName("StartTime")
     private Timestamp startPeriod;
-    @SerializedName("EndTime")
     private Timestamp endPeriod;
     @SerializedName("Description")
     private String description;
     @SerializedName("DiscountPercent")
     private int discount;
+    @SerializedName("StartTime")
+    private String startPeriodStr;
+    @SerializedName("EndTime")
+    private String endPeriodStr;
 
     public Promotion() {
     }
@@ -46,6 +51,13 @@ public class Promotion {
     }
 
     public Timestamp getStartPeriod() {
+        String value = startPeriodStr.replace("T", " ");
+
+        try {
+            startPeriod =  new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return startPeriod;
     }
 
@@ -54,6 +66,13 @@ public class Promotion {
     }
 
     public Timestamp getEndPeriod() {
+        String value = endPeriodStr.replace("T", " ");
+
+        try {
+            endPeriod =  new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return endPeriod;
     }
 
@@ -75,5 +94,8 @@ public class Promotion {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+    public String getStartToEndstr(){
+        return new SimpleDateFormat("dd-MM-yyyy").format(getStartPeriod()) + " - " + new SimpleDateFormat("dd-MM-yyyy").format(getEndPeriod());
     }
 }

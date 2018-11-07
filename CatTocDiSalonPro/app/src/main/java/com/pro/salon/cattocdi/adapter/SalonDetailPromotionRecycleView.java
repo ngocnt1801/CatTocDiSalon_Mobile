@@ -1,5 +1,6 @@
 package com.pro.salon.cattocdi.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,13 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.Promotion;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.util.List;
+
 public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonDetailPromotionRecycleView.PromotionViewHolder>{
+
+    private Context context;
+    private List<Promotion> promotions;
+
+    public SalonDetailPromotionRecycleView(Context context, List<Promotion> promotions) {
+        this.context = context;
+        this.promotions = promotions;
+    }
 
     @NonNull
     @Override
@@ -24,34 +37,32 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
 
     @Override
     public void onBindViewHolder(@NonNull final PromotionViewHolder promotionViewHolder, int i) {
-//        promotionViewHolder.headerRl.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                promotionViewHolder.expandPromotion.toggle();
-//                if(promotionViewHolder.expandPromotion.isExpanded()){
-//                    promotionViewHolder.icExpand.setImageResource(R.drawable.ic_collapse);
-//                }else{
-//                    promotionViewHolder.icExpand.setImageResource(R.drawable.ic_expand);
-//                }
-//            }
-//        });
+        Promotion promotion = promotions.get(i);
+        promotionViewHolder.tvDate.setText(promotion.getStartToEndstr());
+        promotionViewHolder.tvDiscount.setText(promotion.getDiscount() + "%");
+        promotionViewHolder.tvDescription.setText(promotion.getDescription() != null ? promotion.getDescription() : "");
+
     }
     @Override
     public int getItemCount() {
-        return 1;
+        if(promotions == null) return 0;
+        return promotions.size();
     }
 
     public class PromotionViewHolder extends RecyclerView.ViewHolder{
         public View item;
         public RelativeLayout headerRl;
         public ExpandableLayout expandPromotion;
-        public ImageView icExpand;
+        public TextView tvDiscount, tvDescription, tvDate;
         public PromotionViewHolder(@NonNull View itemView) {
             super(itemView);
             this.item = itemView;
-//            this.headerRl = itemView.findViewById(R.id.frame_promotion_title);
-            this.expandPromotion = itemView.findViewById(R.id.promotion_expand_layout);
+            this.headerRl = itemView.findViewById(R.id.frame_promotion_title);
+          //  this.expandPromotion = itemView.findViewById(R.id.promotion_expand_layout);
 //            this.icExpand = itemView.findViewById(R.id.promotion_ic_expand);
+            this.tvDate = itemView.findViewById(R.id.promotion_date);
+            this.tvDescription = itemView.findViewById(R.id.promotion_description);
+            this.tvDiscount = itemView.findViewById(R.id.promotion_discount_tv);
         }
     }
 }
