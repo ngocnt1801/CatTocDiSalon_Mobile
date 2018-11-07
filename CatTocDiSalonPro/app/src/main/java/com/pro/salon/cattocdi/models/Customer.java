@@ -1,10 +1,18 @@
 package com.pro.salon.cattocdi.models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Customer {
-    private String id;
-    private String name;
+public class Customer implements Serializable{
+    @SerializedName("CustomerId")
+    private int id;
+    @SerializedName("FirstName")
+    private String firstname;
+    @SerializedName("LastName")
+    private String lastname;
+    @SerializedName("Phone")
     private String phone;
     private String emai;
     private List<Appointment> appointments;
@@ -13,34 +21,28 @@ public class Customer {
 
     }
 
-    public Customer(String id, String name, String phone, String emai) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.emai = emai;
-    }
-    public Customer(String id, String name, String phone, String emai, List<Appointment> appointments) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.emai = emai;
-        this.appointments = appointments;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getPhone() {

@@ -3,6 +3,7 @@ package com.pro.salon.cattocdi.service;
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.pro.salon.cattocdi.models.Account;
 import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.models.ResponseMsg;
 import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
@@ -21,6 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface SalonClient {
@@ -66,6 +68,10 @@ public interface SalonClient {
     @GET("api/Salons")
     Call<Salon> getSalonProfile(@Header("Authorization") String auth);
 
-    @GET("")
 
+    @GET("api/Customer")
+    Call<List<Customer>> getAllCustomer(@Header("Authorization") String auth);
+
+    @GET("api/Customer")
+    Call<Customer> getCustomerDetail(@Header("Authorization") String auth, @Query("id") int customerId);
 }

@@ -82,31 +82,11 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             Customer currentCustomer = new Customer();
             currentCustomer = customers[position];
             holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(currentCustomer.getAppointments().get(position).getStartTime()));
-           /* if(position == 0){
-               // holder.tvStatus.setText("Đã hoàn thành");
-               // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
-                holder.tvDate.setText("15/8/2018");
 
-            }
-            if(position == 1){
-                // holder.tvStatus.setText("Đã hoàn thành");
-                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
-                holder.tvDate.setText("14/8/2018");
-            }
-            if(position == 2){
-                // holder.tvStatus.setText("Đã hoàn thành");
-                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
-                holder.tvDate.setText("12/8/2018");
-            }
-            if(position == 3){
-                // holder.tvStatus.setText("Đã hoàn thành");
-                // holder.rl.setBackgroundColor(Color.parseColor("#eeeeee"));
-                holder.tvDate.setText("11/8/2018");
-            }*/
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    intent.putExtra("cusName", customers[position].getName());
+                    intent.putExtra("cusName", customers[position].getFirstname() + " " + customers[position].getLastname());
                    // intent.putExtra("startTime", customers.get(position).getStartTime());
                     //intent.putExtra("endTime", customers.get(position).getEndTime());
                    //intent.putExtra("date", customers.get(position).getDate());

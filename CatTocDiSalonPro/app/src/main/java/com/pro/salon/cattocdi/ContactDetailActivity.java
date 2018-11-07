@@ -1,5 +1,6 @@
 package com.pro.salon.cattocdi;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -23,32 +24,42 @@ public class ContactDetailActivity extends AppCompatActivity {
     private RecyclerView rvAppointment;
     private TextView tvOK, tvName, tvPhone;
     private ImageView ivCall, ivSms;
+    private Customer customer;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
-        final Intent intent = getIntent();
+        customer = (Customer) getIntent().getSerializableExtra("customer");
+
         tvName = findViewById(R.id.contact_name_customer);
         tvPhone = findViewById(R.id.contact_phone);
         ivCall = findViewById(R.id.contact_call);
         ivSms = findViewById(R.id.contact_SMS);
 
         ivCall.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:0967776167"));
+                callIntent.setData(Uri.parse("tel:" + customer.getPhone()));
                 startActivity(callIntent);
             }
         });
 
+        ivSms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("smsto:"+customer.getPhone());
+                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                it.putExtra("sms_body", "");
+                startActivity(it);
+            }
+        });
 
-        final String contactName = intent.getStringExtra("contactName");
-        final String phone = intent.getStringExtra("contactPhone");
-        tvName.setText(contactName);
-        tvPhone.setText(phone);
+        tvName.setText(customer.getFirstname() + " " + customer.getLastname());
+        tvPhone.setText(customer.getPhone());
 
         //This is for demo
         //Intent intentSend = new Intent(this, AppointmentDetailActivity.class);

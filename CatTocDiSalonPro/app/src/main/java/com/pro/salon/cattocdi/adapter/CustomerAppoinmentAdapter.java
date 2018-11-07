@@ -46,7 +46,7 @@ public class CustomerAppoinmentAdapter extends ArrayAdapter<Customer> {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.appointment_cart_view, parent, false);
             Customer currentCustomer = customerList[position];
             TextView tvName = listItem.findViewById(R.id.fg_appointment_salon_name);
-            tvName.setText(currentCustomer.getName());
+            tvName.setText(currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
             TextView tvDate = listItem.findViewById(R.id.fg_appointment_date_tv);
             //tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(MyContants.CUSTOMERS[position].getAppointments().get(position).getStartTime()));
             TextView tvTime = listItem.findViewById(R.id.fg_appointment_time);

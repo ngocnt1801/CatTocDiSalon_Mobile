@@ -24,17 +24,17 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
 
     @Override
     public void onBindViewHolder(@NonNull final PromotionViewHolder promotionViewHolder, int i) {
-        promotionViewHolder.headerRl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                promotionViewHolder.expandPromotion.toggle();
-                if(promotionViewHolder.expandPromotion.isExpanded()){
-                    promotionViewHolder.icExpand.setImageResource(R.drawable.ic_collapse);
-                }else{
-                    promotionViewHolder.icExpand.setImageResource(R.drawable.ic_expand);
-                }
-            }
-        });
+//        promotionViewHolder.headerRl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                promotionViewHolder.expandPromotion.toggle();
+//                if(promotionViewHolder.expandPromotion.isExpanded()){
+//                    promotionViewHolder.icExpand.setImageResource(R.drawable.ic_collapse);
+//                }else{
+//                    promotionViewHolder.icExpand.setImageResource(R.drawable.ic_expand);
+//                }
+//            }
+//        });
     }
     @Override
     public int getItemCount() {
@@ -49,9 +49,9 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
         public PromotionViewHolder(@NonNull View itemView) {
             super(itemView);
             this.item = itemView;
-            this.headerRl = itemView.findViewById(R.id.frame_promotion_title);
+//            this.headerRl = itemView.findViewById(R.id.frame_promotion_title);
             this.expandPromotion = itemView.findViewById(R.id.promotion_expand_layout);
-            this.icExpand = itemView.findViewById(R.id.promotion_ic_expand);
+//            this.icExpand = itemView.findViewById(R.id.promotion_ic_expand);
         }
     }
 }
