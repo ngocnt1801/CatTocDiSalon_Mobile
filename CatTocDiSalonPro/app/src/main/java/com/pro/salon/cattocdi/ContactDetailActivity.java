@@ -19,12 +19,15 @@ import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.utils.MyContants;
 
+import java.util.List;
+
 public class ContactDetailActivity extends AppCompatActivity {
 
     private RecyclerView rvAppointment;
     private TextView tvOK, tvName, tvPhone;
     private ImageView ivCall, ivSms;
     private Customer customer;
+    private List<Appointment> appointments;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -67,7 +70,7 @@ public class ContactDetailActivity extends AppCompatActivity {
 
         rvAppointment = findViewById(R.id.contact_detail_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, contactName, MyContants.CUSTOMERS));
+        rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, customer));
 
 
         tvOK = findViewById(R.id.contact_detail_save_tv);

@@ -12,26 +12,32 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.Customer;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAdapter.AppointmentViewHolder> {
 
     private Context context;
     private int mode;
-    private String name;
     private CustomerAppoinmentAdapter holder;
-    private int position;
-    private Customer[] customers;
+    private Customer customer;
 
-    public ContactHistoryAdapter(Context context, int mode, String name, Customer[] list) {
+    public ContactHistoryAdapter(Context context, int mode, Customer customer) {
         this.context = context;
         this.mode = mode;
-        this.name = name;
-        this.customers = list;
+        this.customer = customer;
     }
 
 
@@ -54,55 +60,43 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
 
 
     @Override
-    public void onBindViewHolder(AppointmentViewHolder holder, final int position) {
+    public void onBindViewHolder(AppointmentViewHolder holder, int position) {
 
-        holder.tvStatus.setText("Đã hoàn thành");
-        /*if(mode == MyContants.APPOINTMENT_SMALL){
-            if(position == 0){
-                holder.tvStatus.setText("Khách hàng");
-                holder.tvStatus.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_active, 0,0,0);
-                holder.tvStatus.setTextColor(Color.parseColor("#8d6aa1"));
-            }else{
-                holder.tvDate.setText("1/11/2018");
+        final Appointment appointment = customer.getAppointments().get(position);
+
+        if (mode == MyContants.APPOINTMENT_FULL) {
+            holder.tvName.setText("");
+            if (appointment.getEndTime().getTime() < Calendar.getInstance().getTimeInMillis()) {
+                holder.tvStatus.setText("Đã hoàn thành");
             }
-            holder.item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, AppointmentDetailActivity.class);
-                    intent.putExtra("from_page", MyContants.HOME_PAGE);
-                    context.startActivity(intent);
-                }
-            });
-        }*/
-        if(mode == MyContants.APPOINTMENT_FULL){
-           holder.tvName.setText("");
-            holder.tvStatus.setText("Đã hoàn thành");
+            if (appointment.getStartTime().getTime() < Calendar.getInstance().getTimeInMillis()
+                    && Calendar.getInstance().getTimeInMillis() < appointment.getEndTime().getTime()) {
+                holder.tvStatus.setText("Đang phục vụ");
+            }
+
+            if (appointment.getStartTime().getTime() > Calendar.getInstance().getTimeInMillis()) {
+                holder.tvStatus.setText("Sắp tới");
+            }
             //temp edit later
             final Intent intent = new Intent(context, AppointmentDetailActivity.class);
-            Customer currentCustomer = new Customer();
-            currentCustomer = customers[position];
-            holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(currentCustomer.getAppointments().get(position).getStartTime()));
+            holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(customer.getAppointments().get(position).getStartTime()));
 
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    intent.putExtra("cusName", customers[position].getFirstname() + " " + customers[position].getLastname());
-                   // intent.putExtra("startTime", customers.get(position).getStartTime());
-                    //intent.putExtra("endTime", customers.get(position).getEndTime());
-                   //intent.putExtra("date", customers.get(position).getDate());
+                    intent.putExtra("customer", (Serializable) customer);
+                    intent.putExtra("appointment", (Serializable) appointment);
                     intent.putExtra("from_page", MyContants.CLIENT_PAGE);
                     intent.putExtra("expired", 1);
                     context.startActivity(intent);
                 }
             });
         }
-
-
     }
 
     @Override
     public int getItemCount() {
-        return customers.length;
+        return customer.getAppointments() != null ? customer.getAppointments().size() : 0;
     }
 
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
@@ -110,6 +104,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
         public View item;
         public TextView tvStatus, tvDate, tvName;
         public RelativeLayout rl;
+
         public AppointmentViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
@@ -119,7 +114,6 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             rl = itemView.findViewById(R.id.fg_appointment_rv_item_rl);
         }
     }
-
 
 
 }

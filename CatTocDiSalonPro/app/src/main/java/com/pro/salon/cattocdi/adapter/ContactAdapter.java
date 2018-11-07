@@ -66,7 +66,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                                 if (response != null && response.code() == 200) {
                                     if (response.body() != null) {
                                         Intent intent = new Intent(context, ContactDetailActivity.class);
-                                        intent.putExtra("customer", (Serializable) currentCustomer);
+                                        intent.putExtra("customer", (Serializable) response.body());
                                         context.startActivity(intent);
                                     } else {
                                         showDialogLoginFail("Không lấy được thông tin khách hàng, vui lòng thử lại");

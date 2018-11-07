@@ -5,14 +5,28 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.pro.salon.cattocdi.models.Appointment;
+import com.pro.salon.cattocdi.models.Customer;
+import com.pro.salon.cattocdi.models.Service;
+import com.pro.salon.cattocdi.models.enums.AppointmentStatus;
 import com.pro.salon.cattocdi.utils.MyContants;
+
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import static com.pro.salon.cattocdi.R.layout.dialog_cancel_appointment;
 import static com.pro.salon.cattocdi.utils.MyContants.CLIENT_PAGE;
@@ -23,8 +37,8 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private TextView tvOK, tvname, tvDate, tvTime;
     private Button btnCancel, btnArrived;
-    String cusName;
-
+    private Customer customer;
+    private Appointment appointment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,23 +46,23 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int fromPage = intent.getIntExtra("from_page", -1);
-        final int expired = intent.getIntExtra("expired", -1);
-        final  String date = intent.getStringExtra("date");
-        final String time = intent.getStringExtra("time");
+//        final int expired = intent.getIntExtra("expired", -1);
         //final String endTime = intent.getStringExtra("endTime");
-        cusName = intent.getStringExtra("cusName");
+        customer = (Customer) intent.getSerializableExtra("customer");
+        appointment = (Appointment) intent.getSerializableExtra("appointment");
 
-        //Contact
-        //final String conName = intent.getStringExtra("name_from_contact");
-
-        //String nameCus = intent.getStringExtra("name_cus");
+        loadDataToTable(appointment);
 
         tvOK = findViewById(R.id.appointment_detail_save_tv);
         tvname = findViewById(R.id.appointment_item_expand_name_tv);
-        tvname.setText(cusName);
+        tvname.setText(customer.getFirstname() + " " + customer.getLastname());
+
         tvDate = findViewById(R.id.appointment_item_expand_date_tv);
+        tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(appointment.getStartTime()));
+
         tvTime = findViewById(R.id.appointment_item_expand_time_tv);
-        tvDate.setText(date);
+        tvTime.setText(new SimpleDateFormat("hh:mm a").format(appointment.getStartTime()) + " - " + new SimpleDateFormat("hh:mm a").format(appointment.getEndTime()));
+
         //tvTime.setText(startTime + " - " + endTime);
         btnCancel = findViewById(R.id.appointment_detail_cancel_btn);
         btnArrived = findViewById(R.id.appointment_detail_arrived_btn);
@@ -66,7 +80,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                backToPrevious(fromPage);
             }
         });
-      if(expired == 1){
+      if(appointment.getStatus() == AppointmentStatus.CANCEL){
             btnCancel.setBackground(getDrawable(R.drawable.ripple_circle_outline_error_disable));
             btnCancel.setEnabled(false);
         }
@@ -113,7 +127,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private void goToContactDetail() {
         Intent intent = new Intent(this, ContactDetailActivity.class);
-        intent.putExtra("contactName",cusName);
+        intent.putExtra("customer",customer);
         startActivity(intent);
     }
 
@@ -135,5 +149,32 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void loadDataToTable(Appointment appointment) {
+
+        TableLayout table = findViewById(R.id.tbl_service_bill);
+        float subTotal = 0;
+        for (int i = 0; i < appointment.getServices().size(); i++) {
+            Service s = appointment.getServices().get(i);
+            TableRow row = (TableRow) LayoutInflater.from(this).inflate(R.layout.service_table_row, table, false);
+            TextView tvServiceName = row.findViewById(R.id.table_row_service_name);
+            tvServiceName.setText(s.getName());
+            TextView tvServicePrice = row.findViewById(R.id.table_row_service_price);
+            tvServicePrice.setText(NumberFormat.getNumberInstance(Locale.US).format(s.getPrice()));
+
+            table.addView(row, i);
+            subTotal += s.getPrice();
+        }
+
+        TextView tvSubtotal = findViewById(R.id.appointment_item_expand_sub_total_tv);
+        tvSubtotal.setText(NumberFormat.getNumberInstance(Locale.US).format(subTotal));
+
+        TextView tvDiscount = findViewById(R.id.appointment_item_expand_discount_tv);
+        tvDiscount.setText(appointment.getDiscount() + "%");
+
+        TextView tvTotal = findViewById(R.id.appointment_item_expand_total_tv);
+        float total = subTotal * (1 - (float) appointment.getDiscount() / 100);
+        tvTotal.setText(NumberFormat.getNumberInstance(Locale.US).format(total));
+
+    }
 }
 

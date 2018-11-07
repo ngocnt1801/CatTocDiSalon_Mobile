@@ -8,13 +8,14 @@ import java.util.List;
 public class Customer implements Serializable{
     @SerializedName("CustomerId")
     private int id;
-    @SerializedName("FirstName")
+    @SerializedName("Firstname")
     private String firstname;
-    @SerializedName("LastName")
+    @SerializedName("Lastname")
     private String lastname;
     @SerializedName("Phone")
     private String phone;
     private String emai;
+    @SerializedName("Appointments")
     private List<Appointment> appointments;
 
     public Customer() {

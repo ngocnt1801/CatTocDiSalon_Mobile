@@ -2,6 +2,7 @@ package com.pro.salon.cattocdi.service;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.pro.salon.cattocdi.models.Account;
+import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.Category;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.models.ResponseMsg;
@@ -74,4 +75,5 @@ public interface SalonClient {
 
     @GET("api/Customer")
     Call<Customer> getCustomerDetail(@Header("Authorization") String auth, @Query("id") int customerId);
+
 }
