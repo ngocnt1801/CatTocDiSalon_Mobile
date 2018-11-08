@@ -56,7 +56,7 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PromotionDetailActivity.class);
-              intent.putExtra("promotions", (Serializable) promotions.get(position));
+              intent.putExtra("promotion", (Serializable) promotions.get(position));
 
                 context.startActivity(intent);
             }

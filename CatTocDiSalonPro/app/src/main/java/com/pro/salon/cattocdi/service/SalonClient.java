@@ -62,6 +62,9 @@ public interface SalonClient {
     @GET("api/Promotion")
     Call<List<Promotion>> getPromotion(@Header("Authorization") String auth);
 
+    @POST("api/Promotion")
+    Call<String> updatePromotion(@Header("Authorization")String auth, @Field("Id") int id);
+
     @POST("api/Salons/WorkingHour")
     Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
 

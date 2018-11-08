@@ -3,17 +3,25 @@ package com.pro.salon.cattocdi;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.pro.salon.cattocdi.models.Promotion;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PromotionDetailActivity extends AppCompatActivity {
 
     private TextView tvOK, tvStop, tvDes, tvDate, tvDiscount;
-    private List<Promotion> promotions;
+    private Promotion promotion;
 
 
     @Override
@@ -25,8 +33,10 @@ public class PromotionDetailActivity extends AppCompatActivity {
         tvDate = findViewById(R.id.activity_promotion_detail_date);
 
         Intent intent = getIntent();
-        promotions = (List<Promotion>) intent.getSerializableExtra("promotion");
-        tvDes.setText(promotions.get(id).getStartToEndstr());
+        promotion = (Promotion) intent.getSerializableExtra("promotion");
+        tvDate.setText(promotion.getStartToEndstr());
+        tvDiscount.setText(String.valueOf(promotion.getDiscount()) + "%");
+        tvDes.setText(promotion.getDescription());
 
 
         tvOK = findViewById(R.id.promotion_detail_save_tv);
@@ -41,7 +51,25 @@ public class PromotionDetailActivity extends AppCompatActivity {
         tvStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToPromotionActivity();
+                ApiClient.getInstance()
+                        .create(SalonClient.class)
+                        .updatePromotion("Bearer " + MyContants.TOKEN, promotion.getId())
+                        .enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                if(response.code() == 200){
+                                    goToPromotionActivity();
+                                }else{
+                                    Log.d("FAILED", "Failed Update");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Log.d("FAILED", "Failed Update");
+                            }
+                        });
+
             }
         });
 
