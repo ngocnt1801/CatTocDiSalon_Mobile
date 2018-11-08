@@ -55,7 +55,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         tvOK = findViewById(R.id.appointment_detail_save_tv);
         tvname = findViewById(R.id.appointment_item_expand_name_tv);
-        tvname.setText(customer.getFirstname() + " " + customer.getLastname());
+        tvname.setText(customer.getFullName());
 
         tvDate = findViewById(R.id.appointment_item_expand_date_tv);
         tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(appointment.getStartTime()));

@@ -24,26 +24,18 @@ public class Appointment implements Serializable{
     private String bookedDateStr;
     @SerializedName("Duration")
     private int duration;
+    @SerializedName("Customer")
+    private Customer customer;
+
     public Appointment() {
     }
 
-    public Appointment(int appointmentId, Salon salon, AppointmentStatus status, Timestamp startTime, Timestamp endTime, List<Service> services, int discount) {
-        this.appointmentId = appointmentId;
-        this.salon = salon;
-        this.status = status;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.services = services;
-        this.discount = discount;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public Appointment(Salon salon, Timestamp startTime, Timestamp endTime, List<Service> services, int discount, AppointmentStatus status) {
-        this.salon = salon;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.services = services;
-        this.discount = discount;
-        this.status = status;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public int getDuration() {
@@ -125,4 +117,18 @@ public class Appointment implements Serializable{
     public void setDiscount(int discount) {
         this.discount = discount;
     }
+
+    public String getStartToEnd(){
+        return new SimpleDateFormat("hh:mm").format(getStartTime()) + " - " + new SimpleDateFormat("hh:mm").format(getEndTime());
+    }
+
+    public String getServicesName(){
+        String result = "";
+        for (Service service:
+             services) {
+            result += service.getName();
+        }
+        return result;
+    }
+
 }

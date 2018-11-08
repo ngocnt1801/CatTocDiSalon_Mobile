@@ -33,7 +33,7 @@
             android:text="24/10/2018" />
 
         <TextView
-            android:id="@+id/fg_appointment_salon_name"
+            android:id="@+id/fg_appointment_customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fg_appointment_upcomming_tv"
@@ -52,7 +52,7 @@
             android:id="@+id/fg_appointment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fg_appointment_salon_name"
+            android:layout_below="@id/fg_appointment_customer_name"
             android:textColor="@color/darkTextColor"
             android:text="3:00PM - 4:00PM"/>
 

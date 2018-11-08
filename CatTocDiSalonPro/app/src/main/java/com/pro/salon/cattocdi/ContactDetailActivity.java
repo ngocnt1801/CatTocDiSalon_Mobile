@@ -61,7 +61,7 @@ public class ContactDetailActivity extends AppCompatActivity {
             }
         });
 
-        tvName.setText(customer.getFirstname() + " " + customer.getLastname());
+        tvName.setText(customer.getFullName());
         tvPhone.setText(customer.getPhone());
 
         //This is for demo
