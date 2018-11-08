@@ -45,6 +45,9 @@ public class Salon implements Serializable{
     private List<Service> services;
     private List<DayWorkingHour> workingHours;
     private String grant_type;
+    @SerializedName("CurrentPromotions")
+    private List<Promotion> promotions;
+    private List<Comment> reviews;
 
 
 
@@ -114,6 +117,14 @@ public class Salon implements Serializable{
         this.reviewsAmount = reviewsAmount;
         this.phone = phone;
         this.email = email;
+    }
+
+    public List<Comment> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Comment> reviews) {
+        this.reviews = reviews;
     }
 
     public Boolean getForMen() {
@@ -310,6 +321,14 @@ public class Salon implements Serializable{
 
     public void setCapital(int capital) {
         this.capital = capital;
+    }
+
+    public List<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
     }
 
     public class DayWorkingHour implements Serializable{

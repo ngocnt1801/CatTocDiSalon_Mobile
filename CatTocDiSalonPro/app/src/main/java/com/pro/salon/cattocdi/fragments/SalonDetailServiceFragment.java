@@ -2,13 +2,16 @@ package com.pro.salon.cattocdi.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +25,14 @@ import com.pro.salon.cattocdi.adapter.SalonDetailPromotionRecycleView;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Promotion;
+import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,13 +50,14 @@ public class SalonDetailServiceFragment extends Fragment {
     private Button btManagePromotion, btManagerService, btManageWorkingHour;
     private boolean isPreview = false;
     private ServiceRecycleViewAdapter serviceAdapter;
-    private RecyclerView serviceRecycleView;
+    private RecyclerView serviceRecycleView, promotionRecycleView;
     private List<Service> services;
-
+    private Salon salon;
     @SuppressLint("ValidFragment")
-    public SalonDetailServiceFragment(boolean isPreview) {
+    public SalonDetailServiceFragment(boolean isPreview, Salon salon) {
         // Required empty public constructor
         this.isPreview = isPreview;
+        this.salon = salon;
     }
 
 
@@ -64,6 +71,18 @@ public class SalonDetailServiceFragment extends Fragment {
         serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
         serviceRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, services));
+
+       /* promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
+        promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+       // promotions = new ArrayList<Promotion>();
+        promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView(getContext(), salon.getPromotions()));*/
+        if (salon.getPromotions() != null) {
+            RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
+            promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView(getContext(),salon.getPromotions()));
+
+        }
+
         if(!isPreview){
             ApiClient.getInstance()
                     .create(SalonClient.class)
@@ -79,18 +98,21 @@ public class SalonDetailServiceFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<List<Service>> call, Throwable t) {
-
+                            Log.d("FAILED",t.getMessage());
+                            showDialogLoginFail("Có lỗi xảy ra vui lòng xem lại kết nối");
                         }
                     });
 
             serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PROFILE_PAGE));
+
+
         }else{
             serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PREVIEW_PAGE));
         }
 
-        RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
-        promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView());
+       RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
+       /* promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView());*/
 
         ViewCompat.setNestedScrollingEnabled(serviceRecycleView, false);
         ViewCompat.setNestedScrollingEnabled(promotionRecycleView, false);
@@ -105,6 +127,7 @@ public class SalonDetailServiceFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PromotionActivity.class);
+                    intent.putExtra("promotion", (Serializable) salon.getPromotions());
                     getActivity().startActivity(intent);
                 }
             });
@@ -131,6 +154,18 @@ public class SalonDetailServiceFragment extends Fragment {
             btManageWorkingHour.setVisibility(View.GONE);
         }
         return view;
+    }
+    private void showDialogLoginFail(String text){
+        final AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+        dialog.setTitle("Có lỗi xảy ra");
+        dialog.setMessage(text);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 }

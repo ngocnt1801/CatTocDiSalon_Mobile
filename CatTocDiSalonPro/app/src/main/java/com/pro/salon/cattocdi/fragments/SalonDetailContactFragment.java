@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,10 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
     private Salon salon;
 
     @SuppressLint("ValidFragment")
-    public SalonDetailContactFragment(boolean isPreview) {
+    public SalonDetailContactFragment(boolean isPreview, Salon salon) {
         // Required empty public constructor
         this.isPreview = isPreview;
+        this.salon = salon;
     }
 
 
@@ -64,8 +66,13 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
         tvAdd = view.findViewById(R.id.fg_contact_address);
         tvPhone = view.findViewById(R.id.fg_contact_phone);
         tvMail = view.findViewById(R.id.fg_contact_mail);
-
-        ApiClient.getInstance()
+        String address = salon.getAddress();
+        String mail = salon.getEmail();
+        String phone = salon.getPhone();
+        tvAdd.setText(address);
+        tvMail.setText(mail);
+        tvPhone.setText(phone);
+       /* ApiClient.getInstance()
                 .create(SalonClient.class)
                 .getSalonProfile("Bearer " + MyContants.TOKEN)
                 .enqueue(new Callback<Salon>() {
@@ -82,15 +89,17 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
                         }
                         else
                         {
+
                             showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Salon> call, Throwable t) {
-                        showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng");
+                        Log.d("FAILED",t.getMessage());
+                        showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng (Contact)");
                     }
-                });
+                });*/
 
         latLng = new LatLng(10.8466881,106.6329596);
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.salon_detail_map);

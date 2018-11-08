@@ -6,6 +6,7 @@ import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.AppointmentListHome;
 import com.pro.salon.cattocdi.models.Category;
 import com.pro.salon.cattocdi.models.Customer;
+import com.pro.salon.cattocdi.models.Promotion;
 import com.pro.salon.cattocdi.models.ResponseMsg;
 import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
@@ -55,9 +56,12 @@ public interface SalonClient {
     @DELETE("api/Services")
     Call<String> deleteService(@Header("Authorization") String auth, @Query("salonServiceId") int id);
 
+    //Sua cho nay nha
     @GET("api/Services")
     Call<List<Service>> getService(@Header("Authorization") String auth);
 
+    @GET("api/Promotion")
+    Call<List<Promotion>> getPromotion(@Header("Authorization") String auth);
 
     @POST("api/Salons/WorkingHour")
     Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
