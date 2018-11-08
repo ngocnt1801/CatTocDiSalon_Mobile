@@ -46,6 +46,9 @@ public class ReviewsFragment extends Fragment {
     private RecyclerView rvComments;
     private List<Comment> comments;
 
+    ProgressBar pb1, pb2, pb3, pb4, pb5;
+    TextView tv1, tv2, tv3, tv4, tv5;
+
 
     public ReviewsFragment() {
         // Required empty public constructor
@@ -67,41 +70,7 @@ public class ReviewsFragment extends Fragment {
         tvTotalReviews = view.findViewById(R.id.salon_detail_total_reviews_tv);
        // tvTotalReviews.setText(salon.getReviewsAmount() + " Đánh giá");
 
-        rvComments = view.findViewById(R.id.salon_detail_comment_rv);
-        ViewCompat.setNestedScrollingEnabled(rvComments, false);
-        rvComments.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        comments = new ArrayList<>();
-        rvComments.setAdapter(new CommentAdapter(comments));
-        ApiClient.getInstance()
-                .create(SalonClient.class)
-                .getReview("Bearer " + MyContants.TOKEN)
-                .enqueue(new Callback<List<Comment>>() {
-                    @Override
-                    public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                        if(response.code() == 200){
-                            tvRatingNumber.setRating(comments.get(0).getRating());
-                            tvTotalReviews.setText(comments.size() + 1 + " Đánh giá");
-                            rvComments.setAdapter(new CommentAdapter(comments));
-                        }else{
-                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<List<Comment>> call, Throwable t) {
-                        AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
-                    }
-                });
-
-        setProgressBar(view);
-
-        return view;
-    }
-
-    private void setProgressBar(View view){
-
-        ProgressBar pb1, pb2, pb3, pb4, pb5;
-        TextView tv1, tv2, tv3, tv4, tv5;
         pb1 = view.findViewById(R.id.salon_detail_review_1_pb);
         tv1 = view.findViewById(R.id.salon_detail_review_1_tv);
         pb2 = view.findViewById(R.id.salon_detail_review_2_pb);
@@ -113,7 +82,44 @@ public class ReviewsFragment extends Fragment {
         pb5 = view.findViewById(R.id.salon_detail_review_5_pb);
         tv5 = view.findViewById(R.id.salon_detail_review_5_tv);
 
+        rvComments = view.findViewById(R.id.salon_detail_comment_rv);
+        ViewCompat.setNestedScrollingEnabled(rvComments, false);
+        rvComments.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        comments = new ArrayList<>();
+        //rvComments.setAdapter(new CommentAdapter(getContext(),comments));
+        ApiClient.getInstance()
+                .create(SalonClient.class)
+                .getReview("Bearer " + MyContants.TOKEN)
+                .enqueue(new Callback<List<Comment>>() {
+                    @Override
+                    public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                        if(response.code() == 200){
+                            comments = response.body();
+//                            tvRatingNumber.setRating(comments.get(0).getRating());
+                            tvTotalReviews.setText(comments.size() + " Đánh giá");
+                            rvComments.setAdapter(new CommentAdapter(getContext(),comments));
+                            setProgressBar();
+
+                        }else{
+                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Comment>> call, Throwable t) {
+                        AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
+                    }
+                });
+
+
+
+        return view;
+    }
+
+    private void setProgressBar(){
+
         int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0;
+
         for (Comment com :
                comments) {
             switch (com.getRating()){
@@ -134,18 +140,19 @@ public class ReviewsFragment extends Fragment {
                     break;
             }
         }
+        float starAverage = (count1 + count2 * 2 + count3 * 3 + count4 * 4 + count5 * 5) / (count1 + count2 + count3 + count4 + count5);
+        tvRatingNumber.setRating(starAverage);
+        pb1.setProgress(Math.round((float) count1 / comments.size() * 100));
+        pb2.setProgress(Math.round((float) count2 / comments.size() * 100));
+        pb3.setProgress(Math.round((float) count3 / comments.size() * 100));
+        pb4.setProgress(Math.round((float) count4 / comments.size() * 100));
+        pb5.setProgress(Math.round((float) count5 / comments.size() * 100));
 
-        pb1.setProgress(Math.round((float) count1 / salon.getReviewsAmount()));
-        pb2.setProgress(Math.round((float) count2 / salon.getReviewsAmount()));
-        pb3.setProgress(Math.round((float) count3 / salon.getReviewsAmount()));
-        pb4.setProgress(Math.round((float) count4 / salon.getReviewsAmount()));
-        pb5.setProgress(Math.round((float) count5 / salon.getReviewsAmount()));
-
-        tv1.setText(Math.round((float) count1 / salon.getReviewsAmount()) + "");
-        tv2.setText(Math.round((float) count2 / salon.getReviewsAmount()) + "");
-        tv3.setText(Math.round((float) count3 / salon.getReviewsAmount()) + "");
-        tv4.setText(Math.round((float) count4 / salon.getReviewsAmount()) + "");
-        tv5.setText(Math.round((float) count5 / salon.getReviewsAmount()) + "");
+        tv1.setText(Math.round((float) count1 / comments.size()) + "");
+        tv2.setText(Math.round((float) count2 / comments.size()) + "");
+        tv3.setText(Math.round((float) count3 / comments.size()) + "");
+        tv4.setText(Math.round((float) count4 / comments.size()) + "");
+        tv5.setText(Math.round((float) count5 / comments.size()) + "");
 
 
     }

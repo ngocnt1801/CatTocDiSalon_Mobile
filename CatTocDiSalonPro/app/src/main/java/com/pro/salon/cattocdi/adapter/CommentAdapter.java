@@ -1,5 +1,6 @@
 package com.pro.salon.cattocdi.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,10 @@ import java.util.List;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder>{
 
     private List<Comment> reviews;
+    private Context context;
 
-    public CommentAdapter(List<Comment> reviews) {
+    public CommentAdapter(Context context,List<Comment> reviews) {
+        this.context = context;
         this.reviews = reviews;
     }
 
@@ -32,13 +35,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int i) {
-        Comment comment = reviews.get(i);
-        if (comment != null){
-            holder.rbRating.setRating(comment.getRating());
-            holder.tvName.setText(comment.getCustomerName());
-            holder.tvContent.setText(comment.getContent());
-            holder.tvDate.setText(comment.getDate().getDate() + "/" + comment.getDate().getMonth() + "/" + comment.getDate().getYear());
-        }
+
+
+            holder.rbRating.setRating(reviews.get(i).getRating());
+            holder.tvName.setText(reviews.get(i).getCustomerName());
+            holder.tvContent.setText(reviews.get(i).getContent());
+            holder.tvDate.setText(reviews.get(i).getPostDateStr());
+
 
     }
 
