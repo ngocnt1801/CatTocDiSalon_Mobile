@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 public class Promotion implements Serializable{
     @SerializedName("SalonId")
     private int salonId;
-    @SerializedName("PromotionId")
+    @SerializedName("Id")
     private int id;
     private Timestamp startPeriod;
     private Timestamp endPeriod;
@@ -22,6 +22,8 @@ public class Promotion implements Serializable{
     private String startPeriodStr;
     @SerializedName("EndTime")
     private String endPeriodStr;
+    @SerializedName("Status")
+    private int status;
 
     public Promotion() {
     }
@@ -97,5 +99,29 @@ public class Promotion implements Serializable{
     }
     public String getStartToEndstr(){
         return new SimpleDateFormat("dd-MM-yyyy").format(getStartPeriod()) + " - " + new SimpleDateFormat("dd-MM-yyyy").format(getEndPeriod());
+    }
+
+    public String getStartPeriodStr() {
+        return startPeriodStr;
+    }
+
+    public void setStartPeriodStr(String startPeriodStr) {
+        this.startPeriodStr = startPeriodStr;
+    }
+
+    public String getEndPeriodStr() {
+        return endPeriodStr;
+    }
+
+    public void setEndPeriodStr(String endPeriodStr) {
+        this.endPeriodStr = endPeriodStr;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

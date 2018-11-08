@@ -45,7 +45,8 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
        holder.tvDate.setText(promotions.get(position).getStartToEndstr());
        holder.tvDiscount.setText(String.valueOf(promotions.get(position).getDiscount()) + "%");
        holder.tvName.setText(promotions.get(position).getDescription());
-       if(Calendar.getInstance().getTimeInMillis() >= promotions.get(position).getStartPeriod().getTime()){
+       if(Calendar.getInstance().getTimeInMillis() > promotions.get(position).getEndPeriod().getTime()
+               || promotions.get(position).getStatus() == 1){
            holder.icState.setImageResource(R.drawable.ic_stop);
        }
 

@@ -41,7 +41,7 @@ public class ProfileTabAdapter extends FragmentPagerAdapter {
             case 1:
                 return new SalonDetailContactFragment(isPreview, salon);
             case 2:
-                return new ReviewsFragment(salon);
+                return new ReviewsFragment();
         }
         return null;
     }

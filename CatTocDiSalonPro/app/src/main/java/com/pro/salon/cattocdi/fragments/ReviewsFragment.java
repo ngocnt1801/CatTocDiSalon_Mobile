@@ -17,7 +17,17 @@ import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.adapter.CommentAdapter;
 import com.pro.salon.cattocdi.models.Comment;
 import com.pro.salon.cattocdi.models.Salon;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
+import com.pro.salon.cattocdi.utils.MyContants;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -34,6 +44,7 @@ public class ReviewsFragment extends Fragment {
     private RatingBar tvRatingNumber;
     private TextView tvTotalReviews;
     private RecyclerView rvComments;
+    private List<Comment> comments;
 
 
     public ReviewsFragment() {
@@ -51,15 +62,36 @@ public class ReviewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reviews, container, false);
 
         tvRatingNumber = view.findViewById(R.id.fg_reviews_sum);
-        tvRatingNumber.setRating(salon.getRatingNumber());
+        //tvRatingNumber.setRating(salon.getRatingNumber());
 
         tvTotalReviews = view.findViewById(R.id.salon_detail_total_reviews_tv);
-        tvTotalReviews.setText(salon.getReviewsAmount() + " Đánh giá");
+       // tvTotalReviews.setText(salon.getReviewsAmount() + " Đánh giá");
 
         rvComments = view.findViewById(R.id.salon_detail_comment_rv);
         ViewCompat.setNestedScrollingEnabled(rvComments, false);
         rvComments.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rvComments.setAdapter(new CommentAdapter(salon.getReviews()));
+        comments = new ArrayList<>();
+        rvComments.setAdapter(new CommentAdapter(comments));
+        ApiClient.getInstance()
+                .create(SalonClient.class)
+                .getReview("Bearer " + MyContants.TOKEN)
+                .enqueue(new Callback<List<Comment>>() {
+                    @Override
+                    public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                        if(response.code() == 200){
+                            tvRatingNumber.setRating(comments.get(0).getRating());
+                            tvTotalReviews.setText(comments.size() + 1 + " Đánh giá");
+                            rvComments.setAdapter(new CommentAdapter(comments));
+                        }else{
+                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Comment>> call, Throwable t) {
+                        AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
+                    }
+                });
 
         setProgressBar(view);
 
@@ -83,7 +115,7 @@ public class ReviewsFragment extends Fragment {
 
         int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0;
         for (Comment com :
-                salon.getReviews()) {
+               comments) {
             switch (com.getRating()){
                 case 1:
                     count1++;

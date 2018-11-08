@@ -5,6 +5,7 @@ import com.pro.salon.cattocdi.models.Account;
 import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.AppointmentListHome;
 import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Comment;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.models.Promotion;
 import com.pro.salon.cattocdi.models.ResponseMsg;
@@ -12,6 +13,8 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.models.WorkingHour;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -63,8 +66,16 @@ public interface SalonClient {
     @GET("api/Promotion")
     Call<List<Promotion>> getPromotion(@Header("Authorization") String auth);
 
-    @POST("api/Promotion")
-    Call<String> updatePromotion(@Header("Authorization")String auth, @Field("Id") int id);
+
+    @POST("api/Promotions/Delete")
+    Call<String> updatePromotion(@Header("Authorization") String auth,@Query("id") int id);
+
+    @FormUrlEncoded
+    @POST("api/Promotions")
+    Call<String> createPromotion(@Header("Authorization")String auth, @Field("StartTime")String startTime,
+                                 @Field("EndTime") String endTime, @Field("DiscountPercent") int discount,
+                                 @Field("Description") String description);
+
 
     @POST("api/Salons/WorkingHour")
     Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
@@ -86,4 +97,7 @@ public interface SalonClient {
 
     @GET("api/Appointment")
     Call<AppointmentListHome> getAppointmentHome(@Header("Authorization") String auth);
+
+    @GET("api/Review")
+    Call<List<Comment>> getReview(@Header("Authorization") String auth);
 }

@@ -6,20 +6,20 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Comment implements Serializable{
-    @SerializedName("id")
-    private int appointmentId;
+    @SerializedName("ReviewId")
+    private String id;
     private String customerName;
-    @SerializedName("rateNumber")
+    @SerializedName("RateNumber")
     private int rating;
-    @SerializedName("content")
+    @SerializedName("Comment")
     private String content;
     private Date date;
 
-    public Comment(int appointmentId, int rating, String content) {
-        this.appointmentId = appointmentId;
+    public Comment(int rating, String content) {
         this.rating = rating;
         this.content = content;
     }
+
 
     public Date getDate() {
         return date;
@@ -52,4 +52,5 @@ public class Comment implements Serializable{
     public void setContent(String content) {
         this.content = content;
     }
+
 }

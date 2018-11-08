@@ -33,10 +33,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int i) {
         Comment comment = reviews.get(i);
-        holder.rbRating.setRating(comment.getRating());
-        holder.tvName.setText(comment.getCustomerName());
-        holder.tvContent.setText(comment.getContent());
-        holder.tvDate.setText(comment.getDate().getDate() + "/" + comment.getDate().getMonth() + "/" + comment.getDate().getYear());
+        if (comment != null){
+            holder.rbRating.setRating(comment.getRating());
+            holder.tvName.setText(comment.getCustomerName());
+            holder.tvContent.setText(comment.getContent());
+            holder.tvDate.setText(comment.getDate().getDate() + "/" + comment.getDate().getMonth() + "/" + comment.getDate().getYear());
+        }
+
     }
 
     @Override

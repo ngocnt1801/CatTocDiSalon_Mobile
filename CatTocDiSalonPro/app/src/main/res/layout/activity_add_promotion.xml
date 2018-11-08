@@ -49,15 +49,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tên chương trình"
+            android:text="Mô tả khuyến mãi"
             android:textStyle="bold"
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/activity_promotion_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:hint="Tên chương trình khuyến mãi"
+            android:hint="Mô tả khuyến mãi"
             android:layout_weight="1"
             android:gravity="right"
             android:background="@null"
@@ -84,6 +85,7 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/activity_promotion_discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
@@ -115,13 +117,15 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/activity_promotion_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@null"
             android:gravity="right"
+            android:clickable="true"
             android:hint="15/10/2018"
-            android:textSize="16dp"
-            android:background="@null"/>
+            android:textSize="16dp" />
 
         <View
             android:layout_width="1dp"
@@ -139,10 +143,12 @@
             android:textColor="@color/darkTextColor"/>
 
         <EditText
+            android:id="@+id/activity_promotion_end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:clickable="true"
             android:hint="25/10/2018"
             android:textSize="16dp"
             android:background="@null"/>
@@ -153,59 +159,12 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ccc"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Khung giờ khuyến mãi"
-            android:textStyle="bold"
-            android:textColor="@color/darkTextColor"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:hint="8:00 AM - 11:00 AM"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:background="@null"
-            android:textSize="16dp"/>
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ccc"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mô tả thêm"
-            android:textStyle="bold"
-            android:textColor="@color/darkTextColor"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:hint="Khuyễn mãi nhân dịp đặc biệt,..."
-            android:layout_weight="1"
-            android:gravity="right"
-            android:background="@null"
-            android:textSize="16dp"/>
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
