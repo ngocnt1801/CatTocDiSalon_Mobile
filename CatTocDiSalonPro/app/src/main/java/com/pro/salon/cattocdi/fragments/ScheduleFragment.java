@@ -24,6 +24,7 @@ import com.google.android.gms.common.util.CrashUtils;
 import com.greasemonk.timetable.TimeTable;
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import org.joda.time.DateTime;
@@ -39,8 +40,9 @@ import java.util.Locale;
  */
 public class ScheduleFragment extends Fragment {
 
-    int failed = 8;
-    private View currentTimeBar;
+    private int capacity = 9;
+    private List<Appointment> appointmentList;
+
     public ScheduleFragment() {
         // Required empty public constructor
     }
@@ -50,7 +52,7 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_schedule, container, false);
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
         final TimeTableView scheduleTable = view.findViewById(R.id.salon_schedule);
 
         scheduleTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
@@ -68,7 +70,7 @@ public class ScheduleFragment extends Fragment {
 
         //assign data test
         ArrayList<TimeTableData> table = null;
-        table = getSamples(DateTime.now().withTimeAtStartOfDay().getMillis());
+        table = loadData(DateTime.now().withTimeAtStartOfDay().getMillis());
         scheduleTable.setMinimumWidth(table.size() * 40);
         scheduleTable.setTimeTable(DateTime.now().withTimeAtStartOfDay().getMillis(), table);
 
@@ -79,10 +81,10 @@ public class ScheduleFragment extends Fragment {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 tvDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                scheduleTable.setTimeTable(newDate.getTimeInMillis(), getSamples(newDate.getTimeInMillis()));
+                scheduleTable.setTimeTable(newDate.getTimeInMillis(), loadData(newDate.getTimeInMillis()));
             }
 
-        }, DateTime.now().getYear(),DateTime.now().getMonthOfYear() - 1,DateTime.now().getDayOfMonth());
+        }, DateTime.now().getYear(), DateTime.now().getMonthOfYear() - 1, DateTime.now().getDayOfMonth());
 
         tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,73 +93,102 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
-        //custom time bar
-
-//        currentTimeBar = view.findViewById(R.id.fg_schedult_time_current_bar);
-//        ViewTreeObserver vto = scheduleTable.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-//                    scheduleTable.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//                } else {
-//                    scheduleTable.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                }
-//                int width  = scheduleTable.getMeasuredWidth();
-//                int height = scheduleTable.getMeasuredHeight();
-//                //        currentTimeBar.getLayoutParams().width = get;
-//                int tableHeight = height;
-//                int unitMinute = (int)tableHeight / (24*60);
-//                int totalCurrentMinute = DateTime.now().getMinuteOfDay();
-//                if (currentTimeBar.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-//                    ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) currentTimeBar.getLayoutParams();
-//                    Log.d("MINUTE", )
-//                    p.setMarginStart(totalCurrentMinute * unitMinute + 40);
-//                    currentTimeBar.requestLayout();
-//                }
-//
-//            }
-//        });
-//
-
-
         return view;
     }
 
 
-    private ArrayList<TimeTableData> getSamples(long date){
+    private ArrayList<TimeTableData> loadData(long date) {
+        List<List<Appointment>> appointmentTable = parseToSchedule(appointmentList);
 
         ArrayList<TimeTableData> tables = new ArrayList<>();
-        for(int i=0; i< 7; i++){
+        for (int i = 0; i < appointmentTable.size(); i++) {
             ArrayList<TimeData> values = new ArrayList<>();
-            DateTime start = new DateTime(date);
-            DateTime end = start.plusMinutes((int)((Math.random() * 10) + 1) * 60);
-            for(int j=0; j< 3; j++){
+            for (int j = 0; j < appointmentTable.get(i).size(); j++) {
+                Appointment currentAppointment = appointmentTable.get(i).get(j);
                 int textColor = R.color.black;
                 int cellColor = R.color.tableLight;
-                if(DateTime.now().withTimeAtStartOfDay().getMillis() > date){
+                if (DateTime.now().withTimeAtStartOfDay().getMillis() > date) {
                     cellColor = R.color.tableLightDisable;
-                }else if(DateTime.now().withTimeAtStartOfDay().getMillis() + (24*3600*1000) < date){
+                } else if (DateTime.now().withTimeAtStartOfDay().getMillis() + (24 * 3600 * 1000) < date) {
 
                     cellColor = R.color.tableLight;
-                }else{
-                    if(end.getMillis() < DateTime.now().getMillis()){
+                } else {
+                    if (appointmentTable.get(i).get(j).getEndTime().getTime() < Calendar.getInstance().getTimeInMillis()) {
                         cellColor = R.color.tableLightDisable;
                     }
                 }
 
-                TimeData timeData = new TimeData(j, "Ngọc Nguyễn:\nCắt tóc, uốn tóc, nhuộm tóc (xanh)\n"+start.toString("HH:mm") + " - " + end.toString("HH:mm"), cellColor, textColor, start.getMillis(), end.getMillis());
+                TimeData timeData = new TimeData(j,
+                        currentAppointment.getCustomer().getFullName()
+                                + ":\n"
+                                + currentAppointment.getServicesName()
+                                + "\n"
+                                + currentAppointment.getStartToEnd(),
+                        cellColor,
+                        textColor,
+                        currentAppointment.getStartTime().getTime(),
+                        currentAppointment.getEndTime().getTime());
 
                 values.add(timeData);
 
-                start = end.plusMinutes((int)((Math.random() * 10) + 1) * 10);
-                end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
             }
-            values.add(new TimeData(3, "", R.color.currentTimeBar, R.color.lightTextColor, DateTime.now().getMillis(), DateTime.now().plus(5*60*1000).getMillis()));
-            tables.add(new TimeTableData("" + (i+1), values));
+            values.add(new TimeData(appointmentTable.get(i).size(),
+                    "",
+                    R.color.currentTimeBar,
+                    R.color.lightTextColor,
+                    DateTime.now().getMillis(),
+                    DateTime.now().plus(5 * 60 * 1000).getMillis()));
+            tables.add(new TimeTableData("" + (i + 1), values));
         }
         return tables;
     }
 
+    private List<List<Appointment>> parseToSchedule(List<Appointment> appointments) {
+        List<List<Appointment>> result = new ArrayList<>();
+        int col;
+        for (Appointment currentAppointment :
+                appointments) {
+
+            col = 0;
+            while (true) {
+                boolean isExist = false;
+                if (result.get(col) == null) {
+                    result.add(new ArrayList<Appointment>());
+                }
+
+                for (Appointment existingAppointment :
+                        result.get(col)) {
+                    if (isOveride(existingAppointment, currentAppointment)) {
+                        isExist = true;
+                        break;
+                    }
+                    ;
+                }
+                if (isExist) {
+                    col++;
+                } else {
+                    result.get(col).add(currentAppointment);
+                    break;
+                }
+
+            }
+        }
+        return result;
+    }
+
+    private boolean isOveride(Appointment existing, Appointment current) {
+
+        if (current.getStartTime().getTime() >= existing.getStartTime().getTime()
+                && current.getStartTime().getTime() <= existing.getEndTime().getTime()) {
+            return true;
+        }
+
+        if (current.getEndTime().getTime() >= existing.getStartTime().getTime()
+                && current.getEndTime().getTime() <= existing.getEndTime().getTime()) {
+            return true;
+        }
+        return false;
+
+    }
 
 }

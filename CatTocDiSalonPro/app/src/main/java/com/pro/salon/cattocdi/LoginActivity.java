@@ -82,15 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    /*private boolean checkLogin(){
-        boolean result = false;
-        EditText etPhone = findViewById(R.id.login_activity_username_et);
-        EditText etPassword= findViewById(R.id.login_activity_password_et);
-        if(etPhone.getText().toString().equals(MyContants.USERNAME_TEST) && etPassword.getText().toString().equals(MyContants.PASSWORD_TEST) ){
-            result = true;
-        }
-        return result;
-    }*/
+
 
     private void showDialogLoginFail(String text){
         final AlertDialog dialog = new AlertDialog.Builder(LoginActivity.this).create();

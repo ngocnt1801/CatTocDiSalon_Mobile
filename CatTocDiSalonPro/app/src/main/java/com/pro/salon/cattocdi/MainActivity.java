@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.bottom_nav_home_item:
                             currentPos = nextPos;
                             nextPos = 0;
-                            HomeFragment homeFragment = new HomeFragment(MainActivity.this);
+                            HomeFragment homeFragment = new HomeFragment();
 //                        HomeAppointmentFragment homeAppointmentFragment = new HomeAppointmentFragment();
                             showFragment(homeFragment);
 //                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
 
             //HOME FRAGMENT will show first
-            showFragment(new HomeFragment(MainActivity.this));
+            showFragment(new HomeFragment());
 //        showFragment(new HomeAppointmentFragment(),MyContants.FRAGMENT_BELOW);
 
         }
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bottom_nav_home_item:
                 currentPos = nextPos;
                 nextPos = 0;
-                HomeFragment homeFragment = new HomeFragment(MainActivity.this);
+                HomeFragment homeFragment = new HomeFragment();
 //                        HomeAppointmentFragment homeAppointmentFragment = new HomeAppointmentFragment();
                 showFragment(homeFragment);
 //                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 currentPos = nextPos;
                 nextPos = 0;
-                HomeFragment homeFragment2 = new HomeFragment(MainActivity.this);
+                HomeFragment homeFragment2 = new HomeFragment();
                 showFragment(homeFragment2);
                 navigationView.getMenu().getItem(4).setChecked(true);
                 return;

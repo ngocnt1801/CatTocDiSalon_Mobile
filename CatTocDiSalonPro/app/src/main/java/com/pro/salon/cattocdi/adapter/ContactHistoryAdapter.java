@@ -31,7 +31,6 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
 
     private Context context;
     private int mode;
-    private CustomerAppoinmentAdapter holder;
     private Customer customer;
 
     public ContactHistoryAdapter(Context context, int mode, Customer customer) {

@@ -118,7 +118,7 @@ public class ClientFragment extends Fragment {
                     customers) {
                 for (String item :
                         values) {
-                    if(cutomer.getFirstname().contains(item) || cutomer.getLastname().contains(item) || cutomer.getPhone().contains(item)){
+                    if(cutomer.getFullName().contains(item) || cutomer.getPhone().contains(item)){
                         result.add(cutomer);
                         break;
                     }

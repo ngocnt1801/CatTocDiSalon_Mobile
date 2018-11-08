@@ -69,4 +69,8 @@ public class Customer implements Serializable{
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
+
+    public String getFullName(){
+        return firstname + " " + lastname;
+    }
 }
