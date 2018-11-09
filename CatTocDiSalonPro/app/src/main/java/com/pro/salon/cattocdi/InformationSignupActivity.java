@@ -1,10 +1,16 @@
 package com.pro.salon.cattocdi;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,14 +40,17 @@ public class InformationSignupActivity extends AppCompatActivity {
     private Salon salon;
     //private Geocoder geocode = new Geocoder(this);
     String address = "";
+    private Button btnGetLocation;
     private static double latitude, longitude;
+    Location currentLocation = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_information_signup);
         TextView saveTv = findViewById(R.id.activity_info_signup_save_tv);
-       edtSalonName = findViewById(R.id.signup_activity_salon_name_edt);
+        edtSalonName = findViewById(R.id.signup_activity_salon_name_edt);
         edtCapital = findViewById(R.id.signup_activity_capacity_edt);
         edtPhone = findViewById(R.id.signup_activity_phone_edt);
         edtAddress = findViewById(R.id.signup_activity_address_edt);
@@ -50,6 +59,29 @@ public class InformationSignupActivity extends AppCompatActivity {
        /* edtLong = findViewById(R.id.signup_activity_longtitude);
         edtLat = findViewById(R.id.signup_activity_lattitude);*/
 
+        btnGetLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(InformationSignupActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        LocationManager mLocationManager = (LocationManager) InformationSignupActivity.this.getSystemService(LOCATION_SERVICE);
+                        List<String> providers = mLocationManager.getProviders(true);
+
+                        for (String provider : providers) {
+                            Location l = mLocationManager.getLastKnownLocation(provider);
+                            if (l == null) {
+                                continue;
+                            }
+                            if (currentLocation == null || l.getAccuracy() < currentLocation.getAccuracy()) {
+                                // Found best last known location: %s", l);
+                                currentLocation = l;
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         ApiClient.getInstance()
                 .create(SalonClient.class)
@@ -79,17 +111,17 @@ public class InformationSignupActivity extends AppCompatActivity {
 
                 ApiClient.getInstance()
                         .create(SalonClient.class)
-                        .updateProfile("Bearer " + MyContants.TOKEN,edtSalonName.getText().toString(),
+                        .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
                                 edtAddress.getText().toString(), Integer.parseInt(edtCapital.getText().toString()),
-                                edtPhone.getText().toString(), edtmail.getText().toString(), 10.0000, 15.000)
+                                edtPhone.getText().toString(), edtmail.getText().toString(), currentLocation.getLongitude(), currentLocation.getLatitude())
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 Log.d("RESPONSE", response.toString());
-                                if(response.code() == 200){
-                                    Intent intent = new Intent(InformationSignupActivity.this, MainActivity.class);
+                                if (response.code() == 200) {
+                                    Intent intent = new Intent(InformationSignupActivity.this, WorkingHourSignupActivity.class);
                                     startActivity(intent);
-                                }else{
+                                } else {
                                     showDialogLoginFail("Có lỗi xảy ra. Vui lòng kiểm tra kết nối");
 
                                 }
@@ -103,11 +135,11 @@ public class InformationSignupActivity extends AppCompatActivity {
                         });
 
 
-
             }
         });
     }
-    private void showDialogLoginFail(String text){
+
+    private void showDialogLoginFail(String text) {
         final AlertDialog dialog = new AlertDialog.Builder(InformationSignupActivity.this).create();
         dialog.setTitle("Không chính xác");
         dialog.setMessage(text);
@@ -119,7 +151,6 @@ public class InformationSignupActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
 
 
     public void geocodeAddress(String addressStr, Geocoder gc) {
@@ -137,8 +168,8 @@ public class InformationSignupActivity extends AppCompatActivity {
         }
         if (null != address && address.hasLatitude()
                 && address.hasLongitude()) {
-          latitude = address.getLatitude();
-          longitude = address.getLongitude();
+            latitude = address.getLatitude();
+            longitude = address.getLongitude();
         }
 
     }

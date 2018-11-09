@@ -82,7 +82,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
 
     }
     private void goToPromotionActivity(){
-        Intent intent = new Intent(this, PromotionActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

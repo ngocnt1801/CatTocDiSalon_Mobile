@@ -15,16 +15,7 @@
         android:textColor="@color/darkTextColor"
         android:layout_centerHorizontal="true"
         android:textSize="14dp"/>
-    <TextView
-        android:id="@+id/fg_profile_preview_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Preview"
-        android:textStyle="bold"
-        android:padding="12dp"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/light"
-        />
+
     <ImageView
         android:layout_below="@id/fg_profile_title_tv"
         android:focusableInTouchMode="true"

@@ -24,10 +24,14 @@ import com.pro.salon.cattocdi.WorkingHoursActivity;
 import com.pro.salon.cattocdi.adapter.SalonDetailPromotionRecycleView;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.R;
+import com.pro.salon.cattocdi.adapter.WorkingHourAdapter;
+import com.pro.salon.cattocdi.adapter.WorkingHourProfileAdapter;
 import com.pro.salon.cattocdi.models.Category;
 import com.pro.salon.cattocdi.models.Promotion;
 import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
+import com.pro.salon.cattocdi.models.WorkingHour;
+import com.pro.salon.cattocdi.models.enums.PromotionStatus;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
@@ -50,7 +54,7 @@ public class SalonDetailServiceFragment extends Fragment {
     private Button btManagePromotion, btManagerService, btManageWorkingHour;
     private boolean isPreview = false;
     private ServiceRecycleViewAdapter serviceAdapter;
-    private RecyclerView serviceRecycleView, promotionRecycleView;
+    private RecyclerView serviceRecycleView;
     private List<Service> services;
     private Salon salon;
     @SuppressLint("ValidFragment")
@@ -79,7 +83,9 @@ public class SalonDetailServiceFragment extends Fragment {
         if (salon.getPromotions() != null) {
             RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
             promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView(getContext(),salon.getPromotions()));
+            SalonDetailPromotionRecycleView adapter = new SalonDetailPromotionRecycleView(getContext(),salon.getPromotions());
+            promotionRecycleView.setAdapter(adapter);
+
 
         }
 
@@ -106,9 +112,18 @@ public class SalonDetailServiceFragment extends Fragment {
             serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PROFILE_PAGE));
 
 
+
+
         }else{
             serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PREVIEW_PAGE));
         }
+
+        if(salon.getWorkingHours() != null){
+            RecyclerView workingHourRecycleView = view.findViewById(R.id.activity_salon_working_hours_rv);
+            workingHourRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            workingHourRecycleView.setAdapter(new WorkingHourProfileAdapter(getContext(),salon.getWorkingHours()));
+        }
+
 
        RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
        /* promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -144,6 +159,7 @@ public class SalonDetailServiceFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), WorkingHoursActivity.class);
+                    intent.putExtra("workingHours",(Serializable) salon.getWorkingHours());
                     getActivity().startActivity(intent);
                 }
             });

@@ -140,7 +140,12 @@ public class ReviewsFragment extends Fragment {
                     break;
             }
         }
-        float starAverage = (count1 + count2 * 2 + count3 * 3 + count4 * 4 + count5 * 5) / (count1 + count2 + count3 + count4 + count5);
+        int sum = count1 + count2 + count3 + count4 + count5;
+        float starAverage = 0;
+        if (sum != 0){
+            starAverage = (count1 + count2 * 2 + count3 * 3 + count4 * 4 + count5 * 5) / (count1 + count2 + count3 + count4 + count5);
+        }
+
         tvRatingNumber.setRating(starAverage);
         pb1.setProgress(Math.round((float) count1 / comments.size() * 100));
         pb2.setProgress(Math.round((float) count2 / comments.size() * 100));

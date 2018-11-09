@@ -57,11 +57,11 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
                                 workingHourAdapter = new WorkingHourAdapter(WorkingHourSignupActivity.this, workingHourList);
                                 Log.d("RESPONSE", response.toString());
                                 if(response.code() == 200){
-                                    Intent intent = new Intent(WorkingHourSignupActivity.this, InformationSignupActivity.class);
+                                    Intent intent = new Intent(WorkingHourSignupActivity.this, MainActivity.class);
                                     startActivity(intent);
                                 }
                                 else{
-                                    showDialogLoginFail("Failed");
+                                    showDialogLoginFail("Co");
                                 }
 
 

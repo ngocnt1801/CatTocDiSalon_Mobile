@@ -62,15 +62,7 @@ public class ProfileFragment extends Fragment {
         loadSalon();
 
         tvTitle = view.findViewById(R.id.fg_profile_title_tv);
-        tvPreview = view.findViewById(R.id.fg_profile_preview_tv);
-        tvPreview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new ReviewsFragment(salon);
-                Intent intent = new Intent(getActivity(), ReviewProfileActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         return view;
     }

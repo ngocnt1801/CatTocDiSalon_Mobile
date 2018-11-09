@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.WorkingHour;
+import com.pro.salon.cattocdi.utils.MyContants;
 
 import org.w3c.dom.Text;
 
@@ -26,6 +27,7 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
     private boolean isCheck = false;
     private List<WorkingHour> workingHourList;
 
+
     public WorkingHourAdapter(Context context) {
         this.context = context;
     }
@@ -33,6 +35,7 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
     public WorkingHourAdapter(Context context, List<WorkingHour> list) {
         this.context = context;
         this.workingHourList = list;
+
     }
 
     public WorkingHourAdapter(Context context, boolean isCheck) {
@@ -49,15 +52,18 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
 
     @Override
     public void onBindViewHolder(final WorkingHourViewHolder holder, final int position) {
-        workingHourList.get(position).setdate(position);
-        workingHourList.get(position).setStartTime(holder.fromHour.getText().toString());
-        workingHourList.get(position).setEndTime(holder.toHour.getText().toString());
-        if (position == 6) {
-            // Chu nhat
+
+        if(position == 0){
             holder.dayOfWeek.setText("Chủ nhật");
-        } else {
-            holder.dayOfWeek.setText("Thứ " + (position + 2));
+        }else{
+            holder.dayOfWeek.setText("Thứ " + (position + 1));
         }
+        holder.fromHour.setText(workingHourList.get(position).getStartTime().toString());
+        holder.toHour.setText(workingHourList.get(position).getEndTime().toString());
+        /*workingHourList.get(position).setdate(position);
+        workingHourList.get(position).setStartTime(holder.fromHour.getText().toString());
+        workingHourList.get(position).setEndTime(holder.toHour.getText().toString());*/
+
 
         // set from
         holder.fromHour.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +83,7 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
                                                   int minute) {
 
                                 holder.fromHour.setText(hourOfDay + ":" + minute);
+                                workingHourList.get(position).setStartTime(hourOfDay + ":" + minute);
                             }
                         }, hour, minute, false);
                 timePickerDialog.show();
@@ -100,6 +107,8 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
                                                   int minute) {
 
                                 holder.toHour.setText(hourOfDay + ":" + minute);
+                                workingHourList.get(position).setEndTime(hourOfDay + ":" + minute);
+
                             }
                         }, hour, minute, false);
                 timePickerDialog.show();
@@ -115,13 +124,18 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
         });
 
         //  holder.dayOfWeek.setChecked(isCheck);
-
-
     }
+
+    public List<WorkingHour> getWorkingHour() {
+        return workingHourList;
+    }
+
 
     @Override
     public int getItemCount() {
-        return 7;
+
+        if (workingHourList == null) return 0;
+        return workingHourList.size();
     }
 
     public class WorkingHourViewHolder extends RecyclerView.ViewHolder {

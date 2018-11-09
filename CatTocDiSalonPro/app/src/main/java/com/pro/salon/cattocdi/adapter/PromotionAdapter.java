@@ -13,6 +13,7 @@ import com.pro.salon.cattocdi.PromotionDetailActivity;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Promotion;
 import com.pro.salon.cattocdi.models.Salon;
+import com.pro.salon.cattocdi.models.enums.PromotionStatus;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -46,7 +47,7 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
        holder.tvDiscount.setText(String.valueOf(promotions.get(position).getDiscount()) + "%");
        holder.tvName.setText(promotions.get(position).getDescription());
        if(Calendar.getInstance().getTimeInMillis() > promotions.get(position).getEndPeriod().getTime()
-               || promotions.get(position).getStatus() == 1){
+               || promotions.get(position).getStatus() == PromotionStatus.CANCEL.getStatus()){
            holder.icState.setImageResource(R.drawable.ic_stop);
        }
 
