@@ -17,6 +17,12 @@ public class WorkingHour implements Serializable{
     public WorkingHour() {
     }
 
+    public WorkingHour(String startTime, String endTime, int date){
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+    }
+
     public WorkingHour(int date, String startTime, String endTime, boolean isClose) {
         this.date = date;
         this.startTime = startTime;
@@ -49,8 +55,11 @@ public class WorkingHour implements Serializable{
     }
 
     public String getStartTime() {
-        String[] item = startTime.split(":");
-        return item[0] + ":" + item[1] ;
+        if(startTime != null){
+            String[] item = startTime.split(":");
+            return item[0] + ":" + item[1] ;
+        }
+        return "";
     }
 
     public void setStartTime(String startTime) {
@@ -58,8 +67,12 @@ public class WorkingHour implements Serializable{
     }
 
     public String getEndTime() {
-        String[] item = endTime.split(":");
-        return item[0] + ":" + item[1] ;
+        if(startTime != null){
+            String[] item = endTime.split(":");
+            return item[0] + ":" + item[1] ;
+        }
+        return "";
+
     }
 
     public void setEndTime(String endTime) {

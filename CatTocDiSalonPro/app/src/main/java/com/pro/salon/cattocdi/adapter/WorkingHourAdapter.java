@@ -119,7 +119,7 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
         holder.dayOfWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                workingHourList.get(position).setClose(holder.dayOfWeek.isChecked());
+                workingHourList.get(position).setClose(!holder.dayOfWeek.isChecked());
             }
         });
 

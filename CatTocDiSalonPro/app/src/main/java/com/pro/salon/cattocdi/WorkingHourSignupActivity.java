@@ -38,7 +38,7 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
         rv = findViewById(R.id.activity_working_hours_rv);
         workingHourList = new ArrayList<WorkingHour>();
         for (int i = 0; i < 7; i++) {
-            workingHourList.add(new WorkingHour());
+            workingHourList.add(new WorkingHour("8:00", "22:00", i));
         }
         workingHourAdapter = new WorkingHourAdapter(this, workingHourList);
         rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
