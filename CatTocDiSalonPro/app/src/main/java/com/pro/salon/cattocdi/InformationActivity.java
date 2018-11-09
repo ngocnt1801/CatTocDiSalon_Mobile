@@ -72,13 +72,21 @@ public class InformationActivity extends AppCompatActivity{
         mFusuedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geocoder = new Geocoder(this, Locale.getDefault());
 
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1200);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         btnAddLocaion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        mFusuedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
 
-
-                checkLocationPermission();
-                mFusuedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+                    } else {
+                        checkLocationPermission();
+                    }
+                }
 
             }
         });

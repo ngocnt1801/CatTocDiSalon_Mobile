@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.pro.salon.cattocdi.adapter.CategoryRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceRecycleViewAdapter;
 import com.pro.salon.cattocdi.adapter.ServiceSignupRecycleViewAdapter;
+import com.pro.salon.cattocdi.fragments.SalonDetailServiceFragment;
 import com.pro.salon.cattocdi.models.Category;
 import com.pro.salon.cattocdi.models.ResponseMsg;
 import com.pro.salon.cattocdi.models.Service;
@@ -101,9 +102,14 @@ public class ServiceSignupActivity extends AppCompatActivity {
             Intent intent = new Intent(ServiceSignupActivity.this, InformationSignupActivity.class);
             startActivity(intent);
         } else if (from_page == MyContants.MANAGER_SERVICE_PAGE) {
-            Intent intent = new Intent(ServiceSignupActivity.this, InformationActivity.class);
-            startActivity(intent);
+            goToProfileFragment();
+            /*Intent intent = new Intent(ServiceSignupActivity.this, );
+            startActivity(intent);*/
         }
     }
-
+    private void goToProfileFragment(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
+        startActivity(intent);
+    }
 }

@@ -123,7 +123,7 @@ public class WorkingHourAdapter extends RecyclerView.Adapter<WorkingHourAdapter.
             }
         });
 
-        //  holder.dayOfWeek.setChecked(isCheck);
+        holder.dayOfWeek.setChecked(isCheck);
     }
 
     public List<WorkingHour> getWorkingHour() {
