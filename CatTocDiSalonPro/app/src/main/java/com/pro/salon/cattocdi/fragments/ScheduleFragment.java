@@ -33,6 +33,8 @@ import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -145,8 +147,8 @@ public class ScheduleFragment extends Fragment {
                                 + currentAppointment.getStartToEnd(),
                         cellColor,
                         textColor,
-                        currentAppointment.getStartTime().getTime(),
-                        currentAppointment.getEndTime().getTime());
+                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getStartTime())),
+                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getEndTime())));
 
                 values.add(timeData);
 
@@ -230,5 +232,15 @@ public class ScheduleFragment extends Fragment {
         return false;
 
     }
+
+    private long getMillis(String day){
+        DateTime date = getDateTimePattern().parseDateTime(day);
+        return date.getMillis();
+    }
+    private DateTimeFormatter getDateTimePattern(){
+        return DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    }
+
+
 
 }
