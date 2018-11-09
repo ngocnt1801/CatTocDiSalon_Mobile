@@ -101,7 +101,8 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
                     }
                 });*/
 
-        latLng = new LatLng(10.8466881,106.6329596);
+        //latLng = new LatLng(10.8466881,106.6329596);
+        //latLng = new LatLng(salon.getLatitude(), salon.getLongtitude());
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.salon_detail_map);
         supportMapFragment.getMapAsync(this);
 
@@ -129,9 +130,9 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
        // map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.map_styled));
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
+        markerOptions.position(salon.getLatLng());
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(salon.getLatLng(), 13));
         map.addMarker(markerOptions);
     }
     private void showDialogLoginFail(String text){

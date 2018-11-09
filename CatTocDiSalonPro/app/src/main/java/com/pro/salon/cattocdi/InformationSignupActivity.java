@@ -59,7 +59,7 @@ public class InformationSignupActivity extends AppCompatActivity {
        /* edtLong = findViewById(R.id.signup_activity_longtitude);
         edtLat = findViewById(R.id.signup_activity_lattitude);*/
 
-        btnGetLocation.setOnClickListener(new View.OnClickListener() {
+        /*btnGetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -82,7 +82,7 @@ public class InformationSignupActivity extends AppCompatActivity {
                 }
             }
         });
-
+*/
         ApiClient.getInstance()
                 .create(SalonClient.class)
                 .getSalonProfile("Bearer " + MyContants.TOKEN)
@@ -113,7 +113,7 @@ public class InformationSignupActivity extends AppCompatActivity {
                         .create(SalonClient.class)
                         .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
                                 edtAddress.getText().toString(), Integer.parseInt(edtCapital.getText().toString()),
-                                edtPhone.getText().toString(), edtmail.getText().toString(), currentLocation.getLongitude(), currentLocation.getLatitude())
+                                edtPhone.getText().toString(), edtmail.getText().toString(), 106.6329596, 10.8466881)
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {

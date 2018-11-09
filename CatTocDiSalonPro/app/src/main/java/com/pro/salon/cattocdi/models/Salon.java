@@ -35,7 +35,7 @@ public class Salon implements Serializable{
 
     @SerializedName("Latitude")
     private double latitude;
-    @SerializedName("Longtitude")
+    @SerializedName("Longitude")
     private double longtitude;
 
     @SerializedName("Capacity")

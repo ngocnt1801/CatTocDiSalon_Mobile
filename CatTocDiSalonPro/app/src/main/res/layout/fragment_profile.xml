@@ -26,9 +26,10 @@
         android:src="@drawable/salon1" />
 
     <TextView
+        android:id="@+id/fg_name_salon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Beautiful Hair"
+        android:text=""
         android:textColor="@color/lightTextColor"
         android:layout_alignTop="@id/header_cover_image"
         android:textStyle="bold"

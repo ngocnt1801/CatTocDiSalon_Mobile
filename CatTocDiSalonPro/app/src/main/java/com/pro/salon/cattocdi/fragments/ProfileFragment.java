@@ -21,6 +21,7 @@ import com.pro.salon.cattocdi.adapter.ProfileTabAdapter;
 import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import retrofit2.Call;
@@ -40,6 +41,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvTitle;
     private ImageView icFavorite;
     private Salon salon;
+    private TextView tvNameSalon;
 
 
     public ProfileFragment() {
@@ -57,6 +59,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.detail_pager);
+        tvNameSalon = view.findViewById(R.id.fg_name_salon);
 
         tabLayout = (TabLayout) view.findViewById(R.id.detail_tab_layout);
         loadSalon();
@@ -76,12 +79,14 @@ public class ProfileFragment extends Fragment {
                     public void onResponse(Call<Salon> call, Response<Salon> response) {
                         if (response.code() == 200){
                            salon = response.body();
+                           tvNameSalon.setText(salon.getName());
                             ProfileTabAdapter adapter = new ProfileTabAdapter(getChildFragmentManager(), false, salon);
                             viewPager.setAdapter(adapter);
                             tabLayout.setupWithViewPager(viewPager);
                         }
                         else
                         {
+                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
                             Log.d("FAILED","Failed 200");
                         }
                     }
