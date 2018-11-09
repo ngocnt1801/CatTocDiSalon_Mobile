@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<AppointmentListHome> call, Throwable t) {
-                        AlertError.showDialogLoginFail(getActivity(), "Có lỗi xảy ra. Vui lòng kiểm tra lại kết nối");
+                       // AlertError.showDialogLoginFail(getActivity(), "Có lỗi xảy ra. Vui lòng kiểm tra lại kết nối");
                     }
                 });
     }

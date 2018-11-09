@@ -16,6 +16,7 @@ import com.pro.salon.cattocdi.models.Promotion;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonDetailPromotionRecycleView.PromotionViewHolder>{
@@ -37,10 +38,13 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
 
     @Override
     public void onBindViewHolder(@NonNull final PromotionViewHolder promotionViewHolder, int i) {
-        Promotion promotion = promotions.get(i);
-        promotionViewHolder.tvDate.setText(promotion.getStartToEndstr());
-        promotionViewHolder.tvDiscount.setText(promotion.getDiscount() + "%");
-        promotionViewHolder.tvDescription.setText(promotion.getDescription() != null ? promotion.getDescription() : "");
+        if (promotions.get(i).getStatus() == 0){
+            Promotion promotion = promotions.get(i);
+            promotionViewHolder.tvDate.setText(promotion.getStartToEndstr());
+            promotionViewHolder.tvDiscount.setText(promotion.getDiscount() + "%");
+            promotionViewHolder.tvDescription.setText(promotion.getDescription() != null ? promotion.getDescription() : "");
+        }
+
 
     }
     @Override

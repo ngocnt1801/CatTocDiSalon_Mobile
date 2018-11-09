@@ -19,5 +19,17 @@ public class AlertError {
         });
         dialog.show();
     }
+    public static void showDialofSuccess(Context context, String text){
+        final AlertDialog dialog = new AlertDialog.Builder(context).create();
+        dialog.setTitle("Thành công");
+        dialog.setMessage(text);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.pro.salon.cattocdi.models.Promotion;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import java.util.List;
@@ -53,19 +54,25 @@ public class PromotionDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ApiClient.getInstance()
                         .create(SalonClient.class)
-                        .updatePromotion("Bearer " + MyContants.TOKEN, promotion.getId())
+                        .updatePromotion("Bearer " + MyContants.TOKEN,promotion.getId()) //1: Cancel
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 if(response.code() == 200){
+                                    AlertError.showDialofSuccess(PromotionDetailActivity.this,"Bạn đã hủy thành công");
                                     goToPromotionActivity();
-                                }else{
+                                }if(response.code() == 400){
+                                    AlertError.showDialofSuccess(PromotionDetailActivity.this,"Khuyến mãi này đang diễn ra. Không thể xóa");
+                                }
+                                else{
+                                    AlertError.showDialogLoginFail(PromotionDetailActivity.this, "Có lỗi xảy ra vui lòng xem lại kết nối");
                                     Log.d("FAILED", "Failed Update");
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
+                                AlertError.showDialogLoginFail(PromotionDetailActivity.this, "Có lỗi xảy ra vui lòng xem lại kết nối");
                                 Log.d("FAILED", "Failed Update");
                             }
                         });

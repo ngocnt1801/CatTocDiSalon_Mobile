@@ -5,6 +5,7 @@ import com.pro.salon.cattocdi.models.Account;
 import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.AppointmentListHome;
 import com.pro.salon.cattocdi.models.Category;
+import com.pro.salon.cattocdi.models.Comment;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.models.Promotion;
 import com.pro.salon.cattocdi.models.ResponseMsg;
@@ -12,6 +13,10 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.models.WorkingHour;
 
+<<<<<<< HEAD
+=======
+import java.sql.Timestamp;
+>>>>>>> 38ee750cb22245bea8352d07d61ab737f5b1ec61
 import java.util.Date;
 import java.util.List;
 
@@ -64,8 +69,16 @@ public interface SalonClient {
     @GET("api/Promotion")
     Call<List<Promotion>> getPromotion(@Header("Authorization") String auth);
 
-    @POST("api/Promotion")
-    Call<String> updatePromotion(@Header("Authorization")String auth, @Field("Id") int id);
+
+    @POST("api/Promotions/Delete")
+    Call<String> updatePromotion(@Header("Authorization") String auth,@Query("id") int id);
+
+    @FormUrlEncoded
+    @POST("api/Promotions")
+    Call<String> createPromotion(@Header("Authorization")String auth, @Field("StartTime")String startTime,
+                                 @Field("EndTime") String endTime, @Field("DiscountPercent") int discount,
+                                 @Field("Description") String description);
+
 
     @POST("api/Salons/WorkingHour")
     Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
@@ -88,6 +101,11 @@ public interface SalonClient {
     @GET("api/Appointment")
     Call<AppointmentListHome> getAppointmentHome(@Header("Authorization") String auth);
 
+<<<<<<< HEAD
     @GET("api/Appointment")
     Call<List<Appointment>> getAppointmentByDate(@Header("Authorization") String auth, @Query("date") String date);
+=======
+    @GET("api/Review")
+    Call<List<Comment>> getReview(@Header("Authorization") String auth);
+>>>>>>> 38ee750cb22245bea8352d07d61ab737f5b1ec61
 }
