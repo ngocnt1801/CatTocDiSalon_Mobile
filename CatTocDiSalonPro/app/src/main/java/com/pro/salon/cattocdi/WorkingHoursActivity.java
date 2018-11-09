@@ -38,10 +38,13 @@ public class WorkingHoursActivity extends AppCompatActivity {
         Intent intent = getIntent();
         workingHourList = (List<WorkingHour>) intent.getSerializableExtra("workingHours");
         RecyclerView rv = findViewById(R.id.activity_working_hours_rv);
-        workingHourList = new ArrayList<WorkingHour>();
-        /*for (int i = 0; i < 7; i++) {
-            workingHourList.add(new WorkingHour());
-        }*/
+        if(workingHourList == null){
+            workingHourList = new ArrayList<WorkingHour>();
+            for (int i = 0; i < 7; i++) {
+                workingHourList.add(new WorkingHour());
+            }
+        }
+
         workingHourAdapter = new WorkingHourAdapter(this, workingHourList);
         rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         //workingHourAdapter = new WorkingHourAdapter(this, workingHourList);
