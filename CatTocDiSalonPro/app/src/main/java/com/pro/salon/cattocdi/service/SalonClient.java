@@ -14,6 +14,7 @@ import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.models.WorkingHour;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -79,6 +80,9 @@ public interface SalonClient {
 
     @POST("api/Salons/WorkingHour")
     Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
+
+    @GET("api/Salons/WorkingHour")
+    Call<List<WorkingHour>> getWorkingHour(@Header("Authorization") String auth);
 
     @FormUrlEncoded
     @POST("api/Salons/Profile")

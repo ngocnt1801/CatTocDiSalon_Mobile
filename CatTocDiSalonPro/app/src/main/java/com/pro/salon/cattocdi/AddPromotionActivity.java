@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
+import com.pro.salon.cattocdi.fragments.SalonDetailServiceFragment;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
@@ -111,12 +112,13 @@ public class AddPromotionActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
                                     if(response.code() == 200){
-                                        AlertError.showDialofSuccess(AddPromotionActivity.this,"Thêm khuyến mãi thành công");
-                                        Intent intent = new Intent(AddPromotionActivity.this, PromotionActivity.class);
-                                        startActivity(intent);
-                                    }else{
+                                        goToProfileFragment();
+                                       // AlertError.showDialofSuccess(AddPromotionActivity.this,"Thêm khuyến mãi thành công");
+                                        //Intent intent = new Intent(AddPromotionActivity.this, SalonDetailServiceFragment.ac);
+                                        //startActivity(intent);
+                                    }/*else{
                                         AlertError.showDialogLoginFail(AddPromotionActivity.this, "Có lỗi xảy ra vui lòng xem lại kết nối");
-                                    }
+                                    }*/
                                 }
 
                                 @Override
@@ -145,5 +147,10 @@ public class AddPromotionActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void goToProfileFragment(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
+        startActivity(intent);
     }
 }

@@ -1,19 +1,35 @@
 package com.pro.salon.cattocdi;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +39,8 @@ public class InformationActivity extends AppCompatActivity {
     private EditText edtSalonName, edtCapital, edtPhone, edtAddress, edtmail, edtLong, edtLat;
     private TextView tvOK;
     private Salon salon;
+    private Button btnAddLocaion;
+    Location currentLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +52,41 @@ public class InformationActivity extends AppCompatActivity {
         edtAddress = findViewById(R.id.activity_info_address);
         //geocodeAddress(address.toString(), geocode);
         edtmail = findViewById(R.id.activity_info_mail);
-        salon = (Salon) getIntent().getSerializableExtra("salon");
+        btnAddLocaion = findViewById(R.id.btn_get_location);
+
+        btnAddLocaion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(InformationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        LocationManager mLocationManager = (LocationManager) InformationActivity.this.getSystemService(LOCATION_SERVICE);
+                        List<String> providers = mLocationManager.getProviders(true);
+
+                        for (String provider : providers) {
+                            Location l = mLocationManager.getLastKnownLocation(provider);
+                            if (l == null) {
+                                continue;
+                            }
+                            if (currentLocation == null || l.getAccuracy() < currentLocation.getAccuracy()) {
+                                // Found best last known location: %s", l);
+                                currentLocation = l;
+                            }
+
+
+                        }
+                        AlertError.showDialofSuccess(InformationActivity.this, "Bạn đã lấy location thành công");
+
+                    }
+                }
+            }
+        });
+
+        salon = (Salon)
+
+                getIntent().
+
+                        getSerializableExtra("salon");
 
         edtSalonName.setText(salon.getName());
 
@@ -73,22 +125,24 @@ public class InformationActivity extends AppCompatActivity {
                 });*/
 
         tvOK = findViewById(R.id.activity_info_save_tv);
-        tvOK.setOnClickListener(new View.OnClickListener() {
+        tvOK.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
                                 edtAddress.getText().toString(), Integer.parseInt(edtCapital.getText().toString()),
-                                edtPhone.getText().toString(), edtmail.getText().toString(), 106.635798, 10.856472)
+                                edtPhone.getText().toString(), edtmail.getText().toString(), currentLocation.getLongitude(), currentLocation.getLatitude())
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 Log.d("RESPONSE", response.toString());
-                                if(response.code() == 200){
+                                if (response.code() == 200) {
                                     Intent intent = new Intent(InformationActivity.this, MainActivity.class);
                                     startActivity(intent);
-                                }else{
+                                } else {
                                     showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng");
                                 }
                             }
@@ -104,12 +158,13 @@ public class InformationActivity extends AppCompatActivity {
         });
     }
 
-    private void goToProfileFragment(){
+    private void goToProfileFragment() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("fragment_id", R.id.bottom_nav_profile_item);
         startActivity(intent);
     }
-    private void showDialogLoginFail(String text){
+
+    private void showDialogLoginFail(String text) {
         final AlertDialog dialog = new AlertDialog.Builder(InformationActivity.this).create();
         dialog.setTitle("Có lỗi xảy ra");
         dialog.setMessage(text);

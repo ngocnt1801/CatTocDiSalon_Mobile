@@ -43,7 +43,8 @@ public class Salon implements Serializable{
     private List<Category> categories;
     @SerializedName("Services")
     private List<Service> services;
-    private List<DayWorkingHour> workingHours;
+    @SerializedName("WorkingHours")
+    private List<WorkingHour> workingHours;
     private String grant_type;
     @SerializedName("CurrentPromotions")
     private List<Promotion> promotions;
@@ -279,11 +280,11 @@ public class Salon implements Serializable{
         this.categories = categories;
     }
 
-    public List<DayWorkingHour> getWorkingHours() {
+    public List<WorkingHour> getWorkingHours() {
         return workingHours;
     }
 
-    public void setWorkingHours(List<DayWorkingHour> workingHours) {
+    public void setWorkingHours(List<WorkingHour> workingHours) {
         this.workingHours = workingHours;
     }
 

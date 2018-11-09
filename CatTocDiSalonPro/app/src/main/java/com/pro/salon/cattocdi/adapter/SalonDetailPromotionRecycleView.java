@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Promotion;
+import com.pro.salon.cattocdi.models.enums.PromotionStatus;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -38,15 +39,22 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
 
     @Override
     public void onBindViewHolder(@NonNull final PromotionViewHolder promotionViewHolder, int i) {
-        if (promotions.get(i).getStatus() == 0){
+
             Promotion promotion = promotions.get(i);
-            promotionViewHolder.tvDate.setText(promotion.getStartToEndstr());
-            promotionViewHolder.tvDiscount.setText(promotion.getDiscount() + "%");
-            promotionViewHolder.tvDescription.setText(promotion.getDescription() != null ? promotion.getDescription() : "");
-        }
+
+                promotionViewHolder.tvDate.setText(promotion.getStartToEndstr());
+                promotionViewHolder.tvDiscount.setText(promotion.getDiscount() + "%");
+                promotionViewHolder.tvDescription.setText(promotion.getDescription() != null ? promotion.getDescription() : "");
+            if(promotion.getStatus() == PromotionStatus.CANCEL.getStatus()){
+                promotionViewHolder.icState.setImageResource(R.drawable.ic_stop);
+            }
+
+
 
 
     }
+
+
     @Override
     public int getItemCount() {
         if(promotions == null) return 0;
@@ -58,6 +66,7 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
         public RelativeLayout headerRl;
         public ExpandableLayout expandPromotion;
         public TextView tvDiscount, tvDescription, tvDate;
+        public ImageView icState;
         public PromotionViewHolder(@NonNull View itemView) {
             super(itemView);
             this.item = itemView;
@@ -67,6 +76,7 @@ public class SalonDetailPromotionRecycleView extends RecyclerView.Adapter<SalonD
             this.tvDate = itemView.findViewById(R.id.promotion_date);
             this.tvDescription = itemView.findViewById(R.id.promotion_description);
             this.tvDiscount = itemView.findViewById(R.id.promotion_discount_tv);
+            this.icState = itemView.findViewById(R.id.promotion_state_iv);
         }
     }
 }

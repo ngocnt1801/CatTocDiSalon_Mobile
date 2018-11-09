@@ -35,13 +35,16 @@ public class WorkingHoursActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_working_hours);
+        Intent intent = getIntent();
+        workingHourList = (List<WorkingHour>) intent.getSerializableExtra("workingHours");
         RecyclerView rv = findViewById(R.id.activity_working_hours_rv);
         workingHourList = new ArrayList<WorkingHour>();
-        for (int i = 0; i < 7; i++) {
+        /*for (int i = 0; i < 7; i++) {
             workingHourList.add(new WorkingHour());
-        }
+        }*/
         workingHourAdapter = new WorkingHourAdapter(this, workingHourList);
         rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        //workingHourAdapter = new WorkingHourAdapter(this, workingHourList);
         rv.setAdapter(new WorkingHourAdapter(this, workingHourList));
         tvSave = findViewById(R.id.activity_working_hours_save_tv);
         tvSave.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +52,7 @@ public class WorkingHoursActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ApiClient.getInstance()
                         .create(SalonClient.class)
-                        .updateWorkingHour("Bearer " + MyContants.TOKEN, workingHourList)
+                        .updateWorkingHour("Bearer " + MyContants.TOKEN,workingHourAdapter.getWorkingHour())
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
@@ -59,7 +62,7 @@ public class WorkingHoursActivity extends AppCompatActivity {
                                     goToProfileFragment();
                                 }
                                 else{
-                                    showDialogLoginFail("Failed");
+                                    showDialogLoginFail("Có lỗi xảy ra vui lòng xem lại kết nối, hoặc xem lại thông tin đã nhập");
                                 }
 
 
@@ -68,7 +71,7 @@ public class WorkingHoursActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
                                 Log.d("FAILED", t.getMessage());
-                                showDialogLoginFail("Failed");
+                                showDialogLoginFail("Có lỗi xảy ra vui lòng xem lại kết nối");
                             }
                         });
 

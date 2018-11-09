@@ -2,7 +2,9 @@ package com.pro.salon.cattocdi.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class WorkingHour {
+import java.io.Serializable;
+
+public class WorkingHour implements Serializable{
     @SerializedName("DayOfWeek")
     private int date;
     @SerializedName("FromHour")
@@ -47,7 +49,8 @@ public class WorkingHour {
     }
 
     public String getStartTime() {
-        return startTime;
+        String[] item = startTime.split(":");
+        return item[0] + ":" + item[1] ;
     }
 
     public void setStartTime(String startTime) {
@@ -55,7 +58,8 @@ public class WorkingHour {
     }
 
     public String getEndTime() {
-        return endTime;
+        String[] item = endTime.split(":");
+        return item[0] + ":" + item[1] ;
     }
 
     public void setEndTime(String endTime) {

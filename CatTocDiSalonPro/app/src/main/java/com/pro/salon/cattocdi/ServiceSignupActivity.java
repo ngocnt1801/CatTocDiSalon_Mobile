@@ -98,10 +98,10 @@ public class ServiceSignupActivity extends AppCompatActivity {
 
     private void backToPrevious(int from_page) {
         if (from_page == MyContants.SIGNUP_PAGE) {
-            Intent intent = new Intent(ServiceSignupActivity.this, WorkingHourSignupActivity.class);
+            Intent intent = new Intent(ServiceSignupActivity.this, InformationSignupActivity.class);
             startActivity(intent);
         } else if (from_page == MyContants.MANAGER_SERVICE_PAGE) {
-            Intent intent = new Intent(ServiceSignupActivity.this, ServiceActivity.class);
+            Intent intent = new Intent(ServiceSignupActivity.this, InformationActivity.class);
             startActivity(intent);
         }
     }

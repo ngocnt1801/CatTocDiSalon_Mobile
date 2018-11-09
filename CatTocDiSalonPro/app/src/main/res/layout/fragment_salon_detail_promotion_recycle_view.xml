@@ -17,13 +17,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
             android:textColor="#000"
-            android:text="29/10 - 7/11"/>
+            android:text=""/>
         <TextView
             android:id="@+id/promotion_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/promotion_date"
-            android:text="Làm đẹp đồng giá chỉ với 100k"/>
+            android:text=""/>
+
 
         <TextView
             android:id="@+id/promotion_discount_tv"
@@ -33,10 +34,18 @@
             android:gravity="center|right"
             android:paddingRight="4dp"
             android:layout_marginTop="-8dp"
-            android:text="30%"
+            android:text=""
             android:layout_alignParentRight="true"
             android:textColor="@color/lightTextColor"
             android:textSize="14dp" />
+        <ImageView
+            android:id="@+id/promotion_state_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_checked"
+            android:background="#fff"
+            android:layout_alignBottom="@id/promotion_discount_tv"
+            android:layout_alignRight="@id/promotion_discount_tv"/>
         <!--<TextView-->
         <!--android:id="@+id/promotion_day_active"-->
         <!--android:layout_width="wrap_content"-->
