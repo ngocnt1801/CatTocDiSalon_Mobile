@@ -20,28 +20,39 @@ import com.github.eunsiljo.timetablelib.data.TimeGridData;
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
 import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.util.CrashUtils;
 import com.greasemonk.timetable.TimeTable;
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Appointment;
+import com.pro.salon.cattocdi.models.AppointmentListHome;
+import com.pro.salon.cattocdi.models.Salon;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import org.joda.time.DateTime;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends Fragment {
 
-    private int capacity = 9;
     private List<Appointment> appointmentList;
+    private TimeTableView scheduleTable;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -49,17 +60,19 @@ public class ScheduleFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-        final TimeTableView scheduleTable = view.findViewById(R.id.salon_schedule);
+        scheduleTable = view.findViewById(R.id.salon_schedule);
 
         scheduleTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
             @Override
             public void onTimeItemClick(View view, int i, TimeGridData timeGridData) {
                 Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
                 intent.putExtra("from_page", MyContants.SCHEDULE_PAGE);
+                intent.putExtra("appointment", appointmentList.get(i));
+                intent.putExtra("customer", (Serializable) appointmentList.get(i).getCustomer());
                 startActivity(intent);
             }
         });
@@ -69,10 +82,9 @@ public class ScheduleFragment extends Fragment {
         scheduleTable.setTableMode(TimeTableView.TableMode.SHORT);
 
         //assign data test
-        ArrayList<TimeTableData> table = null;
-        table = loadData(DateTime.now().withTimeAtStartOfDay().getMillis());
-        scheduleTable.setMinimumWidth(table.size() * 40);
-        scheduleTable.setTimeTable(DateTime.now().withTimeAtStartOfDay().getMillis(), table);
+        scheduleTable.setMinimumWidth(MyContants.CAPACITY * 40);
+        loadAppointment(Calendar.getInstance().getTime());
+
 
         final TextView tvDate = view.findViewById(R.id.fg_schedule_date_tv);
         tvDate.setText(DateTime.now().toString("dd/MM/yyyy"));
@@ -81,7 +93,8 @@ public class ScheduleFragment extends Fragment {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 tvDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                scheduleTable.setTimeTable(newDate.getTimeInMillis(), loadData(newDate.getTimeInMillis()));
+                loadAppointment(newDate.getTime());
+
             }
 
         }, DateTime.now().getYear(), DateTime.now().getMonthOfYear() - 1, DateTime.now().getDayOfMonth());
@@ -99,11 +112,15 @@ public class ScheduleFragment extends Fragment {
     }
 
 
-    private ArrayList<TimeTableData> loadData(long date) {
+    private ArrayList<TimeTableData> loadDataToScheduler(long date) {
         List<List<Appointment>> appointmentTable = parseToSchedule(appointmentList);
 
         ArrayList<TimeTableData> tables = new ArrayList<>();
-        for (int i = 0; i < appointmentTable.size(); i++) {
+        for (int i = 0; i < MyContants.CAPACITY; i++) {
+
+            if(appointmentTable.size() <= i){
+                appointmentTable.add(i, new ArrayList<Appointment>());
+            }
             ArrayList<TimeData> values = new ArrayList<>();
             for (int j = 0; j < appointmentTable.get(i).size(); j++) {
                 Appointment currentAppointment = appointmentTable.get(i).get(j);
@@ -145,36 +162,57 @@ public class ScheduleFragment extends Fragment {
         return tables;
     }
 
+    private void loadAppointment(final Date date){
+        ApiClient.getInstance().create(SalonClient.class)
+                .getAppointmentByDate("Bearer " + MyContants.TOKEN, new SimpleDateFormat("yyyy-MM-dd").format(date))
+                .enqueue(new Callback<List<Appointment>>() {
+                    @Override
+                    public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                        appointmentList = response.body();
+                        scheduleTable.setTimeTable(date.getTime(), loadDataToScheduler(date.getTime()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Appointment>> call, Throwable t) {
+
+                    }
+                });
+    }
+
     private List<List<Appointment>> parseToSchedule(List<Appointment> appointments) {
         List<List<Appointment>> result = new ArrayList<>();
-        int col;
-        for (Appointment currentAppointment :
-                appointments) {
+        if(appointments != null){
+            int col;
+            for (Appointment currentAppointment :
+                    appointments) {
+                col = 0;
+                while (true) {
+                    boolean isExist = false;
+                    if (result.size() <= col) {
+                        result.add(new ArrayList<Appointment>());
+                    }
 
-            col = 0;
-            while (true) {
-                boolean isExist = false;
-                if (result.get(col) == null) {
-                    result.add(new ArrayList<Appointment>());
-                }
-
-                for (Appointment existingAppointment :
-                        result.get(col)) {
-                    if (isOveride(existingAppointment, currentAppointment)) {
-                        isExist = true;
+                    for (Appointment existingAppointment :
+                            result.get(col)) {
+                        if (isOveride(existingAppointment, currentAppointment)) {
+                            isExist = true;
+                            break;
+                        }
+                        ;
+                    }
+                    if (isExist) {
+                        col++;
+                    } else {
+                        result.get(col).add(currentAppointment);
                         break;
                     }
-                    ;
-                }
-                if (isExist) {
-                    col++;
-                } else {
-                    result.get(col).add(currentAppointment);
-                    break;
-                }
 
+                }
             }
         }
+        int col;
+
+
         return result;
     }
 

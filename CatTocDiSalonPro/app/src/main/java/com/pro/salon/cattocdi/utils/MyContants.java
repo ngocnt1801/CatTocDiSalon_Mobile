@@ -36,7 +36,7 @@ public class MyContants {
     public static final int MANAGER_SERVICE_PAGE = 5;
     public static final int PROFILE_PAGE = 6;
     public static final int PREVIEW_PAGE = 7;
-
+    public static int CAPACITY = 0;
     //public static  final ArrayList<Customer> LISTCUSTOMER = new ArrayList<Customer>();
 
 

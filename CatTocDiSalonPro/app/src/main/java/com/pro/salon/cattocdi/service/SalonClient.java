@@ -98,6 +98,8 @@ public interface SalonClient {
     @GET("api/Appointment")
     Call<AppointmentListHome> getAppointmentHome(@Header("Authorization") String auth);
 
+    @GET("api/Appointment")
+    Call<List<Appointment>> getAppointmentByDate(@Header("Authorization") String auth, @Query("date") String date);
     @GET("api/Review")
     Call<List<Comment>> getReview(@Header("Authorization") String auth);
 }
