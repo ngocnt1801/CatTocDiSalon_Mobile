@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(Call<AppointmentListHome> call, Response<AppointmentListHome> response) {
                         if (response != null && response.code() == 200) {
-
+                            MyContants.CAPACITY = response.body().getCapacity();
                             ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
                             adapter.addFragment(new HomeAppointmentFragment(response.body().getNextAppointments()), "Tiếp theo");
                             adapter.addFragment(new CurrentAppoinmentFragment(response.body().getNotApproveAppointments()), "Chưa xác nhận");

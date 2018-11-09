@@ -12,6 +12,7 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.models.WorkingHour;
 
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -86,4 +87,7 @@ public interface SalonClient {
 
     @GET("api/Appointment")
     Call<AppointmentListHome> getAppointmentHome(@Header("Authorization") String auth);
+
+    @GET("api/Appointment")
+    Call<List<Appointment>> getAppointmentByDate(@Header("Authorization") String auth, @Query("date") String date);
 }

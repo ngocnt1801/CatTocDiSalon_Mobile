@@ -44,7 +44,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.tvName.setText(appointment.getCustomer().getFullName());
         holder.tvTime.setText(appointment.getStartToEnd());
         holder.item.setOnClickListener(new View.OnClickListener() {
-            @Override
+                @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AppointmentDetailActivity.class);
                 intent.putExtra("from_page", MyContants.HOME_PAGE);
