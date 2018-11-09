@@ -13,10 +13,7 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.models.WorkingHour;
 
-<<<<<<< HEAD
-=======
 import java.sql.Timestamp;
->>>>>>> 38ee750cb22245bea8352d07d61ab737f5b1ec61
 import java.util.Date;
 import java.util.List;
 
@@ -101,11 +98,8 @@ public interface SalonClient {
     @GET("api/Appointment")
     Call<AppointmentListHome> getAppointmentHome(@Header("Authorization") String auth);
 
-<<<<<<< HEAD
     @GET("api/Appointment")
     Call<List<Appointment>> getAppointmentByDate(@Header("Authorization") String auth, @Query("date") String date);
-=======
     @GET("api/Review")
     Call<List<Comment>> getReview(@Header("Authorization") String auth);
->>>>>>> 38ee750cb22245bea8352d07d61ab737f5b1ec61
 }
