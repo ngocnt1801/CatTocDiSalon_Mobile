@@ -61,7 +61,7 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 else{
-                                    showDialogLoginFail("Co");
+                                    showDialogLoginFail("Co lỗi xãy ra");
                                 }
 
 

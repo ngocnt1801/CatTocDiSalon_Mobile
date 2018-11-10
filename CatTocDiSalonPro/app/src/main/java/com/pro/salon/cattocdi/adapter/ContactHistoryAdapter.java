@@ -65,20 +65,20 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
 
         if (mode == MyContants.APPOINTMENT_FULL) {
             holder.tvName.setText("");
-            if (appointment.getEndTime().getTime() < Calendar.getInstance().getTimeInMillis()) {
+            if (appointment.getend().getTime() < Calendar.getInstance().getTimeInMillis()) {
                 holder.tvStatus.setText("Đã hoàn thành");
             }
-            if (appointment.getStartTime().getTime() < Calendar.getInstance().getTimeInMillis()
-                    && Calendar.getInstance().getTimeInMillis() < appointment.getEndTime().getTime()) {
+            if (appointment.getstart().getTime() < Calendar.getInstance().getTimeInMillis()
+                    && Calendar.getInstance().getTimeInMillis() < appointment.getend().getTime()) {
                 holder.tvStatus.setText("Đang phục vụ");
             }
 
-            if (appointment.getStartTime().getTime() > Calendar.getInstance().getTimeInMillis()) {
+            if (appointment.getstart().getTime() > Calendar.getInstance().getTimeInMillis()) {
                 holder.tvStatus.setText("Sắp tới");
             }
             //temp edit later
             final Intent intent = new Intent(context, AppointmentDetailActivity.class);
-            holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(customer.getAppointments().get(position).getStartTime()));
+            holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(customer.getAppointments().get(position).getstart()));
 
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override

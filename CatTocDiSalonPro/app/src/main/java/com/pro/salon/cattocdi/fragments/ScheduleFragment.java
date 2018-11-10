@@ -2,16 +2,12 @@ package com.pro.salon.cattocdi.fragments;
 
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -20,14 +16,9 @@ import com.github.eunsiljo.timetablelib.data.TimeGridData;
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
 import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
-import com.google.android.gms.common.api.Api;
-import com.google.android.gms.common.util.CrashUtils;
-import com.greasemonk.timetable.TimeTable;
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Appointment;
-import com.pro.salon.cattocdi.models.AppointmentListHome;
-import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
@@ -64,7 +55,6 @@ public class ScheduleFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
         scheduleTable = view.findViewById(R.id.salon_schedule);
 
@@ -134,7 +124,7 @@ public class ScheduleFragment extends Fragment {
 
                     cellColor = R.color.tableLight;
                 } else {
-                    if (appointmentTable.get(i).get(j).getEndTime().getTime() < Calendar.getInstance().getTimeInMillis()) {
+                    if (appointmentTable.get(i).get(j).getend().getTime() < Calendar.getInstance().getTimeInMillis()) {
                         cellColor = R.color.tableLightDisable;
                     }
                 }
@@ -147,8 +137,8 @@ public class ScheduleFragment extends Fragment {
                                 + currentAppointment.getStartToEnd(),
                         cellColor,
                         textColor,
-                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getStartTime())),
-                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getEndTime())));
+                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getstart())),
+                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getend())));
 
                 values.add(timeData);
 
@@ -220,13 +210,13 @@ public class ScheduleFragment extends Fragment {
 
     private boolean isOveride(Appointment existing, Appointment current) {
 
-        if (current.getStartTime().getTime() >= existing.getStartTime().getTime()
-                && current.getStartTime().getTime() <= existing.getEndTime().getTime()) {
+        if (current.getstart().getTime() >= existing.getstart().getTime()
+                && current.getstart().getTime() <= existing.getend().getTime()) {
             return true;
         }
 
-        if (current.getEndTime().getTime() >= existing.getStartTime().getTime()
-                && current.getEndTime().getTime() <= existing.getEndTime().getTime()) {
+        if (current.getend().getTime() >= existing.getstart().getTime()
+                && current.getend().getTime() <= existing.getend().getTime()) {
             return true;
         }
         return false;

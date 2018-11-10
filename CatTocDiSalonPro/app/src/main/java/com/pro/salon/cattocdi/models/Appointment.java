@@ -15,8 +15,9 @@ public class Appointment implements Serializable{
     private Salon salon;
     @SerializedName("Status")
     private AppointmentStatus status;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    
+    private Timestamp start;
+    private Timestamp end;
     @SerializedName("Services")
     private List<Service> services;
     private int discount;
@@ -26,7 +27,8 @@ public class Appointment implements Serializable{
     private int duration;
     @SerializedName("Customer")
     private Customer customer;
-
+    @SerializedName("StartTime")
+private String startStr;
     public Appointment() {
     }
 
@@ -74,32 +76,32 @@ public class Appointment implements Serializable{
         this.status = status;
     }
 
-    public Timestamp getStartTime() {
-        String value = bookedDateStr.replace("T", " ");
+    public Timestamp getstart() {
+        String value = startStr.replace("T", " ");
         try {
-            startTime = new Timestamp( new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime());
+            start = new Timestamp( new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return startTime;
+        return start;
     }
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
+    public void setstart(Timestamp start) {
+        this.start = start;
     }
 
-    public Timestamp getEndTime() {
-        String value = bookedDateStr.replace("T", " ");
+    public Timestamp getend() {
+        String value = startStr.replace("T", " ");
         try {
-            endTime = new Timestamp( new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime() + duration * 60*1000);
+            end = new Timestamp( new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime() + duration * 60*1000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return endTime;
+        return end;
     }
 
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
+    public void setend(Timestamp end) {
+        this.end = end;
     }
 
     public List<Service> getServices() {
@@ -119,7 +121,7 @@ public class Appointment implements Serializable{
     }
 
     public String getStartToEnd(){
-        return new SimpleDateFormat("hh:mm").format(getStartTime()) + " - " + new SimpleDateFormat("hh:mm").format(getEndTime());
+        return new SimpleDateFormat("HH:mm").format(getstart()) + " - " + new SimpleDateFormat("HH:mm").format(getend());
     }
 
     public String getServicesName(){

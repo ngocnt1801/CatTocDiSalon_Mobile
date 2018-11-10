@@ -86,7 +86,7 @@ public class ReviewsFragment extends Fragment {
         ViewCompat.setNestedScrollingEnabled(rvComments, false);
         rvComments.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         comments = new ArrayList<>();
-        //rvComments.setAdapter(new CommentAdapter(getContext(),comments));
+
         ApiClient.getInstance()
                 .create(SalonClient.class)
                 .getReview("Bearer " + MyContants.TOKEN)
@@ -95,7 +95,6 @@ public class ReviewsFragment extends Fragment {
                     public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                         if(response.code() == 200){
                             comments = response.body();
-//                            tvRatingNumber.setRating(comments.get(0).getRating());
                             tvTotalReviews.setText(comments.size() + " Đánh giá");
                             rvComments.setAdapter(new CommentAdapter(getContext(),comments));
                             setProgressBar();

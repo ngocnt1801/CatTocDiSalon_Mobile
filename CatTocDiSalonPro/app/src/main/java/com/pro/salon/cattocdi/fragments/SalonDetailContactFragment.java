@@ -72,37 +72,7 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
         tvAdd.setText(address);
         tvMail.setText(mail);
         tvPhone.setText(phone);
-       /* ApiClient.getInstance()
-                .create(SalonClient.class)
-                .getSalonProfile("Bearer " + MyContants.TOKEN)
-                .enqueue(new Callback<Salon>() {
-                    @Override
-                    public void onResponse(Call<Salon> call, Response<Salon> response) {
-                        if (response.code() == 200){
-                            String address = response.body().getAddress();
-                            String mail = response.body().getEmail();
-                            String phone = response.body().getPhone();
-                            tvAdd.setText(address);
-                            tvMail.setText(mail);
-                            tvPhone.setText(phone);
-                            salon = response.body();
-                        }
-                        else
-                        {
 
-                            showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Salon> call, Throwable t) {
-                        Log.d("FAILED",t.getMessage());
-                        showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng (Contact)");
-                    }
-                });*/
-
-        //latLng = new LatLng(10.8466881,106.6329596);
-        //latLng = new LatLng(salon.getLatitude(), salon.getLongtitude());
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.salon_detail_map);
         supportMapFragment.getMapAsync(this);
 
@@ -127,7 +97,7 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
-       // map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.map_styled));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(salon.getLatLng());

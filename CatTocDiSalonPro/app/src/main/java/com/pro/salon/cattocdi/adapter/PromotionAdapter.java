@@ -22,7 +22,6 @@ import java.util.List;
 public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.PromotionViewHolder> implements Serializable{
 
     private Context context;
-    private Salon salon;
     private List<Promotion> promotions;
 
     public PromotionAdapter(Context context, List<Promotion> promotions) {

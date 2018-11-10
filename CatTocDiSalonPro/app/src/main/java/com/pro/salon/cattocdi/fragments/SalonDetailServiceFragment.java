@@ -89,40 +89,15 @@ public class SalonDetailServiceFragment extends Fragment {
 
         }
 
-        if(!isPreview){
-            ApiClient.getInstance()
-                    .create(SalonClient.class)
-                    .getService("Bearer " + MyContants.TOKEN)
-                    .enqueue(new Callback<List<Service>>() {
-                        @Override
-                        public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                            List<Service> serviceList = response.body();
-                            serviceAdapter = new ServiceRecycleViewAdapter(getContext(),MyContants.PROFILE_PAGE, serviceList);
-                            serviceRecycleView.setAdapter(serviceAdapter);
 
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Service>> call, Throwable t) {
-                            Log.d("FAILED",t.getMessage());
-                            showDialogLoginFail("Có lỗi xảy ra vui lòng xem lại kết nối");
-                        }
-                    });
-
-            serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PROFILE_PAGE));
+        serviceAdapter = new ServiceRecycleViewAdapter(getContext(),MyContants.PROFILE_PAGE, salon.getServices());
+        serviceRecycleView.setAdapter(serviceAdapter);
 
 
-
-
-        }else{
-            serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getActivity(), MyContants.PREVIEW_PAGE));
-        }
-
-        if(salon.getWorkingHours() != null){
             RecyclerView workingHourRecycleView = view.findViewById(R.id.activity_salon_working_hours_rv);
             workingHourRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             workingHourRecycleView.setAdapter(new WorkingHourProfileAdapter(getContext(),salon.getWorkingHours()));
-        }
+
 
 
        RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);

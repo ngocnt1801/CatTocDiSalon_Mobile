@@ -1,5 +1,6 @@
 package com.pro.salon.cattocdi;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -91,14 +92,12 @@ public class AddPromotionActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*long sTime = Long.parseLong(edtStartTime.getText().toString());
-                long eTime = Long.parseLong(edtEndTime.getText().toString());*/
 
                 try {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                     SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd");
                     Date dataStart = sdf.parse(edtStartTime.getText().toString());
-                    Date dataEnd = sdf.parse(edtStartTime.getText().toString());
+                    Date dataEnd = sdf.parse(edtEndTime.getText().toString());
                     String formattedStart = output.format(dataStart);
                     String formattedEnd = output.format(dataEnd);
 
@@ -113,12 +112,12 @@ public class AddPromotionActivity extends AppCompatActivity {
                                 public void onResponse(Call<String> call, Response<String> response) {
                                     if(response.code() == 200){
                                         goToProfileFragment();
-                                       // AlertError.showDialofSuccess(AddPromotionActivity.this,"Thêm khuyến mãi thành công");
-                                        //Intent intent = new Intent(AddPromotionActivity.this, SalonDetailServiceFragment.ac);
-                                        //startActivity(intent);
-                                    }/*else{
-                                        AlertError.showDialogLoginFail(AddPromotionActivity.this, "Có lỗi xảy ra vui lòng xem lại kết nối");
-                                    }*/
+                                    }
+                                    else {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(AddPromotionActivity.this).create();
+                                        alertDialog.setMessage("Đã có chương trình khuyến mãi diễn ra trong thời gian bạn chọn");
+                                        alertDialog.show();
+                                    }
                                 }
 
                                 @Override
@@ -130,21 +129,6 @@ public class AddPromotionActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-
-
-
-
-               /* Date dateEnd = new Date(eTime);
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                String textStart = df.format(dateStart);
-                String textEnd = df.format(dateEnd);
-*/
-
-
-
-
-
             }
         });
     }

@@ -40,7 +40,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public void onBindViewHolder(AppointmentViewHolder holder, int position) {
 
         final Appointment appointment = appointments.get(position);
-        holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(appointment.getStartTime()));
+        holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(appointment.getstart()));
         holder.tvName.setText(appointment.getCustomer().getFullName());
         holder.tvTime.setText(appointment.getStartToEnd());
         holder.item.setOnClickListener(new View.OnClickListener() {

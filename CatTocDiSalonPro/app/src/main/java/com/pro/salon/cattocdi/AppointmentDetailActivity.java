@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class AppointmentDetailActivity extends AppCompatActivity {
     private Button btnCancel, btnArrived;
     private Customer customer;
     private Appointment appointment;
+    private ImageView imgCall, imgMsg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +49,6 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int fromPage = intent.getIntExtra("from_page", -1);
-//        final int expired = intent.getIntExtra("expired", -1);
-        //final String endTime = intent.getStringExtra("endTime");
         customer = (Customer) intent.getSerializableExtra("customer");
         appointment = (Appointment) intent.getSerializableExtra("appointment");
 
@@ -58,12 +59,11 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         tvname.setText(customer.getFullName());
 
         tvDate = findViewById(R.id.appointment_item_expand_date_tv);
-        tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(appointment.getStartTime()));
+        tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(appointment.getstart()));
 
         tvTime = findViewById(R.id.appointment_item_expand_time_tv);
-        tvTime.setText(new SimpleDateFormat("hh:mm a").format(appointment.getStartTime()) + " - " + new SimpleDateFormat("hh:mm a").format(appointment.getEndTime()));
+        tvTime.setText(new SimpleDateFormat("hh:mm a").format(appointment.getstart()) + " - " + new SimpleDateFormat("hh:mm a").format(appointment.getend()));
 
-        //tvTime.setText(startTime + " - " + endTime);
         btnCancel = findViewById(R.id.appointment_detail_cancel_btn);
         btnArrived = findViewById(R.id.appointment_detail_arrived_btn);
         final Dialog dialog = new Dialog(this);
@@ -101,7 +101,6 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                     btnCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //backToPrevious(fromPage);
                             dialog.dismiss();
                         }
                     });
@@ -174,6 +173,8 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         TextView tvTotal = findViewById(R.id.appointment_item_expand_total_tv);
         float total = subTotal * (1 - (float) appointment.getDiscount() / 100);
         tvTotal.setText(NumberFormat.getNumberInstance(Locale.US).format(total));
+
+
 
     }
 }

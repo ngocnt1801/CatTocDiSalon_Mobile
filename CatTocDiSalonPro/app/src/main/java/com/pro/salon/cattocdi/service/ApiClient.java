@@ -4,6 +4,7 @@ import com.pro.salon.cattocdi.utils.MyContants;
 
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Headers;
 import okhttp3.Interceptor;
@@ -20,7 +21,11 @@ public class ApiClient {
     public static Retrofit getInstance() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
+                .connectTimeout(3, TimeUnit.MINUTES)
+                .writeTimeout(3,TimeUnit.MINUTES)
+                .readTimeout(3, TimeUnit.MINUTES)
+                .build();
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(MyContants.BASE_URL)

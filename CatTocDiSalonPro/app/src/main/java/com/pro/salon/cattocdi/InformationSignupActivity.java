@@ -10,6 +10,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +22,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.pro.salon.cattocdi.models.Account;
 import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.WorkingHour;
@@ -28,6 +37,7 @@ import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,13 +46,12 @@ import retrofit2.Response;
 
 public class InformationSignupActivity extends AppCompatActivity {
 
-    private EditText edtSalonName, edtCapital, edtPhone, edtAddress, edtmail, edtLong, edtLat;
-    private Salon salon;
-    //private Geocoder geocode = new Geocoder(this);
-    String address = "";
-    private Button btnGetLocation;
-    private static double latitude, longitude;
-    Location currentLocation = null;
+    private EditText edtSalonName, edtCapital, edtPhone, edtAddress, edtmail;
+    LocationRequest mLocationRequest;
+    Location mLastLocation;
+    List<Address> addressList;
+    FusedLocationProviderClient mFusuedLocationClient;
+    Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,35 +63,15 @@ public class InformationSignupActivity extends AppCompatActivity {
         edtCapital = findViewById(R.id.signup_activity_capacity_edt);
         edtPhone = findViewById(R.id.signup_activity_phone_edt);
         edtAddress = findViewById(R.id.signup_activity_address_edt);
-        //geocodeAddress(address.toString(), geocode);
         edtmail = findViewById(R.id.signup_activity_mail_edt);
-       /* edtLong = findViewById(R.id.signup_activity_longtitude);
-        edtLat = findViewById(R.id.signup_activity_lattitude);*/
 
-        /*btnGetLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(InformationSignupActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        LocationManager mLocationManager = (LocationManager) InformationSignupActivity.this.getSystemService(LOCATION_SERVICE);
-                        List<String> providers = mLocationManager.getProviders(true);
+        mFusuedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        geocoder = new Geocoder(this, Locale.getDefault());
 
-                        for (String provider : providers) {
-                            Location l = mLocationManager.getLastKnownLocation(provider);
-                            if (l == null) {
-                                continue;
-                            }
-                            if (currentLocation == null || l.getAccuracy() < currentLocation.getAccuracy()) {
-                                // Found best last known location: %s", l);
-                                currentLocation = l;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-*/
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1200);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
         ApiClient.getInstance()
                 .create(SalonClient.class)
                 .getSalonProfile("Bearer " + MyContants.TOKEN)
@@ -113,7 +102,7 @@ public class InformationSignupActivity extends AppCompatActivity {
                         .create(SalonClient.class)
                         .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
                                 edtAddress.getText().toString(), Integer.parseInt(edtCapital.getText().toString()),
-                                edtPhone.getText().toString(), edtmail.getText().toString(), 106.6329596, 10.8466881)
+                                edtPhone.getText().toString(), edtmail.getText().toString(), mLastLocation.getLongitude(), mLastLocation.getLatitude())
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
@@ -153,26 +142,86 @@ public class InformationSignupActivity extends AppCompatActivity {
     }
 
 
-    public void geocodeAddress(String addressStr, Geocoder gc) {
-        Address address = null;
-        List<Address> addressList = null;
-        try {
-            if (!TextUtils.isEmpty(addressStr)) {
-                addressList = gc.getFromLocationName(addressStr, 5);
+    LocationCallback mLocationCallBack = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            List<Location> locationList = locationResult.getLocations();
+            if (locationList.size() > 0) {
+
+                Location location = locationList.get(locationList.size() - 1);
+                mLastLocation = location;
+
+                try {
+                    addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    Address address = addressList.get(0);
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                        sb.append(address.getAddressLine(i)).append("\n");
+                    }
+                    if (address.getThoroughfare() == null || address.getThoroughfare().length() == 0) {
+                        sb.append(address.getPremises()).append(", ");
+                    } else {
+                        sb.append(address.getThoroughfare()).append(", ");
+                    }
+                    sb.append(address.getSubAdminArea()).append(", ");
+                    sb.append(address.getLocality());
+
+                    edtAddress.setText(sb);
+
+                } catch (Exception e) {
+                    Log.d("IO", e.getMessage());
+                }
+
+
+
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
         }
-        if (null != addressList && addressList.size() > 0) {
-            address = addressList.get(0);
-        }
-        if (null != address && address.hasLatitude()
-                && address.hasLongitude()) {
-            latitude = address.getLatitude();
-            longitude = address.getLongitude();
+    };
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission Nedded")
+                        .setMessage("This app needs the Location permissio, Please accept")
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                }, 99);
+            }
         }
 
     }
 
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 99: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        mFusuedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+                    }
+                } else {
+                    Toast.makeText(this, "permisssion denied", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+        }
+    }
 
+
+    public void clickToGetCurrentLocation(View view) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                mFusuedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+
+            } else {
+                checkLocationPermission();
+            }
+        }
+    }
 }
