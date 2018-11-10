@@ -40,7 +40,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
     private Button btnCancel, btnArrived;
     private Customer customer;
     private Appointment appointment;
-    private ImageView imgCall, imgMsg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_appointment_detail);
 
         Intent intent = getIntent();
+
+
         final int fromPage = intent.getIntExtra("from_page", -1);
         customer = (Customer) intent.getSerializableExtra("customer");
         appointment = (Appointment) intent.getSerializableExtra("appointment");
@@ -176,6 +178,19 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void clickToSendSMS(View view) {
+                Uri uri = Uri.parse("smsto:"+customer.getPhone());
+                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                it.putExtra("sms_body", "");
+                startActivity(it);
+    }
+
+    public void clickToCall(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"+customer.getPhone()));
+        startActivity(intent);
     }
 }
 
