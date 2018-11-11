@@ -314,7 +314,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
-                android:text="2 Nhận xét"
+                android:text=""
                 android:textColor="@color/darkTextColor"
                 android:textStyle="bold" />
 

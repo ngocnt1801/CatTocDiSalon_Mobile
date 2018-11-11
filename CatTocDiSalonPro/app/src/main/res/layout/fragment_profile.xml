@@ -22,8 +22,7 @@
         android:id="@+id/header_cover_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/salon1" />
+        android:scaleType="centerCrop" />
     <ImageView
         android:id="@+id/upload_photo"
         android:layout_width="wrap_content"
