@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,12 +23,19 @@ import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.models.enums.AppointmentStatus;
+import com.pro.salon.cattocdi.service.ApiClient;
+import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.pro.salon.cattocdi.R.layout.dialog_cancel_appointment;
 import static com.pro.salon.cattocdi.utils.MyContants.CLIENT_PAGE;
@@ -79,25 +87,62 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         btnArrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               backToPrevious(fromPage);
+                ApiClient.getInstance().create(SalonClient.class)
+                        .approveAppointment("Bearer " + MyContants.TOKEN, appointment.getAppointmentId())
+                        .enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                if(response.code() == 200){
+                                    backToPrevious(fromPage);
+                                    Toast.makeText(AppointmentDetailActivity.this, "Xác nhận thành công", Toast.LENGTH_LONG);
+                                }else{
+                                    AlertError.showDialogLoginFail(AppointmentDetailActivity.this, "Có lỗi xảy ra vui lòng thử lại");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                AlertError.showDialogLoginFail(AppointmentDetailActivity.this, "Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
+                            }
+                        });
+
             }
         });
-      if(appointment.getStatus() == AppointmentStatus.CANCEL){
+        if (appointment.getStatus() == AppointmentStatus.CANCEL) {
             btnCancel.setBackground(getDrawable(R.drawable.ripple_circle_outline_error_disable));
             btnCancel.setEnabled(false);
-        }
-       else{
+        } else {
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Button btnOk, btnCancel;
+                    final EditText etReason;
                     dialog.setContentView(R.layout.dialog_cancel_appointment);
                     btnOk = dialog.findViewById(R.id.dialog_ok);
                     btnCancel = dialog.findViewById(R.id.dialog_cancel);
+                    etReason = dialog.findViewById(R.id.edt_reason_cancel_appoinment);
                     btnOk.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            backToPrevious(fromPage);
+                            ApiClient.getInstance().create(SalonClient.class)
+                                    .cancelAppointment("Bearer " + MyContants.TOKEN, appointment.getAppointmentId(), etReason.getText().toString())
+                                    .enqueue(new Callback<String>() {
+                                        @Override
+                                        public void onResponse(Call<String> call, Response<String> response) {
+                                            if(response.code() == 200){
+                                                backToPrevious(fromPage);
+                                            }else{
+                                                AlertError.showDialogLoginFail(AppointmentDetailActivity.this, "Không thể hủy lịch đặt này");
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable t) {
+                                            AlertError.showDialogLoginFail(AppointmentDetailActivity.this, "Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
+                                        }
+                                    });
+
                         }
                     });
                     btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +173,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
     private void goToContactDetail() {
         Intent intent = new Intent(this, ContactDetailActivity.class);
-        intent.putExtra("customer",customer);
+        intent.putExtra("customer", customer);
         startActivity(intent);
     }
 
@@ -177,19 +222,18 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         tvTotal.setText(NumberFormat.getNumberInstance(Locale.US).format(total));
 
 
-
     }
 
     public void clickToSendSMS(View view) {
-                Uri uri = Uri.parse("smsto:"+customer.getPhone());
-                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-                it.putExtra("sms_body", "");
-                startActivity(it);
+        Uri uri = Uri.parse("smsto:" + customer.getPhone());
+        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+        it.putExtra("sms_body", "");
+        startActivity(it);
     }
 
     public void clickToCall(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+customer.getPhone()));
+        intent.setData(Uri.parse("tel:" + customer.getPhone()));
         startActivity(intent);
     }
 }

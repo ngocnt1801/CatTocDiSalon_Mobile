@@ -61,30 +61,40 @@
 
     </android.support.v7.widget.CardView>
 
-    <ScrollView
+
+    <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:scrollbarSize="0dp">
+        android:layout_below="@id/fg_schedule_title_cv">
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fg_schedule_title_cv">
+            android:orientation="vertical">
 
-            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/schedule_table"
+            <LinearLayout
+                android:id="@+id/schedule_table_header_top"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_bottom_above_bottom_nav"
-                >
+                android:scrollbarSize="0dp"
+                android:scrollbars="vertical">
 
-            </GridLayout>
+                <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/schedule_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_bottom_above_bottom_nav"></GridLayout>
+            </ScrollView>
+
+        </LinearLayout>
 
 
-        </HorizontalScrollView>
-
-    </ScrollView>
+    </HorizontalScrollView>
 
 
 </LinearLayout>

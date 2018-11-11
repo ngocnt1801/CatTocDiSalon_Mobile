@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
@@ -48,6 +49,7 @@ public class ScheduleFragment extends Fragment {
 
     private List<Appointment> appointmentList;
     private GridLayout scheduleTable;
+    private LinearLayout topScheduleHeader;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -58,9 +60,11 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+        topScheduleHeader = view.findViewById(R.id.schedule_table_header_top);
+        topScheduleHeader.setLayoutParams(new LinearLayout.LayoutParams(200 + 500 * MyContants.CAPACITY, 100));
         scheduleTable = view.findViewById(R.id.schedule_table);
         scheduleTable.setColumnCount(MyContants.CAPACITY + 1);
-        scheduleTable.setRowCount(96 + 1);
+        scheduleTable.setRowCount(96);
 
 //        scheduleTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
 //            @Override
@@ -99,31 +103,32 @@ public class ScheduleFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         int now = getSlotIndex(Calendar.getInstance().getTime());
 
-        for (int i = 1; i <= MyContants.CAPACITY; i++) {
+        for (int i = 0; i <= MyContants.CAPACITY; i++) {
             TextView cell = (TextView) inflater.inflate(R.layout.table_cell_slot, null);
-            cell.setText(i + "");
+            LinearLayout.LayoutParams params;
+            if( i > 0){
+                cell.setText(i + "");
+                params = new LinearLayout.LayoutParams(500,100);
+            }else{
+               params  = new LinearLayout.LayoutParams(200,500);
+            }
             cell.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = 500;
-            params.height = 100;
-            params.columnSpec = GridLayout.spec(i);
-            params.rowSpec = GridLayout.spec(0);
             cell.setLayoutParams(params);
-            scheduleTable.addView(cell);
+            topScheduleHeader.addView(cell);
         }
 
-        for (int i = 1; i <= 96; i++) {
+        for (int i = 0; i < 96; i++) {
 
             TextView cell = (TextView) inflater.inflate(R.layout.table_cell_slot, null);
-            cell.setText(slotToString(i - 1));
-            cell.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            cell.setText(slotToString(i));
+            cell.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = 200;
             params.height = 200;
             params.columnSpec = GridLayout.spec(0);
             params.rowSpec = GridLayout.spec(i);
             cell.setLayoutParams(params);
-            if(i == now + 1){
+            if(i == now){
                 cell.setFocusableInTouchMode(true);
                 cell.requestFocus();
 
@@ -133,10 +138,13 @@ public class ScheduleFragment extends Fragment {
     }
 
 
-    private void loadDataToScheduler() {
+    private void loadDataToScheduler(Date date) {
         setHeaders();
         List<List<Appointment>> appointmentTable = parseToSchedule(appointmentList);
         LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+        boolean[][] existCell = new boolean[96][MyContants.CAPACITY + 1];
+
         for (int i = 0; i < MyContants.CAPACITY; i++) {
 
             if (appointmentTable.size() <= i) {
@@ -151,12 +159,13 @@ public class ScheduleFragment extends Fragment {
                     if (s == slotIndex) {
                         cell.setText(currentAppointment.getCustomer().getFullName() + "\n" + currentAppointment.getServicesName() + "\n" + currentAppointment.getStartToEnd());
                     }
+
                     cell.setBackgroundColor(Color.parseColor("#C8E6C9"));
                     GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                     params.width = 500;
                     params.height = 200;
                     params.columnSpec = GridLayout.spec(i + 1);
-                    params.rowSpec = GridLayout.spec(s + 1);
+                    params.rowSpec = GridLayout.spec(s);
                     cell.setLayoutParams(params);
                     cell.setClickable(true);
                     scheduleTable.addView(cell);
@@ -170,8 +179,26 @@ public class ScheduleFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
+
+                    existCell[s][i] = true;
                 }
 
+            }
+
+            for (int r = 0; r < 96 ; r++){
+                for (int c = 1; c <= MyContants.CAPACITY; c++){
+                    if(!existCell[r][i]){
+                        TextView cell = (TextView) inflater.inflate(R.layout.table_cell_slot, null);
+                        cell.setBackgroundResource(R.drawable.cell_border_bottom);
+                        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                        params.width = 500;
+                        params.height = 200;
+                        params.columnSpec = GridLayout.spec(c);
+                        params.rowSpec = GridLayout.spec(r);
+                        cell.setLayoutParams(params);
+                        scheduleTable.addView(cell);
+                    }
+                }
             }
 
         }
@@ -186,7 +213,8 @@ public class ScheduleFragment extends Fragment {
                     public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                         appointmentList = response.body();
                         scheduleTable.removeAllViews();
-                        loadDataToScheduler();
+                        topScheduleHeader.removeAllViews();
+                        loadDataToScheduler(date);
                     }
 
                     @Override
@@ -236,11 +264,11 @@ public class ScheduleFragment extends Fragment {
     private boolean isOveride(Appointment existing, Appointment current) {
 
         if (current.getstart().getTime() >= existing.getstart().getTime()
-                && current.getstart().getTime() <= existing.getend().getTime()) {
+                && current.getstart().getTime() < existing.getend().getTime()) {
             return true;
         }
 
-        if (current.getend().getTime() >= existing.getstart().getTime()
+        if (current.getend().getTime() > existing.getstart().getTime()
                 && current.getend().getTime() <= existing.getend().getTime()) {
             return true;
         }

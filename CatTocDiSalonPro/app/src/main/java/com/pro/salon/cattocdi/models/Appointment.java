@@ -79,7 +79,7 @@ public class Appointment implements Serializable {
     public Timestamp getstart() {
         String value = startStr.replace("T", " ");
         try {
-            start = new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime());
+            start = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(value).getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class Appointment implements Serializable {
     public Timestamp getend() {
         String value = startStr.replace("T", " ");
         try {
-            end = new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime() + duration * 60 * 1000);
+            end = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(value).getTime() + duration * 60 * 1000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
