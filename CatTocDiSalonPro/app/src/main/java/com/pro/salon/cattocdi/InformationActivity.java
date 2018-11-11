@@ -126,6 +126,7 @@ public class InformationActivity extends AppCompatActivity{
                                 Log.d("RESPONSE", response.toString());
                                 if (response.code() == 200) {
                                     Intent intent = new Intent(InformationActivity.this, MainActivity.class);
+                                    intent.putExtra("fragment_id", 3);
                                     startActivity(intent);
                                 } else {
                                     showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng");
