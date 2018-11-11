@@ -19,7 +19,7 @@
         android:elevation="4dp"
         android:hint="Số điện thoại hoặc tên khách hàng"
         android:imeOptions="actionSearch"
-        android:inputType="phone"
+        android:inputType="text"
         android:padding="@dimen/padding_edit_text"
         android:textColor="@color/darkTextColor"
         android:textSize="14dp" />

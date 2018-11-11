@@ -13,10 +13,12 @@ import android.widget.TextView;
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Appointment;
+import com.pro.salon.cattocdi.models.enums.AppointmentStatus;
 import com.pro.salon.cattocdi.utils.MyContants;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder> {
@@ -41,7 +43,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
         final Appointment appointment = appointments.get(position);
         holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(appointment.getstart()));
-        holder.tvName.setText(appointment.getCustomer().getFullName());
+        holder.tvName.setText(appointment.getCustomer().getPhone());
         holder.tvTime.setText(appointment.getStartToEnd());
         holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,6 +55,23 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                 context.startActivity(intent);
             }
         });
+        holder.tvStatus.setText(appointment.getCustomer().getFullName());
+        if(appointment.getStatus() == AppointmentStatus.CANCEL.getStatus()) {
+            holder.theTrueStatus.setVisibility(View.VISIBLE);
+            holder.theTrueStatus.setText("Đã Hủy");
+            holder.theTrueStatus.setTextColor(context.getResources().getColor(R.color.errorColor));
+        } else if (appointment.getStatus() == AppointmentStatus.APPROVED.getStatus()) {
+            holder.theTrueStatus.setVisibility(View.VISIBLE);
+            holder.theTrueStatus.setText("Đã Xác Nhận");
+            holder.theTrueStatus.setTextColor(context.getResources().getColor(R.color.approved));
+        }else if(appointment.getstart().getTime() <= Calendar.getInstance().getTimeInMillis() + 15 * 60 * 1000 ) {
+            holder.theTrueStatus.setVisibility(View.VISIBLE);
+            holder.theTrueStatus.setText("Đã Quá Hạn");
+            holder.theTrueStatus.setTextColor(context.getResources().getColor(R.color.textColorTint));
+        }
+        else {
+            holder.theTrueStatus.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -63,7 +82,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
-        public TextView tvStatus, tvDate, tvName, tvTime;
+        public TextView tvStatus, tvDate, tvName, tvTime, theTrueStatus;
         public RelativeLayout rl;
 
         public AppointmentViewHolder(View itemView) {
@@ -74,6 +93,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             tvName = itemView.findViewById(R.id.fg_appointment_customer_name);
             tvTime = itemView.findViewById(R.id.fg_appointment_time);
             rl = itemView.findViewById(R.id.fg_appointment_rv_item_rl);
+            theTrueStatus = itemView.findViewById(R.id.status);
         }
     }
 

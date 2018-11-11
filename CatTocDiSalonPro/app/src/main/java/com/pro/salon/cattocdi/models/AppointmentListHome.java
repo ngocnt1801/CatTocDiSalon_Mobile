@@ -13,6 +13,8 @@ public class AppointmentListHome implements Serializable {
     private List<Appointment> notApproveAppointments;
     @SerializedName("Capacity")
     private int capacity;
+    @SerializedName("ListCancel")
+    private List<Appointment> cancelAppointments;
 
 
     public List<Appointment> getNextAppointments() {
@@ -37,5 +39,13 @@ public class AppointmentListHome implements Serializable {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public List<Appointment> getCancelAppointments() {
+        return cancelAppointments;
+    }
+
+    public void setCancelAppointments(List<Appointment> cancelAppointments) {
+        this.cancelAppointments = cancelAppointments;
     }
 }

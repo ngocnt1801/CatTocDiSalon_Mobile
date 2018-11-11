@@ -14,7 +14,7 @@ public class Appointment implements Serializable {
     private int appointmentId;
     private Salon salon;
     @SerializedName("Status")
-    private AppointmentStatus status;
+    private int status;
     private Timestamp start;
     private Timestamp end;
     @SerializedName("Services")
@@ -68,11 +68,11 @@ public class Appointment implements Serializable {
         this.salon = salon;
     }
 
-    public AppointmentStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(AppointmentStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

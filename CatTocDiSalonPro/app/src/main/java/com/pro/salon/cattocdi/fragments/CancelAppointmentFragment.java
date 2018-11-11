@@ -1,5 +1,6 @@
 package com.pro.salon.cattocdi.fragments;
 
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,25 +21,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-
+ * A simple {@link Fragment} subclass.
  */
-@SuppressLint("ValidFragment")
-public class HistoryAppointmentFragment extends Fragment {
+public class CancelAppointmentFragment extends Fragment {
     private RecyclerView rvAppointment;
     private List<Appointment> appointments;
     private EditText etSearch;
 
 
-    @SuppressLint("ValidFragment")
-    public HistoryAppointmentFragment(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public CancelAppointmentFragment() {
+        // Required empty public constructor
     }
 
+    @SuppressLint("ValidFragment")
+    public CancelAppointmentFragment(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_current_appoinment, container, false);
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_current_appoinment, container, false);
         rvAppointment = view.findViewById(R.id.fg_home_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvAppointment.setAdapter(new AppointmentAdapter(getActivity(), appointments));
@@ -61,8 +65,8 @@ public class HistoryAppointmentFragment extends Fragment {
             }
         });
 
-
         return view;
+
     }
 
     private void search(String value) {

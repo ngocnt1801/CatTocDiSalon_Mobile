@@ -71,6 +71,6 @@ public class Customer implements Serializable{
     }
 
     public String getFullName(){
-        return firstname + " " + lastname;
+        return firstname;
     }
 }
