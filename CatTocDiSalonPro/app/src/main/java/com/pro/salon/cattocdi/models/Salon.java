@@ -29,7 +29,10 @@ public class Salon implements Serializable{
     private float ratingNumber;
     private boolean full;
     private int discount;
+
+    @SerializedName("ImageUrl")
     private String imageUrl;
+
     private int reviewsAmount;
     private Timestamp startTime;
 
@@ -49,6 +52,7 @@ public class Salon implements Serializable{
     @SerializedName("CurrentPromotions")
     private List<Promotion> promotions;
     private List<Comment> reviews;
+
 
 
 
@@ -331,6 +335,8 @@ public class Salon implements Serializable{
     public void setPromotions(List<Promotion> promotions) {
         this.promotions = promotions;
     }
+
+
 
     public class DayWorkingHour implements Serializable{
         private int dayInWeek;

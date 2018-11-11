@@ -10,9 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.github.eunsiljo.timetablelib.data.TimeData;
-import com.github.eunsiljo.timetablelib.data.TimeTableData;
-import com.github.eunsiljo.timetablelib.view.TimeTableView;
 import com.pro.salon.cattocdi.fragments.ClientFragment;
 import com.pro.salon.cattocdi.fragments.HomeFragment;
 import com.pro.salon.cattocdi.fragments.ProfileFragment;
@@ -24,7 +21,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    TimeTableView scheduleTable;
     private BottomNavigationView bottomNav;
     private int currentPos = 0, nextPos;
 
@@ -82,29 +78,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList<TimeTableData> getSamples(long date) {
-
-        ArrayList<TimeTableData> tables = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            ArrayList<TimeData> values = new ArrayList<>();
-            DateTime start = new DateTime(date);
-            DateTime end = start.plusMinutes((int) ((Math.random() * 10) + 1) * 30);
-            for (int j = 0; j < 7; j++) {
-                int textColor = R.color.black;
-
-
-                TimeData timeData = new TimeData(j, "", R.color.light, textColor, start.getMillis(), end.getMillis());
-
-                values.add(timeData);
-
-                start = end.plusMinutes((int) ((Math.random() * 10) + 1) * 10);
-                end = start.plusMinutes((int) ((Math.random() * 10) + 1) * 30);
-            }
-
-            tables.add(new TimeTableData("", values));
-        }
-        return tables;
-    }
 
 
 

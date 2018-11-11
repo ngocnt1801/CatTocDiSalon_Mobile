@@ -14,11 +14,6 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.eunsiljo.timetablelib.data.TimeData;
-import com.github.eunsiljo.timetablelib.data.TimeGridData;
-import com.github.eunsiljo.timetablelib.data.TimeTableData;
-import com.github.eunsiljo.timetablelib.view.TimeTableView;
-import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
 import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Appointment;

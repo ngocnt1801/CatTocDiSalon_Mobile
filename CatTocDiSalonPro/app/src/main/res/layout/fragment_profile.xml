@@ -24,6 +24,15 @@
         android:layout_height="150dp"
         android:scaleType="centerCrop"
         android:src="@drawable/salon1" />
+    <ImageView
+        android:id="@+id/upload_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_upload_img"
+        android:layout_alignBottom="@id/header_cover_image"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="8dp"
+        android:clickable="true"/>
 
     <TextView
         android:id="@+id/fg_name_salon"

@@ -10,8 +10,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.github.eunsiljo.timetablelib.data.TimeTableData;
-import com.pro.salon.cattocdi.fragments.SalonDetailServiceFragment;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;

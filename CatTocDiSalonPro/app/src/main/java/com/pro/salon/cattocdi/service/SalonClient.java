@@ -112,4 +112,7 @@ public interface SalonClient {
 
     @POST("api/Appointment/{id}/Cancel")
     Call<String> cancelAppointment(@Header("Authorization") String auth, @Path("id") int appointmentId, @Body String reason);
+
+    @POST("api/Images/")
+    Call<String> updateImage(@Header("Authorization") String auth, @Body String imageUrl);
 }
