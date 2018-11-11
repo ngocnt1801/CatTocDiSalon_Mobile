@@ -121,6 +121,7 @@ public class ScheduleFragment extends Fragment {
 
             TextView cell = (TextView) inflater.inflate(R.layout.table_cell_slot, null);
             cell.setText(slotToString(i));
+            cell.setBackgroundResource(R.drawable.cell_border_bottom);
             cell.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = 200;

@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment {
                             ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
                             adapter.addFragment(new NextAppointmentFragment(response.body().getNextAppointments()), "Tiếp theo");
                             adapter.addFragment(new HistoryAppointmentFragment(response.body().getNotApproveAppointments()), "Lịch sử");
+                            adapter.addFragment(new CancelAppointmentFragment(response.body().getCancelAppointments()), "Đã hủy");
                             viewPager.setAdapter(adapter);
 
                             tabs.setupWithViewPager(viewPager);
