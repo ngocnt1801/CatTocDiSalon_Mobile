@@ -106,4 +106,10 @@ public interface SalonClient {
     Call<List<Appointment>> getAppointmentByDate(@Header("Authorization") String auth, @Query("date") String date);
     @GET("api/Review")
     Call<List<Comment>> getReview(@Header("Authorization") String auth);
+
+    @POST("api/Appointment/{id}/Approve")
+    Call<String> approveAppointment(@Header("Authorization") String auth, @Path("id") int appointmentId);
+
+    @POST("api/Appointment/{id}/Cancel")
+    Call<String> cancelAppointment(@Header("Authorization") String auth, @Path("id") int appointmentId, @Body String reason);
 }
