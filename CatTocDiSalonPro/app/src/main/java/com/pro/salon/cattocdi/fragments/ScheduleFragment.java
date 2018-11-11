@@ -159,8 +159,7 @@ public class ScheduleFragment extends Fragment {
                     if (s == slotIndex) {
                         cell.setText(currentAppointment.getCustomer().getFullName() + "\n" + currentAppointment.getServicesName() + "\n" + currentAppointment.getStartToEnd());
                     }
-
-                    cell.setBackgroundColor(Color.parseColor("#C8E6C9"));
+                    cell.setBackgroundResource(R.drawable.cell_border_fill);
                     GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                     params.width = 500;
                     params.height = 200;
