@@ -3,12 +3,14 @@ package com.pro.salon.cattocdi.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
@@ -45,7 +47,7 @@ import retrofit2.Response;
 public class ScheduleFragment extends Fragment {
 
     private List<Appointment> appointmentList;
-    private TimeTableView scheduleTable;
+    private GridLayout scheduleTable;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -56,28 +58,21 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-        scheduleTable = view.findViewById(R.id.salon_schedule);
+        scheduleTable = view.findViewById(R.id.schedule_table);
+        scheduleTable.setColumnCount(MyContants.CAPACITY + 1);
+        scheduleTable.setRowCount(96 + 1);
 
-        scheduleTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
-            @Override
-            public void onTimeItemClick(View view, int i, TimeGridData timeGridData) {
-                Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
-                intent.putExtra("from_page", MyContants.SCHEDULE_PAGE);
-                intent.putExtra("appointment", appointmentList.get(i));
-                intent.putExtra("customer", (Serializable) appointmentList.get(i).getCustomer());
-                startActivity(intent);
-            }
-        });
-
-        scheduleTable.setStartHour(0);
-        scheduleTable.setShowHeader(true);
-        scheduleTable.setTableMode(TimeTableView.TableMode.SHORT);
-
-        //assign data test
-        scheduleTable.setMinimumWidth(MyContants.CAPACITY * 40);
+//        scheduleTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
+//            @Override
+//            public void onTimeItemClick(View view, int i, TimeGridData timeGridData) {
+//                Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
+//                intent.putExtra("from_page", MyContants.SCHEDULE_PAGE);
+//                intent.putExtra("appointment", appointmentList.get(i));
+//                intent.putExtra("customer", (Serializable) appointmentList.get(i).getCustomer());
+//                startActivity(intent);
+//            }
+//        });
         loadAppointment(Calendar.getInstance().getTime());
-
-
         final TextView tvDate = view.findViewById(R.id.fg_schedule_date_tv);
         tvDate.setText(DateTime.now().toString("dd/MM/yyyy"));
         final DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
@@ -90,9 +85,6 @@ public class ScheduleFragment extends Fragment {
             }
 
         }, DateTime.now().getYear(), DateTime.now().getMonthOfYear() - 1, DateTime.now().getDayOfMonth());
-
-
-
         tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,65 +95,98 @@ public class ScheduleFragment extends Fragment {
         return view;
     }
 
+    private void setHeaders(){
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        int now = getSlotIndex(Calendar.getInstance().getTime());
 
-    private ArrayList<TimeTableData> loadDataToScheduler(long date) {
-        List<List<Appointment>> appointmentTable = parseToSchedule(appointmentList);
-
-        ArrayList<TimeTableData> tables = new ArrayList<>();
-        for (int i = 0; i < MyContants.CAPACITY; i++) {
-
-            if(appointmentTable.size() <= i){
-                appointmentTable.add(i, new ArrayList<Appointment>());
-            }
-            ArrayList<TimeData> values = new ArrayList<>();
-            for (int j = 0; j < appointmentTable.get(i).size(); j++) {
-                Appointment currentAppointment = appointmentTable.get(i).get(j);
-                int textColor = R.color.black;
-                int cellColor = R.color.tableLight;
-                if (DateTime.now().withTimeAtStartOfDay().getMillis() > date) {
-                    cellColor = R.color.tableLightDisable;
-                } else if (DateTime.now().withTimeAtStartOfDay().getMillis() + (24 * 3600 * 1000) < date) {
-
-                    cellColor = R.color.tableLight;
-                } else {
-                    if (appointmentTable.get(i).get(j).getend().getTime() < Calendar.getInstance().getTimeInMillis()) {
-                        cellColor = R.color.tableLightDisable;
-                    }
-                }
-
-                TimeData timeData = new TimeData(j,
-                        currentAppointment.getCustomer().getFullName()
-                                + ":\n"
-                                + currentAppointment.getServicesName()
-                                + "\n"
-                                + currentAppointment.getStartToEnd(),
-                        cellColor,
-                        textColor,
-                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getstart())),
-                        getMillis(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentAppointment.getend())));
-
-                values.add(timeData);
-
-            }
-            values.add(new TimeData(appointmentTable.get(i).size(),
-                    "",
-                    R.color.currentTimeBar,
-                    R.color.lightTextColor,
-                    DateTime.now().getMillis(),
-                    DateTime.now().plus(5 * 60 * 1000).getMillis()));
-            tables.add(new TimeTableData("" + (i + 1), values));
+        for (int i = 1; i <= MyContants.CAPACITY; i++) {
+            TextView cell = (TextView) inflater.inflate(R.layout.table_cell_slot, null);
+            cell.setText(i + "");
+            cell.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = 500;
+            params.height = 100;
+            params.columnSpec = GridLayout.spec(i);
+            params.rowSpec = GridLayout.spec(0);
+            cell.setLayoutParams(params);
+            scheduleTable.addView(cell);
         }
-        return tables;
+
+        for (int i = 1; i <= 96; i++) {
+
+            TextView cell = (TextView) inflater.inflate(R.layout.table_cell_slot, null);
+            cell.setText(slotToString(i - 1));
+            cell.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = 200;
+            params.height = 200;
+            params.columnSpec = GridLayout.spec(0);
+            params.rowSpec = GridLayout.spec(i);
+            cell.setLayoutParams(params);
+            if(i == now + 1){
+                cell.setFocusableInTouchMode(true);
+                cell.requestFocus();
+
+            }
+            scheduleTable.addView(cell);
+        }
     }
 
-    private void loadAppointment(final Date date){
+
+    private void loadDataToScheduler() {
+        setHeaders();
+        List<List<Appointment>> appointmentTable = parseToSchedule(appointmentList);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        for (int i = 0; i < MyContants.CAPACITY; i++) {
+
+            if (appointmentTable.size() <= i) {
+                appointmentTable.add(i, new ArrayList<Appointment>());
+            }
+            for (int j = 0; j < appointmentTable.get(i).size(); j++) {
+                final Appointment currentAppointment = appointmentTable.get(i).get(j);
+                int slotIndex = currentAppointment.getSlotIndex();
+                int totalSlot = currentAppointment.getTotalSlot();
+                for (int s = slotIndex; s < totalSlot + slotIndex; s++) {
+                    TextView cell = (TextView) inflater.inflate(R.layout.table_cell_slot, null);
+                    if (s == slotIndex) {
+                        cell.setText(currentAppointment.getCustomer().getFullName() + "\n" + currentAppointment.getServicesName() + "\n" + currentAppointment.getStartToEnd());
+                    }
+                    cell.setBackgroundColor(Color.parseColor("#C8E6C9"));
+                    GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                    params.width = 500;
+                    params.height = 200;
+                    params.columnSpec = GridLayout.spec(i + 1);
+                    params.rowSpec = GridLayout.spec(s + 1);
+                    cell.setLayoutParams(params);
+                    cell.setClickable(true);
+                    scheduleTable.addView(cell);
+                    cell.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
+                            intent.putExtra("from_page", MyContants.SCHEDULE_PAGE);
+                            intent.putExtra("appointment", currentAppointment);
+                            intent.putExtra("customer", (Serializable) currentAppointment.getCustomer());
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+            }
+
+        }
+
+    }
+
+    private void loadAppointment(final Date date) {
         ApiClient.getInstance().create(SalonClient.class)
                 .getAppointmentByDate("Bearer " + MyContants.TOKEN, new SimpleDateFormat("yyyy-MM-dd").format(date))
                 .enqueue(new Callback<List<Appointment>>() {
                     @Override
                     public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                         appointmentList = response.body();
-                        scheduleTable.setTimeTable(date.getTime(), loadDataToScheduler(date.getTime()));
+                        scheduleTable.removeAllViews();
+                        loadDataToScheduler();
                     }
 
                     @Override
@@ -173,7 +198,7 @@ public class ScheduleFragment extends Fragment {
 
     private List<List<Appointment>> parseToSchedule(List<Appointment> appointments) {
         List<List<Appointment>> result = new ArrayList<>();
-        if(appointments != null){
+        if (appointments != null) {
             int col;
             for (Appointment currentAppointment :
                     appointments) {
@@ -223,14 +248,20 @@ public class ScheduleFragment extends Fragment {
 
     }
 
-    private long getMillis(String day){
-        DateTime date = getDateTimePattern().parseDateTime(day);
-        return date.getMillis();
-    }
-    private DateTimeFormatter getDateTimePattern(){
-        return DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    private String slotToString(int index) {
+        int duration = index * 15;
+        String hour = duration / 60 > 9 ? duration / 60 + "" : "0" + duration / 60;
+        String minute = duration % 60 > 9 ? duration % 60 + "" : "0" + duration % 60;
+        return hour + ":" + minute;
     }
 
-
+    private int getSlotIndex(Date date){
+        int duration = date.getHours() * 60 + date.getMinutes();
+        int slotTmp = duration / 15;
+        if (duration > slotTmp * 15) {
+            slotTmp++;
+        }
+        return slotTmp;
+    }
 
 }

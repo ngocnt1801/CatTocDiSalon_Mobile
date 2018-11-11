@@ -2,40 +2,25 @@ package com.pro.salon.cattocdi;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
-import com.github.eunsiljo.timetablelib.data.TimeGridData;
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
-import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
 import com.pro.salon.cattocdi.fragments.ClientFragment;
-import com.pro.salon.cattocdi.fragments.HomeAppointmentFragment;
 import com.pro.salon.cattocdi.fragments.HomeFragment;
 import com.pro.salon.cattocdi.fragments.ProfileFragment;
 import com.pro.salon.cattocdi.fragments.ScheduleFragment;
-import com.pro.salon.cattocdi.utils.MyContants;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                             currentPos = nextPos;
                             nextPos = 0;
                             HomeFragment homeFragment = new HomeFragment();
-//                        HomeAppointmentFragment homeAppointmentFragment = new HomeAppointmentFragment();
+//                        NextAppointmentFragment homeAppointmentFragment = new NextAppointmentFragment();
                             showFragment(homeFragment);
 //                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
                             return true;
@@ -92,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
             //HOME FRAGMENT will show first
             showFragment(new HomeFragment());
-//        showFragment(new HomeAppointmentFragment(),MyContants.FRAGMENT_BELOW);
+//        showFragment(new NextAppointmentFragment(),MyContants.FRAGMENT_BELOW);
 
         }
     }
@@ -143,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 currentPos = nextPos;
                 nextPos = 0;
                 HomeFragment homeFragment = new HomeFragment();
-//                        HomeAppointmentFragment homeAppointmentFragment = new HomeAppointmentFragment();
+//                        NextAppointmentFragment homeAppointmentFragment = new NextAppointmentFragment();
                 showFragment(homeFragment);
 //                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
                 navigationView.getMenu().getItem(0).setChecked(true);

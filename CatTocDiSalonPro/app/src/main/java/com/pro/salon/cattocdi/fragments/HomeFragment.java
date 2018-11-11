@@ -1,36 +1,25 @@
 package com.pro.salon.cattocdi.fragments;
 
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pro.salon.cattocdi.R;
-import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.AppointmentListHome;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
 
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -71,8 +60,8 @@ public class HomeFragment extends Fragment {
                         if (response != null && response.code() == 200) {
                             MyContants.CAPACITY = response.body().getCapacity();
                             ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-                            adapter.addFragment(new HomeAppointmentFragment(response.body().getNextAppointments()), "Tiếp theo");
-                            adapter.addFragment(new CurrentAppoinmentFragment(response.body().getNotApproveAppointments()), "Chưa xác nhận");
+                            adapter.addFragment(new NextAppointmentFragment(response.body().getNextAppointments()), "Tiếp theo");
+                            adapter.addFragment(new HistoryAppointmentFragment(response.body().getNotApproveAppointments()), "Lịch sử");
                             viewPager.setAdapter(adapter);
 
                             tabs.setupWithViewPager(viewPager);
@@ -93,8 +82,8 @@ public class HomeFragment extends Fragment {
     // Add Fragments to Tabs
 //    private void setupViewPager(ViewPager viewPager) {
 //        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-//        adapter.addFragment(new HomeAppointmentFragment(appointments), "Tiếp theo");
-//        adapter.addFragment(new CurrentAppoinmentFragment(appointments), "Chưa xác nhận");
+//        adapter.addFragment(new NextAppointmentFragment(appointments), "Tiếp theo");
+//        adapter.addFragment(new HistoryAppointmentFragment(appointments), "Chưa xác nhận");
 //        viewPager.setAdapter(adapter);
 //    }
 

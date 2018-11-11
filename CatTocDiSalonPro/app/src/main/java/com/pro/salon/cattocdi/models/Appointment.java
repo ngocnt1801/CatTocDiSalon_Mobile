@@ -9,13 +9,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class Appointment implements Serializable{
+public class Appointment implements Serializable {
     @SerializedName("AppointmentId")
     private int appointmentId;
     private Salon salon;
     @SerializedName("Status")
     private AppointmentStatus status;
-    
     private Timestamp start;
     private Timestamp end;
     @SerializedName("Services")
@@ -28,7 +27,8 @@ public class Appointment implements Serializable{
     @SerializedName("Customer")
     private Customer customer;
     @SerializedName("StartTime")
-private String startStr;
+    private String startStr;
+
     public Appointment() {
     }
 
@@ -79,7 +79,7 @@ private String startStr;
     public Timestamp getstart() {
         String value = startStr.replace("T", " ");
         try {
-            start = new Timestamp( new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime());
+            start = new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ private String startStr;
     public Timestamp getend() {
         String value = startStr.replace("T", " ");
         try {
-            end = new Timestamp( new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime() + duration * 60*1000);
+            end = new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(value).getTime() + duration * 60 * 1000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -120,17 +120,33 @@ private String startStr;
         this.discount = discount;
     }
 
-    public String getStartToEnd(){
+    public String getStartToEnd() {
         return new SimpleDateFormat("HH:mm").format(getstart()) + " - " + new SimpleDateFormat("HH:mm").format(getend());
     }
 
-    public String getServicesName(){
+    public String getServicesName() {
         String result = "";
-        for (Service service:
-             services) {
-            result += service.getName();
+        for (Service service :
+                services) {
+            result += service.getName() + ", ";
         }
-        return result;
+        return result.substring(0, result.length() - 2);
     }
 
+    public int getSlotIndex() {
+        String value = startStr.replace("T", " ");
+        int slot = 0;
+        Timestamp startTmp = getstart();
+        slot = (startTmp.getHours() * 60 + startTmp.getMinutes()) / 15;
+
+        return slot;
+    }
+
+    public int getTotalSlot() {
+        int slotTmp = duration / 15;
+        if (duration > slotTmp * 15) {
+            slotTmp++;
+        }
+        return slotTmp;
+    }
 }

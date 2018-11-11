@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".fragments.ScheduleFragment">
 
@@ -61,29 +61,30 @@
 
     </android.support.v7.widget.CardView>
 
-    <HorizontalScrollView
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fg_schedule_title_cv">
+        android:scrollbars="vertical"
+        android:scrollbarSize="0dp">
 
-        <FrameLayout
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fg_schedule_title_cv">
 
-            <com.github.eunsiljo.timetablelib.view.TimeTableView
-                android:id="@+id/salon_schedule"
+            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/schedule_table"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.github.eunsiljo.timetablelib.view.TimeTableView>
-            <!--<View-->
-                <!--android:id="@+id/fg_schedult_time_current_bar"-->
-                <!--android:layout_width="1000dp"-->
-                <!--android:layout_height="2dp"-->
-                <!--android:background="#2196f3"-->
-                <!--android:layout_marginTop="40dp"-->
-                <!--android:elevation="4dp"/>-->
-        </FrameLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_above_bottom_nav"
+                >
 
-    </HorizontalScrollView>
+            </GridLayout>
 
 
-</RelativeLayout>
+        </HorizontalScrollView>
+
+    </ScrollView>
+
+
+</LinearLayout>
