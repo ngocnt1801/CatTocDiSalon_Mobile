@@ -56,24 +56,14 @@
             android:textColor="@color/darkTextColor"
             android:text="3:00PM - 4:00PM"/>
 
-       <!-- <TextView
-            android:id="@+id/fg_appointment_dot_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fg_appointment_salon_name"
-            android:layout_marginHorizontal="8dp"
-            android:layout_toRightOf="@id/fg_appointment_start_time"
-            android:textColor="@color/darkTextColor"
-            android:text="-" />
-
         <TextView
-            android:id="@+id/fg_appointment_end_time"
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fg_appointment_salon_name"
-            android:layout_toRightOf="@id/fg_appointment_dot_tv"
             android:textColor="@color/darkTextColor"
-            android:text="4:00PM" />
--->
+            android:layout_marginTop="46dp"
+            android:layout_alignParentRight="true"
+            android:text="Đã xác nhận" />
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

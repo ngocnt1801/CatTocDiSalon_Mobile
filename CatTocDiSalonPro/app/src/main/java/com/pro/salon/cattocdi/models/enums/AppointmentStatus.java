@@ -3,7 +3,7 @@ package com.pro.salon.cattocdi.models.enums;
 public enum AppointmentStatus {
     NOT_APPROVED(0),
     APPROVED(1),
-    CANCEL(3);
+    CANCEL(2);
 
     private int status;
 

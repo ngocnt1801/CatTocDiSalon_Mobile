@@ -52,7 +52,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
         final Customer currentCustomer = customers.get(position);
         holder.tvName.setText(currentCustomer.getFullName());
-        String symbol1 = Character.toString(currentCustomer.getFirstname().charAt(0)) + Character.toString(currentCustomer.getLastname().charAt(0));
+        String symbol1 = Character.toString(currentCustomer.getFirstname().charAt(0));
         holder.tvSymbol.setText(symbol1.toUpperCase());
 
         holder.item.setOnClickListener(new View.OnClickListener() {

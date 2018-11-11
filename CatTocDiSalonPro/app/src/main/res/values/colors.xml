@@ -9,7 +9,8 @@
     <color name="lightTextColor">#ffffff</color>
     <color name="darkTextColor">#000000</color>
     <color name="ratingColor">#ffc947</color>
-    <color name="errorColor">#bc0609</color>
+    <color name="errorColor">#d11c1f</color>
+    <color name="approved">#49ae1e</color>
 
     <color name="tableLight">#C8E6C9</color>
     <color name="tableLightDisable">#EEE</color>

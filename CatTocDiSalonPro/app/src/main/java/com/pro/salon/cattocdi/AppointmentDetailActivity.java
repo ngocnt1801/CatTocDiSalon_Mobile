@@ -84,6 +84,14 @@ public class AppointmentDetailActivity extends AppCompatActivity {
             }
         });
 
+        if(appointment.getStatus() == AppointmentStatus.NOT_APPROVED.getStatus()) {
+            btnArrived.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.VISIBLE);
+        } else {
+            btnArrived.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+        }
+
         btnArrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +116,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
             }
         });
-        if (appointment.getStatus() == AppointmentStatus.CANCEL) {
+        if (appointment.getStatus() == AppointmentStatus.CANCEL.getStatus()) {
             btnCancel.setBackground(getDrawable(R.drawable.ripple_circle_outline_error_disable));
             btnCancel.setEnabled(false);
         } else {
