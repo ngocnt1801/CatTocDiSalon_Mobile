@@ -64,7 +64,7 @@ public class ClientFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                search(s.toString());
+                search(s.toString().toLowerCase());
             }
 
             @Override
@@ -118,7 +118,7 @@ public class ClientFragment extends Fragment {
                     customers) {
                 for (String item :
                         values) {
-                    if(cutomer.getFullName().contains(item) || cutomer.getPhone().contains(item)){
+                    if(cutomer.getFullName().toLowerCase().contains(item) || cutomer.getPhone().contains(item)){
                         result.add(cutomer);
                         break;
                     }

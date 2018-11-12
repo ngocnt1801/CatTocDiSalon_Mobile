@@ -64,7 +64,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             holder.theTrueStatus.setVisibility(View.VISIBLE);
             holder.theTrueStatus.setText("Đã Xác Nhận");
             holder.theTrueStatus.setTextColor(context.getResources().getColor(R.color.approved));
-        }else if(appointment.getstart().getTime() <= Calendar.getInstance().getTimeInMillis() + 15 * 60 * 1000 ) {
+        }else if(appointment.getstart().getTime()  + 15 * 60 * 1000  <= Calendar.getInstance().getTimeInMillis()) {
             holder.theTrueStatus.setVisibility(View.VISIBLE);
             holder.theTrueStatus.setText("Đã Quá Hạn");
             holder.theTrueStatus.setTextColor(context.getResources().getColor(R.color.textColorTint));

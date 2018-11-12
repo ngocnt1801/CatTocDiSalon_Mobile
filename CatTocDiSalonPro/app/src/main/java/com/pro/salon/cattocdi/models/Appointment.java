@@ -28,6 +28,8 @@ public class Appointment implements Serializable {
     private Customer customer;
     @SerializedName("StartTime")
     private String startStr;
+    @SerializedName("CancelledReason")
+    private String cancelReason;
 
     public Appointment() {
     }
@@ -148,5 +150,13 @@ public class Appointment implements Serializable {
             slotTmp++;
         }
         return slotTmp;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
     }
 }
