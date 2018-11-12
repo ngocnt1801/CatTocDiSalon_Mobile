@@ -102,7 +102,7 @@ public class InformationSignupActivity extends AppCompatActivity {
                         .create(SalonClient.class)
                         .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
                                 edtAddress.getText().toString(), Integer.parseInt(edtCapital.getText().toString()),
-                                edtPhone.getText().toString(), edtmail.getText().toString(), mLastLocation.getLongitude(), mLastLocation.getLatitude())
+                                edtPhone.getText().toString(), edtmail.getText().toString(), mLastLocation != null ? mLastLocation.getLongitude() : 0, mLastLocation != null ? mLastLocation.getLatitude() : 0)
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
