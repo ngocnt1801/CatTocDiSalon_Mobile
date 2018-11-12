@@ -14,6 +14,7 @@ import com.pro.salon.cattocdi.AppointmentDetailActivity;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.Customer;
+import com.pro.salon.cattocdi.models.enums.AppointmentStatus;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
@@ -76,9 +77,15 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             if (appointment.getstart().getTime() > Calendar.getInstance().getTimeInMillis()) {
                 holder.tvStatus.setText("Sắp tới");
             }
+
+            if(appointment.getStatus() == AppointmentStatus.CANCEL.getStatus()){
+                holder.tvStatus.setText("Đã hủy");
+            }
+
+            holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(customer.getAppointments().get(position).getstart()));
+            holder.tvTime.setText(appointment.getStartToEnd());
             //temp edit later
             final Intent intent = new Intent(context, AppointmentDetailActivity.class);
-            holder.tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(customer.getAppointments().get(position).getstart()));
 
             holder.item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -101,7 +108,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
         public View item;
-        public TextView tvStatus, tvDate, tvName;
+        public TextView tvStatus, tvDate, tvName, tvTime;
         public RelativeLayout rl;
 
         public AppointmentViewHolder(View itemView) {
@@ -110,6 +117,7 @@ public class ContactHistoryAdapter extends RecyclerView.Adapter<ContactHistoryAd
             tvStatus = itemView.findViewById(R.id.fg_appointment_upcomming_tv);
             tvDate = itemView.findViewById(R.id.fg_appointment_date_tv);
             tvName = itemView.findViewById(R.id.fg_contact_history_customer_name);
+            tvTime = itemView.findViewById(R.id.fg_appointment_time);
             rl = itemView.findViewById(R.id.fg_appointment_rv_item_rl);
         }
     }

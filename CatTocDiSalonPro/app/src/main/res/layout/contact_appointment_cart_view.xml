@@ -38,31 +38,14 @@
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/fg_appointment_start_time"
+            android:id="@+id/fg_appointment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fg_contact_history_customer_name"
             android:textColor="@color/darkTextColor"
-            android:text="3:00PM" />
+            android:text="3:00 - 4:00" />
 
-        <TextView
-            android:id="@+id/fg_appointment_dot_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fg_contact_history_customer_name"
-            android:layout_marginHorizontal="8dp"
-            android:layout_toRightOf="@id/fg_appointment_start_time"
-            android:textColor="@color/darkTextColor"
-            android:text="-" />
 
-        <TextView
-            android:id="@+id/fg_appointment_end_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fg_contact_history_customer_name"
-            android:layout_toRightOf="@id/fg_appointment_dot_tv"
-            android:textColor="@color/darkTextColor"
-            android:text="4:00PM" />
 
     </RelativeLayout>
     <View

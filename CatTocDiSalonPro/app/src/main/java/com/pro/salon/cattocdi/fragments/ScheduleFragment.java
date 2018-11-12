@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,7 @@ import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -72,8 +71,10 @@ public class ScheduleFragment extends Fragment {
 //            }
 //        });
         loadAppointment(Calendar.getInstance().getTime());
+        Calendar now = Calendar.getInstance();
+        Log.d("YEAR", now.getTime().getYear() + "");
         final TextView tvDate = view.findViewById(R.id.fg_schedule_date_tv);
-        tvDate.setText(DateTime.now().toString("dd/MM/yyyy"));
+        tvDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
         final DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -83,7 +84,7 @@ public class ScheduleFragment extends Fragment {
 
             }
 
-        }, DateTime.now().getYear(), DateTime.now().getMonthOfYear() - 1, DateTime.now().getDayOfMonth());
+        }, now.getTime().getYear() + 1900, now.getTime().getMonth(), now.getTime().getDate());
         tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
