@@ -64,9 +64,9 @@ public class WorkingHoursActivity extends AppCompatActivity {
                                 if(response.code() == 200){
                                     goToProfileFragment();
                                 }
-                                else{
+                               /* else{
                                     showDialogLoginFail("Có lỗi xảy ra vui lòng xem lại kết nối, hoặc xem lại thông tin đã nhập");
-                                }
+                                }*/
 
 
                             }
