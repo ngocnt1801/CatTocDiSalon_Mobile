@@ -15,7 +15,6 @@ import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
 
-import org.joda.time.DateTime;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -53,7 +52,7 @@ public class AddPromotionActivity extends AppCompatActivity {
 
             }
 
-        }, DateTime.now().getYear(), DateTime.now().getMonthOfYear() - 1, DateTime.now().getDayOfMonth());
+        }, Calendar.getInstance().getTime().getYear(), Calendar.getInstance().getTime().getMonth() - 1, Calendar.getInstance().getTime().getDate());
         final DatePickerDialog datePickerEnd = new DatePickerDialog(AddPromotionActivity.this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -61,7 +60,7 @@ public class AddPromotionActivity extends AppCompatActivity {
                 edtEndTime.setText(dayOfMonth  + "-" + (monthOfYear + 1) + "-" + year);
             }
 
-        }, DateTime.now().getYear(), DateTime.now().getMonthOfYear() - 1, DateTime.now().getDayOfMonth());
+        }, Calendar.getInstance().getTime().getYear(), Calendar.getInstance().getTime().getMonth() - 1, Calendar.getInstance().getTime().getDate());
         datePicker.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
         edtStartTime.setOnClickListener(new View.OnClickListener() {
             @Override

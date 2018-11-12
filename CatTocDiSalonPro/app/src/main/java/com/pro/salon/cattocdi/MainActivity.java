@@ -15,7 +15,6 @@ import com.pro.salon.cattocdi.fragments.HomeFragment;
 import com.pro.salon.cattocdi.fragments.ProfileFragment;
 import com.pro.salon.cattocdi.fragments.ScheduleFragment;
 
-import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 
