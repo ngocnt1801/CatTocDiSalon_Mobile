@@ -64,6 +64,9 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         loadDataToTable(appointment);
 
+        TextView tvReason = findViewById(R.id.cancel_reason);
+
+
         tvOK = findViewById(R.id.appointment_detail_save_tv);
         tvname = findViewById(R.id.appointment_item_expand_name_tv);
         tvname.setText(customer.getFullName());
@@ -90,7 +93,16 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         } else {
             btnArrived.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
+            if(appointment.getStatus() == AppointmentStatus.CANCEL.getStatus()){
+                if(appointment.getCancelReason() != null){
+                    tvReason.setText(appointment.getCancelReason());
+                }else{
+                    tvReason.setText("Khách hàng đã hủy");
+                }
+            }
         }
+
+
 
         btnArrived.setOnClickListener(new View.OnClickListener() {
             @Override

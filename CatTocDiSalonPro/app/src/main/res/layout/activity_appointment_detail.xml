@@ -236,7 +236,11 @@
             android:textSize="16dp" />
     </LinearLayout>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/cancel_reason"/>
 
 </LinearLayout>
 
