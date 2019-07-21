@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pro.salon.cattocdi.models.Account;
 import com.pro.salon.cattocdi.models.ResponseMsg;
@@ -49,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 MyProgressDialog.openDialog(SignupActivity.this);
+                String deviceToken = FirebaseInstanceId.getInstance().getToken();
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .createAccount(etName.getText().toString(),
@@ -57,10 +59,12 @@ public class SignupActivity extends AppCompatActivity {
                                 etPassword.getText().toString(),
                                 etEmail.getText().toString(),
                                 etPhone.getText().toString(),
-                                role.toString(), "password").enqueue(new Callback<ResponseMsg>() {
+                                role.toString(), "password",
+                                deviceToken).enqueue(new Callback<ResponseMsg>() {
                     @Override
                     public void onResponse(Call<ResponseMsg> call, Response<ResponseMsg> response) {
                         if (response.body().isSucceeded()) {
+                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
                             loginGetToken();
                             MyProgressDialog.closeDialog();
 
@@ -124,5 +128,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 }

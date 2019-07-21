@@ -36,7 +36,7 @@ public interface SalonClient {
     @FormUrlEncoded
     @POST("api/Account/Register")
     Call<ResponseMsg> createAccount(@Field("SalonName") String name, @Field("Address") String address, @Field("Username") String username, @Field("password") String password,
-                                    @Field("Email") String email, @Field("PhoneNumber") String phone, @Field("Role") String role, @Field("grant_type") String grantType);
+                                    @Field("Email") String email, @Field("PhoneNumber") String phone, @Field("Role") String role, @Field("grant_type") String grantType, @Field("FirebaseToken") String firebaseToken);
 
     @FormUrlEncoded
     @POST("token")

@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 
 public class MyContants {
    public static String TOKEN = "";
+   public static String FIREBASETOKEN = "";
     public static final String BASE_URL = "http://192.168.1.21/cattocdi.webapi/";
     public static final String USERNAME_TEST = "salon";
     public static final String PASSWORD_TEST = "123";
