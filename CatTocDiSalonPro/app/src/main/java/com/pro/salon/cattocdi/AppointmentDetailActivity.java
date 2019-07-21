@@ -255,7 +255,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
     public void clickToSendSMS(View view) {
         Uri uri = Uri.parse("smsto:" + customer.getPhone());
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra("sms_body", "");
+        it.putExtra("sms_body", "Xin chào " + customer.getFirstname() + ", ");
         startActivity(it);
     }
 
