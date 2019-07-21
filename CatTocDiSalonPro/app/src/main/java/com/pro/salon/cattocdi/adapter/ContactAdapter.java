@@ -18,6 +18,7 @@ import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,11 +59,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyProgressDialog.openDialog(context);
                 ApiClient.getInstance().create(SalonClient.class)
                         .getCustomerDetail("Bearer " + MyContants.TOKEN, currentCustomer.getId())
                         .enqueue(new Callback<Customer>() {
                             @Override
                             public void onResponse(Call<Customer> call, Response<Customer> response) {
+                                MyProgressDialog.closeDialog();
                                 if (response != null && response.code() == 200) {
                                     if (response.body() != null) {
                                         Intent intent = new Intent(context, ContactDetailActivity.class);
@@ -78,6 +81,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
                             @Override
                             public void onFailure(Call<Customer> call, Throwable t) {
+                                MyProgressDialog.closeDialog();
+
                                 showDialogLoginFail("Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
                             }
                         });

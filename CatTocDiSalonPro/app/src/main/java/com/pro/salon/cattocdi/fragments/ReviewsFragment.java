@@ -21,6 +21,7 @@ import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
-
+ * <p>
  * to handle interaction events.
  */
 @SuppressLint("ValidFragment")
@@ -63,12 +64,12 @@ public class ReviewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reviews, container, false);
-
+        MyProgressDialog.openDialog(getActivity());
         tvRatingNumber = view.findViewById(R.id.fg_reviews_sum);
         //tvRatingNumber.setRating(salon.getRatingNumber());
 
         tvTotalReviews = view.findViewById(R.id.salon_detail_total_reviews_tv);
-       // tvTotalReviews.setText(salon.getReviewsAmount() + " Đánh giá");
+        // tvTotalReviews.setText(salon.getReviewsAmount() + " Đánh giá");
 
 
         pb1 = view.findViewById(R.id.salon_detail_review_1_pb);
@@ -93,35 +94,39 @@ public class ReviewsFragment extends Fragment {
                 .enqueue(new Callback<List<Comment>>() {
                     @Override
                     public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                        if(response.code() == 200){
+                        if (response.code() == 200) {
                             comments = response.body();
                             tvTotalReviews.setText(comments.size() + " Đánh giá");
-                            rvComments.setAdapter(new CommentAdapter(getContext(),comments));
+                            rvComments.setAdapter(new CommentAdapter(getContext(), comments));
                             setProgressBar();
+                            MyProgressDialog.closeDialog();
 
-                        }else{
-                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
+                        } else {
+                            MyProgressDialog.closeDialog();
+
+                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng thử lại");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<Comment>> call, Throwable t) {
+                        MyProgressDialog.closeDialog();
+
                         AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
                     }
                 });
 
 
-
         return view;
     }
 
-    private void setProgressBar(){
+    private void setProgressBar() {
 
         int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0;
 
         for (Comment com :
-               comments) {
-            switch (com.getRating()){
+                comments) {
+            switch (com.getRating()) {
                 case 1:
                     count1++;
                     break;
@@ -141,7 +146,7 @@ public class ReviewsFragment extends Fragment {
         }
         int sum = count1 + count2 + count3 + count4 + count5;
         float starAverage = 0;
-        if (sum != 0){
+        if (sum != 0) {
             starAverage = (count1 + count2 * 2 + count3 * 3 + count4 * 4 + count5 * 5) / (count1 + count2 + count3 + count4 + count5);
         }
 

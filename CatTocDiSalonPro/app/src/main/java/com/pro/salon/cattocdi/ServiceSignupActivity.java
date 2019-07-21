@@ -21,7 +21,9 @@ import com.pro.salon.cattocdi.models.ResponseMsg;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import org.w3c.dom.Text;
 
@@ -42,12 +44,12 @@ public class ServiceSignupActivity extends AppCompatActivity {
 
     private CategoryRecycleViewAdapter adapter;
 
-    // String[] categoryList = { "Cắt tóc","Trẻ em","Nhuộm màu","Uốn và Duỗi","Phục hồi tóc","Massage","Nail","Dịch vụ khác"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_signup);
-
+        MyProgressDialog.openDialog(this);
 
         rvService = findViewById(R.id.activity_service_signup_rv);
         rvCategory = findViewById(R.id.activity_category_signup_rv);
@@ -61,15 +63,24 @@ public class ServiceSignupActivity extends AppCompatActivity {
                 .enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                        List<Category> listCategories = response.body();
-                        adapter = new CategoryRecycleViewAdapter(ServiceSignupActivity.this, listCategories, rvService);
-                        rvCategory.setAdapter(adapter);
+
+                        if(response.code() == 200){
+                            List<Category> listCategories = response.body();
+                            adapter = new CategoryRecycleViewAdapter(ServiceSignupActivity.this, listCategories, rvService);
+                            rvCategory.setAdapter(adapter);
+                            MyProgressDialog.closeDialog();
+                        }else{
+                            MyProgressDialog.closeDialog();
+                            AlertError.showDialogLoginFail(ServiceSignupActivity.this, "Có lỗi xảy ra vui lòng thử lại");
+                        }
+
 
                     }
 
                     @Override
                     public void onFailure(Call<List<Category>> call, Throwable t) {
-
+                        MyProgressDialog.closeDialog();
+                        AlertError.showDialogLoginFail(ServiceSignupActivity.this, "Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
                     }
                 });
         Intent intent = getIntent();
@@ -103,9 +114,9 @@ public class ServiceSignupActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (from_page == MyContants.MANAGER_SERVICE_PAGE) {
             goToProfileFragment();
-            /*Intent intent = new Intent(ServiceSignupActivity.this, );
-            startActivity(intent);*/
+
         }
+
     }
     private void goToProfileFragment(){
         Intent intent = new Intent(this, MainActivity.class);

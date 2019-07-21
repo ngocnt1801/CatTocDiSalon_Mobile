@@ -11,8 +11,10 @@ import android.widget.TextView;
 import com.pro.salon.cattocdi.adapter.PromotionAdapter;
 import com.pro.salon.cattocdi.models.Promotion;
 import com.pro.salon.cattocdi.models.Salon;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PromotionActivity extends AppCompatActivity implements Serializable {
@@ -26,6 +28,7 @@ public class PromotionActivity extends AppCompatActivity implements Serializable
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promotion);
+        MyProgressDialog.openDialog(this);
 
         Intent intent = getIntent();
         promotions = (List<Promotion>) intent.getSerializableExtra("promotion");
@@ -39,6 +42,8 @@ public class PromotionActivity extends AppCompatActivity implements Serializable
 
         rvPromotion = findViewById(R.id.promotion_activity_rv);
         rvPromotion.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+
         rvPromotion.setAdapter(new PromotionAdapter(this, promotions));
 
         tvAdd = findViewById(R.id.promotion_activity_add_tv);
@@ -49,7 +54,7 @@ public class PromotionActivity extends AppCompatActivity implements Serializable
                 startActivity(intent);
             }
         });
-
+        MyProgressDialog.closeDialog();
     }
 
     private void goToProfileFragment() {

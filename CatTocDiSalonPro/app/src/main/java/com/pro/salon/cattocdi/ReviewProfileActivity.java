@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.ProfileTabAdapter;
 import com.pro.salon.cattocdi.models.Salon;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 public class ReviewProfileActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -28,7 +29,6 @@ public class ReviewProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_profile);
-
         viewPager = (ViewPager) findViewById(R.id.detail_pager);
         ProfileTabAdapter adapter = new ProfileTabAdapter(getSupportFragmentManager(), true, salon);
         viewPager.setAdapter(adapter);

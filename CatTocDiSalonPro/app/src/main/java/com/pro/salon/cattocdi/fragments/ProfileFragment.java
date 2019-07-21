@@ -43,6 +43,7 @@ import com.pro.salon.cattocdi.service.FirebaseClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -93,6 +94,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        MyProgressDialog.openDialog(getActivity());
         viewPager = (ViewPager) view.findViewById(R.id.detail_pager);
         tvNameSalon = view.findViewById(R.id.fg_name_salon);
 
@@ -113,7 +115,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
+        MyProgressDialog.closeDialog();
         return view;
     }
 
@@ -147,17 +149,21 @@ public class ProfileFragment extends Fragment {
                             ProfileTabAdapter adapter = new ProfileTabAdapter(getChildFragmentManager(), false, salon);
                             viewPager.setAdapter(adapter);
                             tabLayout.setupWithViewPager(viewPager);
+                            MyProgressDialog.closeDialog();
                         }
                         else
                         {
-                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
+                            MyProgressDialog.closeDialog();
+                            AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng thử lại");
                             Log.d("FAILED","Failed 200");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Salon> call, Throwable t) {
-                        Log.d("FAILED","Failed");
+                        MyProgressDialog.closeDialog();
+                        AlertError.showDialogLoginFail(getContext(), "Có lỗi xảy ra vui lòng xem lại kết nối");
+
                     }
                 });
     }

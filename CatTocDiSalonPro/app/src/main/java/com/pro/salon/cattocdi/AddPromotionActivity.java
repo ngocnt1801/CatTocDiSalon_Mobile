@@ -14,6 +14,7 @@ import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 
 import java.sql.Timestamp;
@@ -35,6 +36,7 @@ public class AddPromotionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyProgressDialog.openDialog(this);
         setContentView(R.layout.activity_add_promotion);
 
         edtDes = findViewById(R.id.activity_promotion_description);
@@ -91,6 +93,7 @@ public class AddPromotionActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
+                    MyProgressDialog.openDialog(AddPromotionActivity.this);
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                     SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd");
                     Date dataStart = sdf.parse(edtStartTime.getText().toString());
@@ -107,6 +110,7 @@ public class AddPromotionActivity extends AppCompatActivity {
                             .enqueue(new Callback<String>() {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
+                                    MyProgressDialog.closeDialog();
                                     if(response.code() == 200){
                                         goToProfileFragment();
                                     }
@@ -119,15 +123,18 @@ public class AddPromotionActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
+                                    MyProgressDialog.closeDialog();
                                     AlertError.showDialogLoginFail(AddPromotionActivity.this, "Có lỗi xảy ra vui lòng xem lại kết nối");
                                 }
                             });
 
                 } catch (ParseException e) {
+                    MyProgressDialog.closeDialog();
                     e.printStackTrace();
                 }
             }
         });
+        MyProgressDialog.closeDialog();
     }
     private void goToProfileFragment(){
         Intent intent = new Intent(this, MainActivity.class);

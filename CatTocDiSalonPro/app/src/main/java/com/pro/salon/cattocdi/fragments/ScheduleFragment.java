@@ -20,8 +20,9 @@ import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
-
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 
 import java.io.Serializable;
@@ -54,22 +55,13 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+        MyProgressDialog.openDialog(getActivity());
         topScheduleHeader = view.findViewById(R.id.schedule_table_header_top);
         topScheduleHeader.setLayoutParams(new LinearLayout.LayoutParams(200 + 500 * MyContants.CAPACITY, 100));
         scheduleTable = view.findViewById(R.id.schedule_table);
         scheduleTable.setColumnCount(MyContants.CAPACITY + 1);
         scheduleTable.setRowCount(96);
 
-//        scheduleTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
-//            @Override
-//            public void onTimeItemClick(View view, int i, TimeGridData timeGridData) {
-//                Intent intent = new Intent(getActivity(), AppointmentDetailActivity.class);
-//                intent.putExtra("from_page", MyContants.SCHEDULE_PAGE);
-//                intent.putExtra("appointment", appointmentList.get(i));
-//                intent.putExtra("customer", (Serializable) appointmentList.get(i).getCustomer());
-//                startActivity(intent);
-//            }
-//        });
         loadAppointment(Calendar.getInstance().getTime());
         Calendar now = Calendar.getInstance();
         Log.d("YEAR", now.getTime().getYear() + "");
@@ -91,6 +83,7 @@ public class ScheduleFragment extends Fragment {
                 datePicker.show();
             }
         });
+        MyProgressDialog.closeDialog();
 
         return view;
     }
@@ -206,19 +199,30 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void loadAppointment(final Date date) {
+        MyProgressDialog.openDialog(getActivity());
         ApiClient.getInstance().create(SalonClient.class)
                 .getAppointmentByDate("Bearer " + MyContants.TOKEN, new SimpleDateFormat("yyyy-MM-dd").format(date))
                 .enqueue(new Callback<List<Appointment>>() {
                     @Override
                     public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
-                        appointmentList = response.body();
-                        scheduleTable.removeAllViews();
-                        topScheduleHeader.removeAllViews();
-                        loadDataToScheduler(date);
+                        if(response.code() == 200){
+                            appointmentList = response.body();
+                            scheduleTable.removeAllViews();
+                            topScheduleHeader.removeAllViews();
+                            loadDataToScheduler(date);
+                            MyProgressDialog.closeDialog();
+                        }else{
+                            MyProgressDialog.closeDialog();
+
+                            AlertError.showDialogLoginFail(getActivity(), "Có lỗi xảy ra vui lòng thử lại");
+                        }
+
                     }
 
                     @Override
                     public void onFailure(Call<List<Appointment>> call, Throwable t) {
+                        MyProgressDialog.closeDialog();
+                        AlertError.showDialogLoginFail(getActivity(), "Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
 
                     }
                 });

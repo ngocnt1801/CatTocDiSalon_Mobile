@@ -2,6 +2,7 @@ package com.pro.salon.cattocdi.adapter;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,7 +52,10 @@ public class WorkingHourProfileAdapter extends RecyclerView.Adapter<WorkingHourP
         }
         holder.fromHour.setText(workingHourList.get(position).getStartTime().toString());
         holder.toHour.setText(workingHourList.get(position).getEndTime().toString());
-
+         if(workingHourList.get(position).isClose()){
+             holder.view.setBackgroundColor(Color.parseColor("#eeeeee"));
+             holder.tvClose.setVisibility(View.VISIBLE);
+         }
 
        }
 
@@ -70,6 +74,7 @@ public class WorkingHourProfileAdapter extends RecyclerView.Adapter<WorkingHourP
         public TextView dayOfWeek;
         public TextView fromHour;
         public TextView toHour;
+        public TextView tvClose;
 
         public WorkingHourViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +82,7 @@ public class WorkingHourProfileAdapter extends RecyclerView.Adapter<WorkingHourP
             this.dayOfWeek = itemView.findViewById(R.id.working_hour_item_date);
             this.fromHour = itemView.findViewById(R.id.working_hour_item_from);
             this.toHour = itemView.findViewById(R.id.working_hour_item_to);
+            this.tvClose = itemView.findViewById(R.id.working_hour_item_close);
         }
     }
 }

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import com.pro.salon.cattocdi.R;
 import com.pro.salon.cattocdi.adapter.AppointmentAdapter;
 import com.pro.salon.cattocdi.models.Appointment;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class CancelAppointmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        MyProgressDialog.openDialog(getActivity());
         View view =  inflater.inflate(R.layout.fragment_current_appoinment, container, false);
         rvAppointment = view.findViewById(R.id.fg_home_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -64,9 +66,8 @@ public class CancelAppointmentFragment extends Fragment {
 
             }
         });
-
+        MyProgressDialog.closeDialog();
         return view;
-
     }
 
     private void search(String value) {

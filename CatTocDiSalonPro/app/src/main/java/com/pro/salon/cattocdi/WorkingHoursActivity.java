@@ -1,6 +1,7 @@
 package com.pro.salon.cattocdi;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.pro.salon.cattocdi.models.WorkingHour;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,7 @@ public class WorkingHoursActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_working_hours);
+        MyProgressDialog.openDialog(this);
         Intent intent = getIntent();
         workingHourList = (List<WorkingHour>) intent.getSerializableExtra("workingHours");
         RecyclerView rv = findViewById(R.id.activity_working_hours_rv);
@@ -53,33 +56,32 @@ public class WorkingHoursActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyProgressDialog.openDialog(WorkingHoursActivity.this);
+
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .updateWorkingHour("Bearer " + MyContants.TOKEN,workingHourAdapter.getWorkingHour())
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
+                                MyProgressDialog.closeDialog();
                                 workingHourAdapter = new WorkingHourAdapter(WorkingHoursActivity.this, workingHourList);
-                                Log.d("RESPONSE", response.toString());
                                 if(response.code() == 200){
                                     goToProfileFragment();
                                 }
-                               /* else{
-                                    showDialogLoginFail("Có lỗi xảy ra vui lòng xem lại kết nối, hoặc xem lại thông tin đã nhập");
-                                }*/
-
 
                             }
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
-                                Log.d("FAILED", t.getMessage());
+                                MyProgressDialog.closeDialog();
                                 showDialogLoginFail("Có lỗi xảy ra vui lòng xem lại kết nối");
                             }
                         });
 
             }
         });
+        MyProgressDialog.closeDialog();
 
     }
     private void goToProfileFragment(){

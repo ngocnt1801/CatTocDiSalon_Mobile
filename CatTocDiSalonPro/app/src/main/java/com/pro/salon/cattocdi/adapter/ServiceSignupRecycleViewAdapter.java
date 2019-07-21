@@ -27,6 +27,7 @@ import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +90,7 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                                 if (!price.isEmpty()) {
                                     // Set service description for service
                                     //String detailSrc = "Giá: " + price + " - " + "Thời gian: " + duration;
+                                    MyProgressDialog.openDialog(context);
                                     ApiClient.getInstance()
                                             .create(SalonClient.class)
                                             .updateServices("Bearer " + MyContants.TOKEN, serviceList.get(position).getSalonServiceId(),
@@ -97,16 +99,17 @@ public class ServiceSignupRecycleViewAdapter extends RecyclerView.Adapter<Servic
                                             .enqueue(new Callback<String>() {
                                                 @Override
                                                 public void onResponse(Call<String> call, Response<String> response) {
-                                                    Log.d("RESPONSE", response.toString());
+                                                    MyProgressDialog.closeDialog();
                                                     if (response.code() == 400) {
-                                                        showDialogFail("Cannot update");
+                                                        showDialogFail("Có lỗi xảy ra vui lòng thử lại");
                                                     } else {
                                                     }
                                                 }
 
                                                 @Override
                                                 public void onFailure(Call<String> call, Throwable t) {
-                                                    Log.d("FAILED", t.getMessage());
+                                                    MyProgressDialog.closeDialog();
+
                                                 }
                                             });
                                     holder.servicePrice.setText("Giá: " + price);

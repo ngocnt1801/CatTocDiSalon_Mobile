@@ -1,6 +1,7 @@
 package com.pro.salon.cattocdi;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,9 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
+import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,7 @@ public class ServiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+        MyProgressDialog.openDialog(this);
         services = new ArrayList<Service>();
         rvService = findViewById(R.id.activity_service_rv);
         rvService.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -49,14 +53,22 @@ public class ServiceActivity extends AppCompatActivity {
                 .enqueue(new Callback<List<Service>>() {
                     @Override
                     public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                        List<Service> services = response.body();
-                        serviceAdapter = new ServiceRecycleViewAdapter(ServiceActivity.this,MyContants.MANAGER_SERVICE_PAGE, services);
-                        rvService.setAdapter(serviceAdapter);
+                        MyProgressDialog.closeDialog();
+                        if(response.code() == 200){
+                            List<Service> services = response.body();
+                            serviceAdapter = new ServiceRecycleViewAdapter(ServiceActivity.this,MyContants.MANAGER_SERVICE_PAGE, services);
+                            rvService.setAdapter(serviceAdapter);
+                            MyProgressDialog.closeDialog();
+                        }else{
+                            AlertError.showDialogLoginFail(ServiceActivity.this, "Có lỗi xảy ra vui lòng thử lại");
+                        }
 
                     }
 
                     @Override
                     public void onFailure(Call<List<Service>> call, Throwable t) {
+                        MyProgressDialog.closeDialog();
+                        AlertError.showDialogLoginFail(ServiceActivity.this, "Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
 
                     }
                 });

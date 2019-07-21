@@ -27,6 +27,7 @@ import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -54,7 +55,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_detail);
-
+        MyProgressDialog.openDialog(this);
         Intent intent = getIntent();
 
 
@@ -107,11 +108,13 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         btnArrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyProgressDialog.openDialog(AppointmentDetailActivity.this);
                 ApiClient.getInstance().create(SalonClient.class)
                         .approveAppointment("Bearer " + MyContants.TOKEN, appointment.getAppointmentId())
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
+                                MyProgressDialog.closeDialog();
                                 if(response.code() == 200){
                                     backToPrevious(fromPage);
                                     Toast.makeText(AppointmentDetailActivity.this, "Xác nhận thành công", Toast.LENGTH_LONG);
@@ -122,6 +125,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
+                                MyProgressDialog.closeDialog();
                                 AlertError.showDialogLoginFail(AppointmentDetailActivity.this, "Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
                             }
                         });
@@ -135,6 +139,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Button btnOk, btnCancel;
                     final EditText etReason;
                     dialog.setContentView(R.layout.dialog_cancel_appointment);
@@ -144,11 +149,13 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                     btnOk.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            MyProgressDialog.openDialog(AppointmentDetailActivity.this);
                             ApiClient.getInstance().create(SalonClient.class)
                                     .cancelAppointment("Bearer " + MyContants.TOKEN, appointment.getAppointmentId(), etReason.getText().toString())
                                     .enqueue(new Callback<String>() {
                                         @Override
                                         public void onResponse(Call<String> call, Response<String> response) {
+                                            MyProgressDialog.closeDialog();
                                             if(response.code() == 200){
                                                 backToPrevious(fromPage);
                                             }else{
@@ -159,6 +166,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onFailure(Call<String> call, Throwable t) {
+                                            MyProgressDialog.closeDialog();
                                             AlertError.showDialogLoginFail(AppointmentDetailActivity.this, "Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
                                         }
                                     });
@@ -176,7 +184,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                 }
             });
         }
-
+        MyProgressDialog.closeDialog();
 
     }
 

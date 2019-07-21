@@ -23,6 +23,7 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class ClientFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_client, container, false);
+        MyProgressDialog.openDialog(getActivity());
         loadAllContact();
         rvContactList = view.findViewById(R.id.fg_client_contact_rv);
         rvContactList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -81,6 +83,7 @@ public class ClientFragment extends Fragment {
                 .enqueue(new Callback<List<Customer>>() {
                     @Override
                     public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                        MyProgressDialog.closeDialog();
                         if(response != null && response.code() == 200){
                             customers = response.body();
                             rvContactList.setAdapter(new ContactAdapter(getActivity(), customers));
@@ -91,6 +94,7 @@ public class ClientFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<Customer>> call, Throwable t) {
+                        MyProgressDialog.closeDialog();
                         showDialogLoginFail("Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
                     }
                 });

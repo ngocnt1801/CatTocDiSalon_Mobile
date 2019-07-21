@@ -65,18 +65,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public int getItemCount() {
         return categoryList.size();
     }
-   /* public List<Service> getCheckedList() {
-        List<Service> services = new ArrayList<>();
-        if(adapterList != null){
-            for (SuggestServiceCardAdapter adapter :
-                    adapterList) {
-                if(adapter !=  null){
-                    services.addAll(adapter.getCheckedList());
-                }
-            }
-        }
-        return services;
-    }*/
+
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
 

@@ -52,7 +52,7 @@ public interface SalonClient {
 
 
     @FormUrlEncoded
-    @POST("api/Services/Update")
+    @POST("api/Services")
     Call<String> updateServices(@Header("Authorization") String auth,@Field("Id") int salonServiceId, @Field("ServiceId") int serviceId
             , @Field("Price") double price, @Field("Duration") int duration);
 
@@ -68,8 +68,8 @@ public interface SalonClient {
     Call<List<Promotion>> getPromotion(@Header("Authorization") String auth);
 
 
-    @POST("api/Promotions/Delete")
-    Call<String> updatePromotion(@Header("Authorization") String auth,@Query("id") int id);
+    @POST("api/Promotions/{id}/Cancel")
+    Call<String> updatePromotion(@Header("Authorization") String auth,@Path("id") int id);
 
     @FormUrlEncoded
     @POST("api/Promotions")
@@ -78,14 +78,11 @@ public interface SalonClient {
                                  @Field("Description") String description);
 
 
-    @POST("api/Salons/WorkingHour")
+    @POST("api/WorkingHours")
     Call<String> updateWorkingHour(@Header("Authorization") String auth, @Body List<WorkingHour> workingHourList);
 
-    @GET("api/Salons/WorkingHour")
-    Call<List<WorkingHour>> getWorkingHour(@Header("Authorization") String auth);
-
     @FormUrlEncoded
-    @POST("api/Salons/Profile")
+    @POST("api/Salons")
     Call<String> updateProfile(@Header("Authorization") String auth, @Field("SalonName") String salonName,
                                     @Field("Address") String address, @Field("Capacity") int capital, @Field("Phone") String phone,
                                     @Field("Email") String email, @Field("Longitude") double longtitude, @Field("Latitude") double latitude);

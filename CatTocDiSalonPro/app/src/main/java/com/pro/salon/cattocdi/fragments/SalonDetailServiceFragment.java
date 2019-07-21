@@ -35,6 +35,7 @@ import com.pro.salon.cattocdi.models.enums.PromotionStatus;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class SalonDetailServiceFragment extends Fragment {
     private RecyclerView serviceRecycleView;
     private List<Service> services;
     private Salon salon;
+
     @SuppressLint("ValidFragment")
     public SalonDetailServiceFragment(boolean isPreview, Salon salon) {
         // Required empty public constructor
@@ -68,41 +70,42 @@ public class SalonDetailServiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_salon_detail_service, container, false);
-        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_salon_detail_service, container, false);
+        MyProgressDialog.openDialog(getActivity());
+
         services = new ArrayList<Service>();
-       // serviceAdapter = new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, categoryList);
+        // serviceAdapter = new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, categoryList);
         serviceRecycleView = view.findViewById(R.id.salon_service_recycle_view);
         serviceRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         serviceRecycleView.setAdapter(new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, services));
 
-       /* promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
-        promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-       // promotions = new ArrayList<Promotion>();
-        promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView(getContext(), salon.getPromotions()));*/
         if (salon.getPromotions() != null) {
+            ArrayList<Promotion> promotionsActive = new ArrayList<>();
+            for (Promotion promotion :
+                    salon.getPromotions()) {
+                if(promotion.getStatus() == 0){
+                    promotionsActive.add(promotion);
+                }
+            }
             RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
             promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            SalonDetailPromotionRecycleView adapter = new SalonDetailPromotionRecycleView(getContext(),salon.getPromotions());
+            SalonDetailPromotionRecycleView adapter = new SalonDetailPromotionRecycleView(getContext(), promotionsActive);
             promotionRecycleView.setAdapter(adapter);
 
 
         }
 
 
-        serviceAdapter = new ServiceRecycleViewAdapter(getContext(),MyContants.PROFILE_PAGE, salon.getServices());
+        serviceAdapter = new ServiceRecycleViewAdapter(getContext(), MyContants.PROFILE_PAGE, salon.getServices());
         serviceRecycleView.setAdapter(serviceAdapter);
 
 
-            RecyclerView workingHourRecycleView = view.findViewById(R.id.activity_salon_working_hours_rv);
-            workingHourRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            workingHourRecycleView.setAdapter(new WorkingHourProfileAdapter(getContext(),salon.getWorkingHours()));
+        RecyclerView workingHourRecycleView = view.findViewById(R.id.activity_salon_working_hours_rv);
+        workingHourRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        workingHourRecycleView.setAdapter(new WorkingHourProfileAdapter(getContext(), salon.getWorkingHours()));
 
 
-
-       RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
-       /* promotionRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        promotionRecycleView.setAdapter(new SalonDetailPromotionRecycleView());*/
+        RecyclerView promotionRecycleView = view.findViewById(R.id.salon_promotion_recycle_view);
 
         ViewCompat.setNestedScrollingEnabled(serviceRecycleView, false);
         ViewCompat.setNestedScrollingEnabled(promotionRecycleView, false);
@@ -112,7 +115,7 @@ public class SalonDetailServiceFragment extends Fragment {
         btManagerService = view.findViewById(R.id.salon_service_manage_btn);
         btManageWorkingHour = view.findViewById(R.id.salon_working_hours_manage_btn);
 
-        if(!isPreview){
+        if (!isPreview) {
             btManagePromotion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -134,19 +137,22 @@ public class SalonDetailServiceFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), WorkingHoursActivity.class);
-                    intent.putExtra("workingHours",(Serializable) salon.getWorkingHours());
+                    intent.putExtra("workingHours", (Serializable) salon.getWorkingHours());
                     getActivity().startActivity(intent);
                 }
             });
 
-        }else{
+        } else {
             btManagePromotion.setVisibility(View.GONE);
             btManagerService.setVisibility(View.GONE);
             btManageWorkingHour.setVisibility(View.GONE);
         }
+        MyProgressDialog.closeDialog();
+
         return view;
     }
-    private void showDialogLoginFail(String text){
+
+    private void showDialogLoginFail(String text) {
         final AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
         dialog.setTitle("Có lỗi xảy ra");
         dialog.setMessage(text);

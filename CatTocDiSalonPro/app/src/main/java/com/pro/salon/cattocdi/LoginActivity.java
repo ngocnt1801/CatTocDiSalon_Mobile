@@ -17,6 +17,7 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkLogin(){
-
+        MyProgressDialog.openDialog(this);
         EditText etUsername = findViewById(R.id.login_activity_username_et);
         EditText etPassword= findViewById(R.id.login_activity_password_et);
         //String grant_type = "password";
@@ -61,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 .enqueue(new Callback<Account>() {
                     @Override
                     public void onResponse(Call<Account> call, retrofit2.Response<Account> response) {
+                        MyProgressDialog.closeDialog();
                         Log.d("RESPONSE", response.toString());
                         if (response.code() == 400){
                             showDialogLoginFail("Failed Login");
@@ -74,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Account> call, Throwable t) {
-
+                        MyProgressDialog.closeDialog();
                         Log.d("FAILURE", t.getMessage());
                         showDialogLoginFail("Failed");
                     }

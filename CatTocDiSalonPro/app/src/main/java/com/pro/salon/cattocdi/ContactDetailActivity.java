@@ -18,6 +18,7 @@ import com.pro.salon.cattocdi.adapter.ContactHistoryAdapter;
 import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.Customer;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class ContactDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
+        MyProgressDialog.openDialog(this);
         customer = (Customer) getIntent().getSerializableExtra("customer");
 
         tvName = findViewById(R.id.contact_name_customer);
@@ -64,10 +66,6 @@ public class ContactDetailActivity extends AppCompatActivity {
         tvName.setText(customer.getFullName());
         tvPhone.setText(customer.getPhone());
 
-        //This is for demo
-        //Intent intentSend = new Intent(this, AppointmentDetailActivity.class);
-       // intentSend.putExtra("cusName", contactName);
-
         rvAppointment = findViewById(R.id.contact_detail_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvAppointment.setAdapter(new ContactHistoryAdapter(this, MyContants.APPOINTMENT_FULL, customer));
@@ -82,7 +80,8 @@ public class ContactDetailActivity extends AppCompatActivity {
                 goToClientFragment();
             }
         });
-        //startActivity(intentSend);
+
+        MyProgressDialog.closeDialog();
 
     }
 

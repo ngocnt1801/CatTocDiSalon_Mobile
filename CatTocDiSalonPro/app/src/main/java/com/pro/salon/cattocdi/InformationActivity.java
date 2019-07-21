@@ -39,6 +39,7 @@ import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.List;
 import java.util.Locale;
@@ -62,6 +63,8 @@ public class InformationActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+        MyProgressDialog.openDialog(this);
+
         edtSalonName = findViewById(R.id.activity_info_salon_name);
         edtCapital = findViewById(R.id.activity_info_capacity);
         edtPhone = findViewById(R.id.activity_info_phone);
@@ -114,7 +117,7 @@ public class InformationActivity extends AppCompatActivity{
         {
             @Override
             public void onClick(View v) {
-
+                MyProgressDialog.openDialog(InformationActivity.this);
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
@@ -123,7 +126,7 @@ public class InformationActivity extends AppCompatActivity{
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
-                                Log.d("RESPONSE", response.toString());
+                                MyProgressDialog.closeDialog();
                                 if (response.code() == 200) {
                                     Intent intent = new Intent(InformationActivity.this, MainActivity.class);
                                     intent.putExtra("fragment_id", 3);
@@ -135,14 +138,14 @@ public class InformationActivity extends AppCompatActivity{
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
-                                Log.d("FAIL", t.getMessage());
+                                MyProgressDialog.closeDialog();
                                 showDialogLoginFail("Có lỗi xảy ra. Vui lòng xem lại kết nối mạng");
                             }
                         });
                 goToProfileFragment();
             }
         });
-
+        MyProgressDialog.closeDialog();
     }
 
     private void goToProfileFragment() {

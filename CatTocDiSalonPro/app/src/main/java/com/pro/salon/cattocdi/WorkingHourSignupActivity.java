@@ -18,6 +18,7 @@ import com.pro.salon.cattocdi.models.WorkingHour;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_working_hour_signup);
+        MyProgressDialog.openDialog(this);
         rv = findViewById(R.id.activity_working_hours_rv);
         workingHourList = new ArrayList<WorkingHour>();
         for (int i = 0; i < 7; i++) {
@@ -48,12 +50,14 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
         saveTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyProgressDialog.openDialog(WorkingHourSignupActivity.this);
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .updateWorkingHour("Bearer " + MyContants.TOKEN, workingHourList)
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
+                                MyProgressDialog.closeDialog();
                                 workingHourAdapter = new WorkingHourAdapter(WorkingHourSignupActivity.this, workingHourList);
                                 Log.d("RESPONSE", response.toString());
                                 if(response.code() == 200){
@@ -61,7 +65,7 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 else{
-                                    showDialogLoginFail("Co lỗi xãy ra");
+                                    showDialogLoginFail("Có lỗi xãy ra vui lòng thử lại");
                                 }
 
 
@@ -70,12 +74,13 @@ public class WorkingHourSignupActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
                                 Log.d("FAILED", t.getMessage());
-                                showDialogLoginFail("Failed");
+                                showDialogLoginFail("Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
                             }
                         });
 
             }
         });
+        MyProgressDialog.closeDialog();
     }
     private void showDialogLoginFail(String text){
         final AlertDialog dialog = new AlertDialog.Builder(WorkingHourSignupActivity.this).create();

@@ -29,6 +29,7 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.io.Serializable;
 
@@ -40,7 +41,7 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class SalonDetailContactFragment extends Fragment implements OnMapReadyCallback{
+public class SalonDetailContactFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMapOptions options = new GoogleMapOptions().liteMode(true);
     private GoogleMap map;
     private LatLng latLng;
@@ -63,6 +64,7 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_salon_detail_contact, container, false);
+        MyProgressDialog.openDialog(getActivity());
         tvAdd = view.findViewById(R.id.fg_contact_address);
         tvPhone = view.findViewById(R.id.fg_contact_phone);
         tvMail = view.findViewById(R.id.fg_contact_mail);
@@ -77,7 +79,7 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
         supportMapFragment.getMapAsync(this);
 
         btManageInfo = view.findViewById(R.id.salon_info_manage_btn);
-        if(!isPreview){
+        if (!isPreview) {
             btManageInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,7 +88,7 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
                     getActivity().startActivity(intent);
                 }
             });
-        }else {
+        } else {
             btManageInfo.setVisibility(View.GONE);
         }
 
@@ -104,8 +106,11 @@ public class SalonDetailContactFragment extends Fragment implements OnMapReadyCa
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(salon.getLatLng(), 13));
         map.addMarker(markerOptions);
+        MyProgressDialog.closeDialog();
+
     }
-    private void showDialogLoginFail(String text){
+
+    private void showDialogLoginFail(String text) {
         final AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
         dialog.setTitle("Có lỗi xảy ra");
         dialog.setMessage(text);

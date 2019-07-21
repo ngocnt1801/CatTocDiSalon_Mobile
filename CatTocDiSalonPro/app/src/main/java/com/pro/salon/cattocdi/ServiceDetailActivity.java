@@ -18,6 +18,7 @@ import com.pro.salon.cattocdi.models.Service;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_detail);
+        MyProgressDialog.openDialog(this);
         Intent intent = getIntent();
 
         String sName = intent.getStringExtra("service_name");
@@ -132,15 +134,16 @@ public class ServiceDetailActivity extends AppCompatActivity {
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        MyProgressDialog.openDialog(ServiceDetailActivity.this);
                         ApiClient.getInstance()
                                 .create(SalonClient.class)
                                 .deleteService("Bearer " + MyContants.TOKEN, salonServiceId)
                                 .enqueue(new Callback<String>() {
                                     @Override
                                     public void onResponse(Call<String> call, Response<String> response) {
-                                        Log.d("RESPONSE", response.toString());
+                                        MyProgressDialog.closeDialog();
                                         if(response.code() == 400){
-                                            showDialogFail("Cannot delete");
+                                            showDialogFail("Có lỗi xảy ra vui lòng thử lại");
                                         }else{
                                             backToPrevious(from_page);
                                         }
@@ -148,8 +151,8 @@ public class ServiceDetailActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(Call<String> call, Throwable t) {
-                                        Log.d("FAILED", t.getMessage());
-                                        showDialogFail("Cannot delete");
+                                        MyProgressDialog.closeDialog();
+                                        showDialogFail("Có lỗi xảy ra vui lòng kiểm tra lại kết nối");
                                     }
                                 });
                     }
@@ -165,7 +168,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
                // backToPrevious(from_page);
             }
         });
-
+        MyProgressDialog.closeDialog();
 
     }
 
@@ -182,6 +185,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
             Intent intent = new Intent(ServiceDetailActivity.this, ServiceActivity.class);
             startActivity(intent);
         }
+        finish();
     }
 
     private void goToProfileFragment(){

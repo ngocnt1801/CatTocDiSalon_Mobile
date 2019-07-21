@@ -18,6 +18,7 @@ import com.pro.salon.cattocdi.adapter.AppointmentAdapter;
 import com.pro.salon.cattocdi.adapter.ContactAdapter;
 import com.pro.salon.cattocdi.models.Appointment;
 import com.pro.salon.cattocdi.models.Customer;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class NextAppointmentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home_appointment, container, false);
+        MyProgressDialog.openDialog(getActivity());
         rvAppointment = view.findViewById(R.id.fg_home_appointment_rv);
         rvAppointment.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvAppointment.setAdapter(new AppointmentAdapter(getActivity(), appointments));
@@ -66,7 +68,7 @@ public class NextAppointmentFragment extends Fragment {
 
             }
         });
-
+        MyProgressDialog.closeDialog();
         return view;
     }
 

@@ -35,6 +35,7 @@ import com.pro.salon.cattocdi.models.WorkingHour;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.List;
 import java.util.Locale;
@@ -56,8 +57,9 @@ public class InformationSignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_information_signup);
+        MyProgressDialog.openDialog(this);
+
         TextView saveTv = findViewById(R.id.activity_info_signup_save_tv);
         edtSalonName = findViewById(R.id.signup_activity_salon_name_edt);
         edtCapital = findViewById(R.id.signup_activity_capacity_edt);
@@ -97,7 +99,7 @@ public class InformationSignupActivity extends AppCompatActivity {
         saveTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                MyProgressDialog.openDialog(InformationSignupActivity.this);
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .updateProfile("Bearer " + MyContants.TOKEN, edtSalonName.getText().toString(),
@@ -106,6 +108,7 @@ public class InformationSignupActivity extends AppCompatActivity {
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
+                                MyProgressDialog.closeDialog();
                                 Log.d("RESPONSE", response.toString());
                                 if (response.code() == 200) {
                                     Intent intent = new Intent(InformationSignupActivity.this, WorkingHourSignupActivity.class);
@@ -118,7 +121,7 @@ public class InformationSignupActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
-                                Log.d("FAIL", t.getMessage());
+                                MyProgressDialog.closeDialog();
                                 showDialogLoginFail("Có lỗi xảy ra. Vui lòng kiểm tra kết nối");
                             }
                         });
@@ -126,6 +129,7 @@ public class InformationSignupActivity extends AppCompatActivity {
 
             }
         });
+        MyProgressDialog.closeDialog();
     }
 
     private void showDialogLoginFail(String text) {

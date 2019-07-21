@@ -17,6 +17,7 @@ import com.pro.salon.cattocdi.models.Salon;
 import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,6 +48,7 @@ public class SignupActivity extends AppCompatActivity {
         btnSignup1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                MyProgressDialog.openDialog(SignupActivity.this);
                 ApiClient.getInstance()
                         .create(SalonClient.class)
                         .createAccount(etName.getText().toString(),
@@ -60,8 +62,10 @@ public class SignupActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseMsg> call, Response<ResponseMsg> response) {
                         if (response.body().isSucceeded()) {
                             loginGetToken();
-//                            signupStepOne(view);
+                            MyProgressDialog.closeDialog();
+
                         } else {
+                            MyProgressDialog.closeDialog();
                             showDialogLoginFail("Tên đăng nhập này đã tồn tại");
                         }
 
@@ -70,7 +74,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseMsg> call, Throwable t) {
-                        Log.d("FAILURE", t.getMessage());
+                        MyProgressDialog.closeDialog();
                         showDialogLoginFail("Có lỗi xảy ra. Không thể đăng kí");
                     }
                 });
@@ -97,7 +101,8 @@ public class SignupActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    public void loginGetToken(){
+
+    public void loginGetToken() {
         ApiClient.getInstance()
                 .create(SalonClient.class)
                 .login(etUsername.getText().toString(), etPassword.getText().toString(), "password")
@@ -120,28 +125,4 @@ public class SignupActivity extends AppCompatActivity {
                 });
     }
 
-   /* private void sendNetworkRequest(Salon salon) {
-        //create Retrofit
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://192.168.2.192/cattocdi.api/")
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-
-        //get salon & call for the request
-        SalonClient user = retrofit.create(SalonClient.class);
-        Call<Salon> call = user.createAccount(salon);
-        call.enqueue(new Callback<Salon>() {
-            @Override
-            public void onResponse(Call<Salon> call, Response<Salon> response) {
-                Log.d("Success", response.message());
-                //Toast.makeText(SignupActivity.this, "yeadd", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Salon> call, Throwable t) {
-                Log.d("Failed", t.getMessage());
-                //Toast.makeText(SignupActivity.this, "failled", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
 }

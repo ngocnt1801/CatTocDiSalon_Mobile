@@ -1,19 +1,26 @@
 package com.pro.salon.cattocdi;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.pro.salon.cattocdi.fragments.ClientFragment;
 import com.pro.salon.cattocdi.fragments.HomeFragment;
 import com.pro.salon.cattocdi.fragments.ProfileFragment;
 import com.pro.salon.cattocdi.fragments.ScheduleFragment;
+import com.pro.salon.cattocdi.utils.AlertError;
+import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 
 import java.util.ArrayList;
@@ -27,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        MyProgressDialog.openDialog(this);
         Intent intent = getIntent();
         int fragmentId = intent.getIntExtra("fragment_id", 0);
             bottomNav = findViewById(R.id.bottom_nav);
@@ -40,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
                             currentPos = nextPos;
                             nextPos = 0;
                             HomeFragment homeFragment = new HomeFragment();
-//                        NextAppointmentFragment homeAppointmentFragment = new NextAppointmentFragment();
                             showFragment(homeFragment);
-//                        showFragment(homeAppointmentFragment, MyContants.FRAGMENT_BELOW);
                             return true;
                         case R.id.bottom_nav_schedule_item:
                             currentPos = nextPos;
@@ -62,6 +67,30 @@ public class MainActivity extends AppCompatActivity {
                             ProfileFragment profileFragment = new ProfileFragment(MainActivity.this);
                             showFragment(profileFragment);
                             return true;
+                        case  R.id.bottom_nav_logout:
+                            final Dialog dialog = new Dialog(MainActivity.this);
+                            TextView btnOk, btNo;
+                            dialog.setContentView(R.layout.dialog_confirm);
+                            dialog.setTitle("Đăng xuất");
+                            btNo = dialog.findViewById(R.id.dialog_no);
+                            btNo.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            btnOk = dialog.findViewById(R.id.dialog_ok);
+                            btnOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    MyContants.TOKEN = "";
+                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                            dialog.show();
+                            return true;
                     }
                     return false;
                 }
@@ -69,12 +98,10 @@ public class MainActivity extends AppCompatActivity {
         if(fragmentId != 0){
             goToSpecificFragment(fragmentId);
         }else{
-
             //HOME FRAGMENT will show first
             showFragment(new HomeFragment());
-//        showFragment(new NextAppointmentFragment(),MyContants.FRAGMENT_BELOW);
-
         }
+        MyProgressDialog.closeDialog();
     }
 
 

@@ -18,6 +18,7 @@ import com.pro.salon.cattocdi.service.ApiClient;
 import com.pro.salon.cattocdi.service.SalonClient;
 import com.pro.salon.cattocdi.utils.AlertError;
 import com.pro.salon.cattocdi.utils.MyContants;
+import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +53,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadAppointment() {
+        MyProgressDialog.openDialog(getActivity());
         ApiClient.getInstance().create(SalonClient.class)
                 .getAppointmentHome("Bearer " + MyContants.TOKEN)
                 .enqueue(new Callback<AppointmentListHome>() {
                     @Override
                     public void onResponse(Call<AppointmentListHome> call, Response<AppointmentListHome> response) {
+                        MyProgressDialog.closeDialog();
                         if (response != null && response.code() == 200) {
                             MyContants.CAPACITY = response.body().getCapacity();
                             ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
@@ -74,19 +77,13 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<AppointmentListHome> call, Throwable t) {
-                       // AlertError.showDialogLoginFail(getActivity(), "Có lỗi xảy ra. Vui lòng kiểm tra lại kết nối");
+                        MyProgressDialog.closeDialog();
+                        AlertError.showDialogLoginFail(getActivity(), "Có lỗi xảy ra. Vui lòng kiểm tra lại kết nối");
                     }
                 });
     }
 
 
-    // Add Fragments to Tabs
-//    private void setupViewPager(ViewPager viewPager) {
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-//        adapter.addFragment(new NextAppointmentFragment(appointments), "Tiếp theo");
-//        adapter.addFragment(new HistoryAppointmentFragment(appointments), "Chưa xác nhận");
-//        viewPager.setAdapter(adapter);
-//    }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
