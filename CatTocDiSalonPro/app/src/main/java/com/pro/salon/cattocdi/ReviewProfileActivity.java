@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.pro.salon.cattocdi.adapter.ProfileTabAdapter;
 import com.pro.salon.cattocdi.models.Salon;
-import com.pro.salon.cattocdi.utils.MyProgressDialog;
 
 public class ReviewProfileActivity extends AppCompatActivity {
     private TabLayout tabLayout;
